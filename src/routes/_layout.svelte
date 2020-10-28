@@ -1,16 +1,14 @@
-<script context="module">
+<script context="module" lang="ts">
   import { waitLocale } from "svelte-i18n";
 
   export async function preload() {
-    // awaits for the loading of the 'en-US' and 'en' dictionaries
     return waitLocale();
   }
 </script>
 
 <script lang="ts">
-  import Nav from "../components/Nav.svelte";
-
-  export let segment: string;
+  import "../utils/locales/index";
+  import Nav from "../components/Navigation/Nav.svelte";
 </script>
 
 <style lang="scss" global>
@@ -20,7 +18,7 @@
   }
 </style>
 
-<Nav {segment} />
+<Nav />
 
 <main class="container">
   <slot />

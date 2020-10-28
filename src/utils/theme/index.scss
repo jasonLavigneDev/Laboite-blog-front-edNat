@@ -1,22 +1,18 @@
 @charset "utf-8";
 
+:root {
+  --primary: #011caa;
+  --secondary: #efac61;
+  --tertiary: #fff;
+  --texts: #040d3e;
+  --background: #f9f9fd;
+}
 // LaBoite brand colors
-$blue: #011caa;
-$yellow: #efac61;
-$white: #fff;
-$black: #040d3e;
 $lightgrey: #f9f9fd;
 
-//other colors
-$pink: #fa7c91;
-$brown: #757763;
-$beige-light: #d0d1cd;
-$beige-lighter: #eff0eb;
-
 // Update Bulma's global variables
-// $family-sans-serif: "Nunito", sans-serif;
-$primary: $blue !default;
-$secondary: $yellow;
+$primary: #011caa;
+$secondary: #efac61;
 
 // Update some of Bulma's component variables
 $body-background-color: $lightgrey;
