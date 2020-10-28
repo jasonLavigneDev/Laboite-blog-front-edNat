@@ -2,5 +2,11 @@
   "home": "Home",
   "articles": "Articles",
   "academies": "Academies",
-  "authors": "Authors"
+  "authors": "Authors",
+  "pages": {
+    "home": {
+      "title": "Un titre",
+      "subtitle": "un sous titre"
+    }
+  }
 }

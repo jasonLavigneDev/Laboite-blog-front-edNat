@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import { waitLocale } from "svelte-i18n";
+  import "../utils/theme/index.css";
 
   export async function preload() {
     return waitLocale();
@@ -11,8 +12,7 @@
   import Nav from "../components/Navigation/Nav.svelte";
 </script>
 
-<style lang="scss" global>
-  @import "../utils/theme/index.scss";
+<style global lang="scss">
   .container {
     padding-top: 15px;
   }

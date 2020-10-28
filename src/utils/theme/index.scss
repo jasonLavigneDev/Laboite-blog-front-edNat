@@ -19,4 +19,19 @@ $body-background-color: $lightgrey;
 
 // Import only what you need from Bulma
 // Base
-@import "bulma/bulma.sass";
+@import "../../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../../node_modules/bulma/sass/base/_all.sass";
+@import "../../../node_modules/bulma/sass/form/_all.sass";
+
+// Components
+@import "../../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../../node_modules/bulma/sass/components/modal.sass";
+
+// Elements
+@import "../../../node_modules/bulma/sass/elements/container.sass";
+@import "../../../node_modules/bulma/sass/elements/box.sass";
+@import "../../../node_modules/bulma/sass/elements/icon.sass";
+@import "../../../node_modules/bulma/sass/elements/other.sass";
+
+//Layouts
+@import "../../../node_modules/bulma/sass/layout/hero.sass";

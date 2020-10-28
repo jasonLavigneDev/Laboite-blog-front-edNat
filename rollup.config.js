@@ -17,11 +17,17 @@ const dev = mode === "development";
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
 const preprocess = sveltePreprocess({
-  scss: {
-    includePaths: ["src"],
-  },
-  sass: {
-    includePaths: ["src"],
+  transformers: {
+    scss: {
+      includePaths: ["node_modules", "src"],
+    },
+    postcss: {
+      plugins: [
+        require("autoprefixer")({
+          overrideBrowserslist: "last 2 versions",
+        }),
+      ],
+    },
   },
 });
 
