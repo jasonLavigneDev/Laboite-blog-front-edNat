@@ -3,8 +3,13 @@
   import { stores } from "@sapper/app";
   import { items } from "./items";
   import { fade } from "svelte/transition";
+  import MobileMenu from "./MobileMenu.svelte";
 
   const { page } = stores();
+  let mobileMenu = false;
+  const toggleMobileMenu = () => {
+    mobileMenu = !mobileMenu;
+  };
 </script>
 
 <style lang="scss">
@@ -45,7 +50,8 @@
       class="navbar-burger"
       aria-label="menu"
       aria-expanded="false"
-      data-target="navbarMenu">
+      data-target="navbarMenu"
+      on:click={toggleMobileMenu}>
       <span aria-hidden="true" />
       <span aria-hidden="true" />
       <span aria-hidden="true" />
@@ -69,3 +75,7 @@
     <div class="navbar-end" />
   </div>
 </nav>
+
+{#if mobileMenu}
+  <MobileMenu toggle={toggleMobileMenu} pathname={$page.path} />
+{/if}
