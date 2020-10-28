@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import { _ } from "svelte-i18n";
   import { stores } from "@sapper/app";
   import { items } from "./items";
@@ -14,14 +14,15 @@
 
 <style lang="scss">
   .navbar {
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2),
-      0px 2px 3px 0px rgba(0, 0, 0, 0.14), 0px 1px 4px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--box-shadow);
   }
   .navbar-start {
     margin-left: auto;
   }
   .navbar-item {
     text-transform: uppercase;
+    margin-left: 10px;
+    margin-right: 10px;
     &.is-active {
       color: var(--primary);
       .indicator {

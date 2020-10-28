@@ -1,9 +1,9 @@
-<script lang="ts">
+<script>
   import { _ } from "svelte-i18n";
   import { fade, fly } from "svelte/transition";
   import { items } from "./items";
 
-  export let toggle: () => void, pathname: string;
+  export let toggle, pathname;
 </script>
 
 <style lang="scss">

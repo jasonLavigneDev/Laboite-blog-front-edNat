@@ -6,16 +6,18 @@
   --tertiary: #fff;
   --texts: #040d3e;
   --background: #f9f9fd;
+  --lightgrey: rgba(10, 10, 10, 0.1);
+  --box-shadow: 0 0.3em 0.3em -0.125em rgba(10, 10, 10, 0.1),
+    0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 // LaBoite brand colors
-$lightgrey: #f9f9fd;
-
 // Update Bulma's global variables
 $primary: #011caa;
 $secondary: #efac61;
 
 // Update some of Bulma's component variables
-$body-background-color: $lightgrey;
+$body-background-color: var(--background);
+$box-shadow: var(--box-shadow);
 
 // Import only what you need from Bulma
 // Base
@@ -30,8 +32,10 @@ $body-background-color: $lightgrey;
 // Elements
 @import "../../../node_modules/bulma/sass/elements/container.sass";
 @import "../../../node_modules/bulma/sass/elements/box.sass";
+
 @import "../../../node_modules/bulma/sass/elements/icon.sass";
 @import "../../../node_modules/bulma/sass/elements/other.sass";
+@import "../../../node_modules/bulma/sass/elements/title.sass";
 
 //Layouts
 @import "../../../node_modules/bulma/sass/layout/hero.sass";

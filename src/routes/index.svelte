@@ -1,7 +1,7 @@
-<script lang="ts">
+<script>
   import PageTransition from "../components/common/PageTransition.svelte";
 
-  import Hero from "../components/Home/Hero.svelte";
+  import LastPublished from "../components/Home/LastPublished.svelte";
   import { identity } from "../settings";
 </script>
 
@@ -10,5 +10,5 @@
 </svelte:head>
 
 <PageTransition>
-  <Hero />
+  <LastPublished />
 </PageTransition>

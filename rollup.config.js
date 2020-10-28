@@ -7,7 +7,6 @@ import svelte from "rollup-plugin-svelte";
 import babel from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
-import typescript from "@rollup/plugin-typescript";
 import config from "sapper/config/rollup.js";
 import pkg from "./package.json";
 import json from "@rollup/plugin-json";
@@ -40,7 +39,7 @@ const onwarn = (warning, onwarn) =>
 
 export default {
   client: {
-    input: config.client.input().replace(/\.js$/, ".ts"),
+    input: config.client.input(),
     output: config.client.output(),
     plugins: [
       replace({
@@ -62,7 +61,6 @@ export default {
         dedupe: ["svelte"],
       }),
       commonjs(),
-      typescript({ sourceMap: dev }),
       json(),
 
       legacy &&
@@ -100,7 +98,7 @@ export default {
   },
 
   server: {
-    input: { server: config.server.input().server.replace(/\.js$/, ".ts") },
+    input: { server: config.server.input().server },
     output: config.server.output(),
     plugins: [
       replace({
@@ -122,7 +120,6 @@ export default {
         dedupe: ["svelte"],
       }),
       commonjs(),
-      typescript({ sourceMap: dev }),
       json(),
     ],
     external: Object.keys(pkg.dependencies).concat(
@@ -134,7 +131,7 @@ export default {
   },
 
   serviceworker: {
-    input: config.serviceworker.input().replace(/\.js$/, ".ts"),
+    input: config.serviceworker.input(),
     output: config.serviceworker.output(),
     plugins: [
       resolve(),
@@ -143,7 +140,6 @@ export default {
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       commonjs(),
-      typescript({ sourceMap: dev }),
       !dev && terser(),
     ],
 

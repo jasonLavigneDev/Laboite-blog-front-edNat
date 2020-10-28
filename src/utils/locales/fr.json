@@ -3,10 +3,11 @@
   "articles": "Articles",
   "academies": "Académies",
   "authors": "Auteurs",
+  "loading": "Chargement",
   "pages": {
     "home": {
-      "title": "Un titre",
-      "subtitle": "un sous titre"
+      "last_title": "Derniers articles",
+      "last_subtitle": "Voici les derniers articles publiés"
     }
   }
 }

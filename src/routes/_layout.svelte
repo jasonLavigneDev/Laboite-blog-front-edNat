@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script context="module">
   import { waitLocale } from "svelte-i18n";
   import "../utils/theme/index.css";
 
@@ -7,7 +7,7 @@
   }
 </script>
 
-<script lang="ts">
+<script>
   import "../utils/locales/index";
   import Nav from "../components/Navigation/Nav.svelte";
 </script>
