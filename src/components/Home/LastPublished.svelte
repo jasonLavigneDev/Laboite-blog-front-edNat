@@ -4,12 +4,13 @@
   import { api } from "../../settings";
   import axios from "axios";
   import Loader from "../common/Loader.svelte";
+  import SingleArticleBlock from "../common/SingleArticleBlock.svelte";
 
   let articles = getArticles();
 
   async function getArticles() {
     const filters = {
-      limit: 6,
+      limit: 4,
       order: "createdAt DESC",
       fields: { content: false, _id: false, updatedAt: false },
     };
@@ -18,6 +19,12 @@
     );
   }
 </script>
+
+<style lang="scss">
+  .box {
+    margin-bottom: var(--space-between);
+  }
+</style>
 
 <section class="box">
   <div class="container">
@@ -28,9 +35,11 @@
   {#await articles}
     <Loader message={$_('loading')} />
   {:then { data }}
-    {#each data as item}
-      <div>{item.title}</div>
-    {/each}
+    <div class="columns is-multiline">
+      {#each data as article}
+        <SingleArticleBlock {article} />
+      {/each}
+    </div>
   {:catch error}
     error
   {/await}

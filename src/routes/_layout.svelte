@@ -14,7 +14,7 @@
 
 <style global lang="scss">
   .container {
-    padding-top: 15px;
+    padding-top: var(--space-between);
   }
 </style>
 

@@ -63,11 +63,11 @@
       {#each items as { path, text }}
         <a
           rel="prefetch"
-          class:is-active={$page.path === path}
+          class:is-active={`/${$page.path.split('/')[1]}` === path}
           class="navbar-item"
           href={path}>
           {$_(text)}
-          {#if $page.path === path}
+          {#if `/${$page.path.split('/')[1]}` === path}
             <div transition:fade class="indicator" />
           {/if}
         </a>

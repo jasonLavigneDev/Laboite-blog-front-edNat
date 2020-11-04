@@ -9,5 +9,10 @@
       "last_title": "Derniers articles",
       "last_subtitle": "Voici les derniers articles publiés"
     }
+  },
+  "components": {
+    "SingleArticleBlock": {
+      "link": "Lire l'article entier"
+    }
   }
 }

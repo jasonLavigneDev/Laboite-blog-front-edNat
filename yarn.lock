@@ -2690,6 +2690,11 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
   integrity sha1-2TPOuSBdgr3PSIb2dCvcK03qFG0=
 
+marked@^1.0.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-1.2.2.tgz#5d77ffb789c4cb0ae828bfe76250f7140b123f70"
+  integrity sha512-5jjKHVl/FPo0Z6ocP3zYhKiJLzkwJAw4CZoLjv57FkvbUuwOX4LIBBGGcXjAY6ATcd1q9B8UTj5T9Umauj0QYQ==
+
 mdn-data@2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.4.tgz#699b3c38ac6f1d728091a64650b65d388502fd5b"
@@ -4213,6 +4218,13 @@ svelte-i18n@^3.1.0:
     estree-walker "^0.9.0"
     intl-messageformat "^7.5.2"
     tiny-glob "^0.2.6"
+
+svelte-markdown@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/svelte-markdown/-/svelte-markdown-0.0.2.tgz#82b14466980774b20b469435ce8a36d0b722e29b"
+  integrity sha512-4GI6RW7/cQPmdfkLQT10Jx0FappTQbiwBqMCxNulfbRsOBmNgzVImtJO67eAi2QPg5yCVbAOJWdYbVqCZ7F0rw==
+  dependencies:
+    marked "^1.0.0"
 
 svelte-preprocess@^4.0.0, svelte-preprocess@^4.5.2:
   version "4.5.2"
