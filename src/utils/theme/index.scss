@@ -20,25 +20,33 @@ $secondary: #efac61;
 // Update some of Bulma's component variables
 $body-background-color: var(--background);
 $box-shadow: var(--box-shadow);
+$card-shadow: var(--box-shadow) !important;
 
 // Import only what you need from Bulma
 // Base
-@import "../../../node_modules/bulma/sass/utilities/_all.sass";
-@import "../../../node_modules/bulma/sass/base/_all.sass";
-@import "../../../node_modules/bulma/sass/form/_all.sass";
+// @import "../../../node_modules/bulma/sass/utilities/_all.sass";
+// @import "../../../node_modules/bulma/sass/base/_all.sass";
+// @import "../../../node_modules/bulma/sass/form/_all.sass";
+// @import "../../../node_modules/bulma/sass/helpers/_all.sass";
+// @import "../../../node_modules/bulma/sass/grid/_all.sass";
+// @import "../../../node_modules/bulma/sass/layout/_all.sass";
+@import "../../../node_modules/bulma/bulma.sass";
 
 // Components
-@import "../../../node_modules/bulma/sass/components/navbar.sass";
-@import "../../../node_modules/bulma/sass/components/modal.sass";
+// @import "../../../node_modules/bulma/sass/components/navbar.sass";
+// @import "../../../node_modules/bulma/sass/components/modal.sass";
+// @import "../../../node_modules/bulma/sass/components/card.sass";
+// @import "../../../node_modules/bulma/sass/elements/image.sass";
 
-// Elements
-@import "../../../node_modules/bulma/sass/elements/container.sass";
-@import "../../../node_modules/bulma/sass/elements/box.sass";
+// // Elements
+// @import "../../../node_modules/bulma/sass/elements/container.sass";
+// @import "../../../node_modules/bulma/sass/elements/box.sass";
 
-@import "../../../node_modules/bulma/sass/elements/icon.sass";
-@import "../../../node_modules/bulma/sass/elements/other.sass";
-@import "../../../node_modules/bulma/sass/elements/title.sass";
+// @import "../../../node_modules/bulma/sass/elements/icon.sass";
+// @import "../../../node_modules/bulma/sass/elements/other.sass";
+// @import "../../../node_modules/bulma/sass/elements/title.sass";
+// @import "../../../node_modules/bulma/sass/elements/tag.sass";
 
-//Layouts
-@import "../../../node_modules/bulma/sass/layout/hero.sass";
-@import "../../../node_modules/bulma/sass/grid/columns.sass";
+// //Layouts
+// @import "../../../node_modules/bulma/sass/layout/hero.sass";
+// @import "../../../node_modules/bulma/sass/grid/columns.sass";

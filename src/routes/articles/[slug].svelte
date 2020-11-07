@@ -2,29 +2,30 @@
   import axios from "axios";
   import { api, identity } from "../../settings";
   export async function preload({ params }) {
-    const response = await axios.get(`${api.host}/articles/${params.slug}`);
+    const responseArticle = await axios.get(
+      `${api.host}/articles/${params.slug}`
+    );
+    const responseAuthor = await axios.get(
+      `${api.host}/authors/${responseArticle.data.userId}`
+    );
     return {
-      article: response.data,
+      article: responseArticle.data,
+      author: responseAuthor.data,
     };
   }
 </script>
 
 <script>
+  import { _ } from "svelte-i18n";
   import SvelteMarkdown from "svelte-markdown";
+  import AuthorIdCard from "../../components/Articles/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
+  import SingleTagLink from "../../components/common/SingleTagLink.svelte";
 
-  export let article;
+  export let article, author;
 </script>
 
 <style>
-  /*
-		By default, CSS is locally scoped to the component,
-		and any unused styles are dead-code-eliminated.
-		In this page, Svelte can't know which elements are
-		going to appear inside the {{{article.html}}} block,
-		so we have to use the :global(...) modifier to target
-		all elements inside .content
-	*/
   .content :global(h2) {
     font-size: 1.4em;
     font-weight: 500;
@@ -57,15 +58,30 @@
 </svelte:head>
 
 <PageTransition>
-  <div class="box">
-    <div class="title is-4">{article.title}</div>
+  <div class="columns is-multiline">
+    <div class="column is-three-quarters is-full-mobile">
+      <div class="box">
+        <div class="title is-4">{article.title}</div>
 
-    <div class="content">
-      {#if article.markdown}
-        <SvelteMarkdown source={article.content} />
-      {:else}
-        {@html article.content}
-      {/if}
+        <div class="content">
+          {#if article.markdown}
+            <SvelteMarkdown source={article.content} />
+          {:else}
+            {@html article.content}
+          {/if}
+        </div>
+      </div>
+    </div>
+    <div class="column is-one-quarters is-full-mobile">
+      <AuthorIdCard {author} />
+      <div class="box">
+        <div class="title is-5">{$_('pages.article.tags')}</div>
+        <div class="tags">
+          {#each article.tags as tag}
+            <SingleTagLink {tag} />
+          {/each}
+        </div>
+      </div>
     </div>
   </div>
 </PageTransition>

@@ -25,5 +25,5 @@
 <main class="container">
   <slot />
 </main>
-
-<Footer />
+<!-- 
+<Footer /> -->

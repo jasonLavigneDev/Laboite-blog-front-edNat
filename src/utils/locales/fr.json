@@ -14,11 +14,19 @@
     "home": {
       "last_title": "Derniers articles",
       "last_subtitle": "Voici les derniers articles publiés"
+    },
+    "article": {
+      "tags": "Tags"
     }
   },
   "components": {
     "SingleArticleBlock": {
       "link": "Lire l'article entier"
+    },
+    "AuthorIdCard": {
+      "academy": "Académie",
+      "articles": "Nombre d'articles",
+      "all_articles": "Voir tous les articles"
     }
   }
 }
