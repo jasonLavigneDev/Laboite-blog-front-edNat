@@ -1,18 +1,37 @@
 export const items = [
   {
-    text: "home",
+    text: "links.home",
     path: "/",
   },
   {
-    text: "articles",
+    text: "links.articles",
     path: "/articles",
   },
   {
-    text: "academies",
+    text: "links.academies",
     path: "/academies",
   },
   {
-    text: "authors",
+    text: "links.authors",
     path: "/authors",
+  },
+];
+
+export const footer = [
+  {
+    text: "legal",
+    path: "/legal-notice",
+  },
+  {
+    text: "accessibility",
+    path: "/accessibility",
+  },
+  {
+    text: "gcu",
+    path: "/conditions",
+  },
+  {
+    text: "personalData",
+    path: "/personal-data",
   },
 ];

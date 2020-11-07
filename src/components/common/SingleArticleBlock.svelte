@@ -16,7 +16,7 @@
   }
   a {
     font-weight: bold;
-    font-family: "WorkSansBold";
+    font-family: "WorkSansBold" !important;
     font-size: 16px;
     &:hover {
       color: var(--secondary);

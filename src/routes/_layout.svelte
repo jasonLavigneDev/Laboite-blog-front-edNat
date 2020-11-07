@@ -10,11 +10,13 @@
 <script>
   import "../utils/locales/index";
   import Nav from "../components/Navigation/Nav.svelte";
+  import Footer from "../components/Navigation/Footer.svelte";
 </script>
 
 <style global lang="scss">
-  .container {
-    padding-top: var(--space-between);
+  main {
+    padding-top: calc(52px + var(--space-between));
+    min-height: calc(100vh - 64px);
   }
 </style>
 
@@ -23,3 +25,5 @@
 <main class="container">
   <slot />
 </main>
+
+<Footer />

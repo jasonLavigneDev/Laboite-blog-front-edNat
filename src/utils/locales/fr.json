@@ -1,9 +1,15 @@
 {
-  "home": "Accueil",
-  "articles": "Articles",
-  "academies": "Académies",
-  "authors": "Auteurs",
   "loading": "Chargement",
+  "links": {
+    "home": "Accueil",
+    "articles": "Articles",
+    "academies": "Académies",
+    "authors": "Auteurs",
+    "legal": "Mentions légales",
+    "accessibility": "Accessibilité",
+    "gcu": "Conditions générales d'utilisation",
+    "personalData": "Données personnelles"
+  },
   "pages": {
     "home": {
       "last_title": "Derniers articles",

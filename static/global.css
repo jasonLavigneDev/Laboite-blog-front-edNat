@@ -18,7 +18,7 @@ a {
   font-style: normal;
 }
 *:not(i):not(.material-icons) {
-  font-family: "WorkSansRegular" !important;
+  font-family: "WorkSansRegular";
 }
 h1,
 h2,
