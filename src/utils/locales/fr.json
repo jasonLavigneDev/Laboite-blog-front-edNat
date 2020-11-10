@@ -15,8 +15,16 @@
       "last_title": "Derniers articles",
       "last_subtitle": "Voici les derniers articles publiés"
     },
+    "articles": {
+      "title": "Les articles",
+      "subtitle": "Recherchez dans la liste des articles"
+    },
     "article": {
       "tags": "Tags"
+    },
+    "authors": {
+      "title": "La liste des auteurs",
+      "subtitle": "Recherchez dans la liste des auteurs"
     }
   },
   "components": {
@@ -27,6 +35,10 @@
       "academy": "Académie",
       "articles": "Nombre d'articles",
       "all_articles": "Voir tous les articles"
+    },
+    "SearchField": {
+      "search": "Rechercher",
+      "placeholder": "Rechercher"
     }
   }
 }

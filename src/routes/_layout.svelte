@@ -18,6 +18,9 @@
     padding-top: calc(52px + var(--space-between));
     min-height: calc(100vh - 64px);
   }
+  .hidden {
+    display: none;
+  }
 </style>
 
 <Nav />
@@ -25,5 +28,5 @@
 <main class="container">
   <slot />
 </main>
-<!-- 
-<Footer /> -->
+
+<Footer />

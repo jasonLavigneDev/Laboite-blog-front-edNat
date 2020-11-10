@@ -73,7 +73,7 @@
       </div>
     </div>
     <div class="column is-one-quarters is-full-mobile">
-      <AuthorIdCard {author} />
+      <AuthorIdCard {author} full />
       <div class="box">
         <div class="title is-5">{$_('pages.article.tags')}</div>
         <div class="tags">

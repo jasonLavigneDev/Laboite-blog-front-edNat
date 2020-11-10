@@ -3,15 +3,16 @@
   import { api, identity } from "../../settings";
   export async function preload() {
     const filters = {
-      limit: 10,
-      order: "createdAt DESC",
-      fields: { content: false, _id: false, updatedAt: false },
+      limit: 9,
+      order: "articlesCount DESC",
+      where: { articlesCount: { gt: 0 } },
+      //   fields: { content: false, _id: false, updatedAt: false },
     };
     const response = await axios.get(
-      `${api.host}/articles?filter=${JSON.stringify(filters)}`
+      `${api.host}/authors?filter=${JSON.stringify(filters)}`
     );
     return {
-      articles: response.data,
+      authors: response.data,
     };
   }
 </script>
@@ -19,12 +20,12 @@
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../../components/common/Divider.svelte";
-  import SingleArticleBlock from "../../components/common/SingleArticleBlock.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
+  import SingleAuthorBlock from "../../components/common/SingleAuthorBlock.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
 
-  export let articles = [];
-  const handleUpdate = (data) => (articles = data);
+  export let authors = [];
+  const handleUpdate = (data) => (authors = data);
 </script>
 
 <style lang="scss">
@@ -34,28 +35,28 @@
 </style>
 
 <svelte:head>
-  <title>{identity.title} | {$_('articles')}</title>
+  <title>{identity.title} | {$_('authors')}</title>
 </svelte:head>
 
 <PageTransition>
   <section class="box">
     <div class="container">
-      <h1 class="title">{$_('pages.articles.title')}</h1>
-      <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+      <h1 class="title">{$_('pages.authors.title')}</h1>
+      <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
     </div>
     <Divider />
     <SearchField
       {handleUpdate}
-      apiurl="articles"
-      order="createdAt DESC"
-      limit={10}
-      searchFields={['description', 'title', 'slug', 'tags']}
-      fields={{ content: false, _id: false, updatedAt: false }} />
+      apiurl="authors"
+      limit={9}
+      where={{ articlesCount: { gt: 0 } }}
+      order="articlesCount DESC"
+      searchFields={['firstName', 'lastName', 'username', 'structure']} />
     <Divider transparent />
 
     <div class="columns is-multiline">
-      {#each articles as article}
-        <SingleArticleBlock {article} />
+      {#each authors as author}
+        <SingleAuthorBlock {author} />
       {/each}
     </div>
   </section>

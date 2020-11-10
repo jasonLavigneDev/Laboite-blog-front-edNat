@@ -1,3 +1,7 @@
+<script>
+  export let transparent = false;
+</script>
+
 <style lang="scss">
   .divider {
     height: 1px;
@@ -6,6 +10,9 @@
     margin-top: 30px;
     margin-bottom: 30px;
   }
+  .transparent {
+    background-color: transparent;
+  }
 </style>
 
-<div class="divider" />
+<div class="divider" class:transparent />

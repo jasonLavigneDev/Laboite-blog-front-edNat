@@ -1,17 +1,21 @@
 <script context="module">
   import axios from "axios";
   import { api, identity } from "../../settings";
-  export async function preload() {
-    const filters = {
+  export async function preload({ params }) {
+    const filtersArticles = {
       limit: 10,
       order: "createdAt DESC",
       fields: { content: false, _id: false, updatedAt: false },
     };
-    const response = await axios.get(
-      `${api.host}/articles?filter=${JSON.stringify(filters)}`
+    const responseArticles = await axios.get(
+      `${api.host}/authors/${params._id}/articles?filter=${JSON.stringify(
+        filtersArticles
+      )}`
     );
+    const responseAuthor = await axios.get(`${api.host}/authors/${params._id}`);
     return {
-      articles: response.data,
+      articles: responseArticles.data,
+      author: responseAuthor.data,
     };
   }
 </script>
@@ -23,7 +27,8 @@
   import PageTransition from "../../components/common/PageTransition.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
 
-  export let articles = [];
+  export let articles = [],
+    author = {};
   const handleUpdate = (data) => (articles = data);
 </script>
 
@@ -40,13 +45,14 @@
 <PageTransition>
   <section class="box">
     <div class="container">
-      <h1 class="title">{$_('pages.articles.title')}</h1>
-      <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+      <h1 class="title">{author.firstName} {author.lastName}</h1>
+      <h2 class="subtitle">{author.username}</h2>
+      <div>{author.structure}</div>
     </div>
     <Divider />
     <SearchField
       {handleUpdate}
-      apiurl="articles"
+      apiurl="authors/{author._id}/articles"
       order="createdAt DESC"
       limit={10}
       searchFields={['description', 'title', 'slug', 'tags']}
