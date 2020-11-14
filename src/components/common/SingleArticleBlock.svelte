@@ -2,7 +2,9 @@
   import { _ } from "svelte-i18n";
   import BigLink from "./BigLink.svelte";
   import SingleTagLink from "./SingleTagLink.svelte";
+
   export let article;
+  export let index;
 </script>
 
 <style lang="scss">
@@ -11,6 +13,7 @@
   }
   .column {
     margin-bottom: var(--space-between);
+    position: relative;
   }
   .content {
     margin-bottom: 10px;

@@ -1,23 +1,9 @@
 <script>
   import { _ } from "svelte-i18n";
-  import axios from "axios";
   import { stores } from "@sapper/app";
-
-  import { api } from "../../settings";
   import { footer } from "./items";
 
-  let links = getLinks();
-
-  //TODO: filter the content fields or remove this query and use static data
-
-  async function getLinks() {
-    const filters = {
-      fields: {},
-    };
-    return await axios.get(
-      `${api.host}/legal-texts?filter=${JSON.stringify(filters)}`
-    );
-  }
+  export let footerData;
 
   const { page } = stores();
 </script>
@@ -41,20 +27,16 @@
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
   <div id="navbarMenu" class="navbar-menu">
     <div class="navbar-start">
-      {#await links}
-        <!-- promise is pending -->
-      {:then { data }}
-        {#each footer as { path, text }}
-          <a
-            rel="prefetch"
-            class:is-active={$page.path === path}
-            class="navbar-item"
-            target={data[text] && data[text].external ? '_blank' : ''}
-            href={data[text] && data[text].external ? data[text].link : path}>
-            {$_(`links.${text}`)}
-          </a>
-        {/each}
-      {/await}
+      {#each footer as { path, text }}
+        <a
+          rel="prefetch"
+          class:is-active={$page.path === path}
+          class="navbar-item"
+          target={footerData[text] && footerData[text].external ? '_blank' : ''}
+          href={footerData[text] && footerData[text].external ? footerData[text].link : path}>
+          {$_(`links.${text}`)}
+        </a>
+      {/each}
     </div>
     <div class="navbar-end" />
   </div>

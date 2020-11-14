@@ -1,16 +1,18 @@
 <script context="module">
-  import axios from "axios";
-  import { api, identity } from "../settings";
+  import { identity } from "../settings";
+  import { fetchData } from "../utils/api/methods";
 
   export async function preload() {
-    const filters = {
-      fields: { accessibility: true },
-    };
-    const response = await axios.get(
-      `${api.host}/legal-texts?filter=${JSON.stringify(filters)}`
-    );
+    const fields = { accessibility: true };
+    const apiurl = "legal-texts";
+
+    const { items } = await fetchData(this.fetch, {
+      fields,
+      apiurl,
+      count: false,
+    });
     return {
-      legal: response.data.accessibility,
+      legal: items.accessibility,
     };
   }
 </script>

@@ -42,7 +42,7 @@
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
+    <a class="navbar-item" href="/" rel="prefetch">
       <img src="/apps-logo-sansfond.svg" alt="LaBoite - Blog" height="40" />
     </a>
 

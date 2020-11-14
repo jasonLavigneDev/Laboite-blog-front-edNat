@@ -1,5 +1,6 @@
 {
   "loading": "Chargement",
+  "articles": "Articles",
   "links": {
     "home": "Accueil",
     "articles": "Articles",
@@ -39,6 +40,14 @@
     "SearchField": {
       "search": "Rechercher",
       "placeholder": "Rechercher"
+    },
+    "Pagination": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    },
+    "NoResults": {
+      "title": "Aucun résultats",
+      "subtitle": "Reformulez votre recherche"
     }
   }
 }

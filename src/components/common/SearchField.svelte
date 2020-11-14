@@ -1,48 +1,33 @@
 <script>
   import { _ } from "svelte-i18n";
-  import axios from "axios";
-  import { api } from "../../settings";
-  export let apiurl,
-    where = {},
-    order,
-    limit = 10,
-    fields = {},
-    handleUpdate,
-    searchFields = [];
+  import { goto } from "@sapper/app";
+  import { toQuery } from "../../utils/functions/queryStringMaker";
 
-  let value,
-    loading = false;
+  export let query = {};
+  export let path;
+  export let loading;
+  let search = query.search || "";
+
+  const setLoader = () => (loading = true);
+
+  const urlMaker = (search) =>
+    `${path}?${toQuery({
+      ...query,
+      page: 1,
+      search,
+    })}`;
 
   const submit = (event) => {
     if (event.preventDefault) {
       event.preventDefault();
     }
-    handleSearch();
-  };
-  const resetSearch = () => {
-    value = "";
-    handleSearch();
+    setLoader();
+    goto(urlMaker(search));
   };
 
-  const handleSearch = async () => {
-    const whereQuery = { ...where };
-    if (value) {
-      whereQuery.or = searchFields.map((field) => ({
-        [field]: { like: `.*${value}.*`, options: "i" },
-      }));
-    }
-    const queryFilters = {
-      limit,
-      order,
-      where: whereQuery,
-      //   fields: { content: false, _id: false, updatedAt: false },
-    };
-    loading = true;
-    const response = await axios.get(
-      `${api.host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`
-    );
-    loading = false;
-    handleUpdate(response.data);
+  const resetSearch = () => {
+    search = "";
+    setLoader();
   };
 </script>
 
@@ -50,21 +35,29 @@
   <div class="field has-addons">
     <p class="control" class:is-loading={loading}>
       <input
-        bind:value
+        bind:value={search}
         class="input is-rounded"
         type="text"
         disabled={loading}
         placeholder={$_('components.SearchField.placeholder')} />
     </p>
     <div class="control">
-      <a class="button is-info" on:click={handleSearch}>
+      <a
+        class="button is-info"
+        rel="prefetch"
+        on:click={setLoader}
+        href={urlMaker(search)}>
         <i class="fas fa-search" />
       </a>
     </div>
 
-    {#if value}
+    {#if search}
       <div class="control">
-        <a class="button is-warning" on:click={resetSearch}>
+        <a
+          class="button is-warning"
+          rel="prefetch"
+          on:click={resetSearch}
+          href={urlMaker()}>
           <i class="fa fa-times" />
         </a>
       </div>

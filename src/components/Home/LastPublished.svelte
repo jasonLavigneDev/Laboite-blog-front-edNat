@@ -1,28 +1,37 @@
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../common/Divider.svelte";
-  import { api } from "../../settings";
-  import axios from "axios";
+  import { fetchData } from "../../utils/api/methods";
   import Loader from "../common/Loader.svelte";
   import SingleArticleBlock from "../common/SingleArticleBlock.svelte";
+  import { onMount } from "svelte";
 
-  let articles = getArticles();
+  let articles = [];
+  let loading = true;
 
-  async function getArticles() {
-    const filters = {
-      limit: 4,
-      order: "createdAt DESC",
-      fields: { content: false, _id: false, updatedAt: false },
-    };
-    return await axios.get(
-      `${api.host}/articles?filter=${JSON.stringify(filters)}`
-    );
-  }
+  onMount(async function () {
+    const limit = 4;
+    const fields = { content: false, _id: false, updatedAt: false };
+    const order = "createdAt DESC";
+    const apiurl = "articles";
+
+    const { items } = await fetchData(fetch, {
+      limit,
+      order,
+      fields,
+      apiurl,
+      skip: 0,
+      count: false,
+    });
+    loading = false;
+    articles = items;
+  });
 </script>
 
 <style lang="scss">
   .box {
     margin-bottom: var(--space-between);
+    min-height: 450px;
   }
 </style>
 
@@ -32,15 +41,13 @@
     <h2 class="subtitle">{$_('pages.home.last_subtitle')}</h2>
   </div>
   <Divider />
-  {#await articles}
+  {#if !articles.length && loading}
     <Loader message={$_('loading')} />
-  {:then { data }}
+  {:else}
     <div class="columns is-multiline">
-      {#each data as article}
+      {#each articles as article}
         <SingleArticleBlock {article} />
       {/each}
     </div>
-  {:catch error}
-    error
-  {/await}
+  {/if}
 </section>

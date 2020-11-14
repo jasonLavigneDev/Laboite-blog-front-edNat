@@ -1,16 +1,19 @@
 <script context="module">
-  import axios from "axios";
   import { api, identity } from "../../settings";
+
   export async function preload({ params }) {
-    const responseArticle = await axios.get(
+    const responseArticle = await this.fetch(
       `${api.host}/articles/${params.slug}`
     );
-    const responseAuthor = await axios.get(
-      `${api.host}/authors/${responseArticle.data.userId}`
+    const article = await responseArticle.json();
+
+    const responseAuthor = await this.fetch(
+      `${api.host}/authors/${article.userId}`
     );
+    const author = await responseAuthor.json();
     return {
-      article: responseArticle.data,
-      author: responseAuthor.data,
+      article,
+      author,
     };
   }
 </script>

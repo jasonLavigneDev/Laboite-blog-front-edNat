@@ -1,18 +1,35 @@
 <script context="module">
-  import axios from "axios";
-  import { api, identity } from "../../settings";
-  export async function preload() {
-    const filters = {
-      limit: 9,
-      order: "articlesCount DESC",
-      where: { articlesCount: { gt: 0 } },
-      //   fields: { content: false, _id: false, updatedAt: false },
-    };
-    const response = await axios.get(
-      `${api.host}/authors?filter=${JSON.stringify(filters)}`
-    );
+  import { identity } from "../../settings";
+  import { fetchData } from "../../utils/api/methods";
+
+  export async function preload({ params, query, path }) {
+    const { page = 1, search = "" } = query;
+
+    const limit = 9;
+    const fields = {};
+    const searchFields = ["firstName", "lastName", "username", "structure"];
+    const order = "articlesCount DESC";
+    const apiurl = "authors";
+    const where = { articlesCount: { gt: 0 } };
+
+    const { items, total } = await fetchData(this.fetch, {
+      limit,
+      order,
+      fields,
+      searchFields,
+      apiurl,
+      value: search,
+      where,
+      skip: page === 1 ? 0 : (Number(page) - 1) * limit,
+    });
     return {
-      authors: response.data,
+      authors: items,
+      total,
+      limit,
+      page: Number(page),
+      query,
+      path,
+      loading: false,
     };
   }
 </script>
@@ -23,9 +40,17 @@
   import PageTransition from "../../components/common/PageTransition.svelte";
   import SingleAuthorBlock from "../../components/common/SingleAuthorBlock.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
+  import Pagination from "../../components/common/Pagination.svelte";
+  import Loader from "../../components/common/Loader.svelte";
+  import NoResults from "../../components/common/NoResults.svelte";
 
   export let authors = [];
-  const handleUpdate = (data) => (authors = data);
+  export let total = 0;
+  export let limit;
+  export let page = 1;
+  export let query = {};
+  export let path = "";
+  export let loading = false;
 </script>
 
 <style lang="scss">
@@ -45,19 +70,22 @@
       <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
     </div>
     <Divider />
-    <SearchField
-      {handleUpdate}
-      apiurl="authors"
-      limit={9}
-      where={{ articlesCount: { gt: 0 } }}
-      order="articlesCount DESC"
-      searchFields={['firstName', 'lastName', 'username', 'structure']} />
+    <SearchField bind:loading {query} {path} />
     <Divider transparent />
+    <Pagination {total} {page} {limit} {query} {path} bind:loading />
 
-    <div class="columns is-multiline">
-      {#each authors as author}
-        <SingleAuthorBlock {author} />
-      {/each}
-    </div>
+    {#if loading}
+      <Loader message={$_('loading')} />
+    {/if}
+    {#if authors.length}
+      <div class="columns is-multiline">
+        {#each authors as author}
+          <SingleAuthorBlock {author} />
+        {/each}
+      </div>
+    {:else}
+      <NoResults query={!!Object.keys(query).length} />
+    {/if}
+    <Pagination {total} {page} {limit} {query} {path} bind:loading />
   </section>
 </PageTransition>
