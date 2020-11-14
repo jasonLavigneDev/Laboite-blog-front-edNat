@@ -26,6 +26,10 @@
     "authors": {
       "title": "La liste des auteurs",
       "subtitle": "Recherchez dans la liste des auteurs"
+    },
+    "academies": {
+      "title": "La liste des académies françaises",
+      "subtitle": "Visitez la page de votre académie"
     }
   },
   "components": {

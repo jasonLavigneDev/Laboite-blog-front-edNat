@@ -38,7 +38,7 @@
   import { _ } from "svelte-i18n";
   import Divider from "../../components/common/Divider.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
-  import SingleAuthorBlock from "../../components/common/SingleAuthorBlock.svelte";
+  import SingleAuthorBlock from "../../components/authors/SingleAuthorBlock.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
   import Pagination from "../../components/common/Pagination.svelte";
   import Loader from "../../components/common/Loader.svelte";
@@ -60,7 +60,7 @@
 </style>
 
 <svelte:head>
-  <title>{identity.title} | {$_('authors')}</title>
+  <title>{identity.title} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>

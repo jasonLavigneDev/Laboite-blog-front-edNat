@@ -21,7 +21,7 @@
 <script>
   import { _ } from "svelte-i18n";
   import SvelteMarkdown from "svelte-markdown";
-  import AuthorIdCard from "../../components/Articles/AuthorIdCard.svelte";
+  import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
   import SingleTagLink from "../../components/common/SingleTagLink.svelte";
 

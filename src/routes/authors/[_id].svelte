@@ -42,7 +42,7 @@
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../../components/common/Divider.svelte";
-  import SingleArticleBlock from "../../components/common/SingleArticleBlock.svelte";
+  import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
   import Loader from "../../components/common/Loader.svelte";

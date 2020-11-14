@@ -1,7 +1,7 @@
 <script>
   import PageTransition from "../components/common/PageTransition.svelte";
 
-  import LastPublished from "../components/Home/LastPublished.svelte";
+  import LastPublished from "../components/home/LastPublished.svelte";
   import { identity } from "../settings";
 </script>
 

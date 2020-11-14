@@ -3,7 +3,7 @@
   import Divider from "../common/Divider.svelte";
   import { fetchData } from "../../utils/api/methods";
   import Loader from "../common/Loader.svelte";
-  import SingleArticleBlock from "../common/SingleArticleBlock.svelte";
+  import SingleArticleBlock from "../articles/SingleArticleBlock.svelte";
   import { onMount } from "svelte";
 
   let articles = [];

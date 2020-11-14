@@ -1,6 +1,6 @@
 <script>
   import { _ } from "svelte-i18n";
-  import BigLink from "./BigLink.svelte";
+  import BigLink from "../common/BigLink.svelte";
 
   export let author;
 </script>

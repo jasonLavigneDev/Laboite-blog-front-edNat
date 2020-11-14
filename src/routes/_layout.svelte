@@ -21,8 +21,8 @@
 
 <script>
   import "../utils/locales/index";
-  import Nav from "../components/Navigation/Nav.svelte";
-  import Footer from "../components/Navigation/Footer.svelte";
+  import Nav from "../components/navigation/Nav.svelte";
+  import Footer from "../components/navigation/Footer.svelte";
   export let footerData;
 </script>
 

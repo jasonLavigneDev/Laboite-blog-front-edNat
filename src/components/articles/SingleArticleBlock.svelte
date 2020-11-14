@@ -1,7 +1,7 @@
 <script>
   import { _ } from "svelte-i18n";
-  import BigLink from "./BigLink.svelte";
-  import SingleTagLink from "./SingleTagLink.svelte";
+  import BigLink from "../common/BigLink.svelte";
+  import SingleTagLink from "../common/SingleTagLink.svelte";
 
   export let article;
   export let index;
