@@ -1,19 +1,16 @@
 <script context="module">
   import { api, identity } from "../../settings";
+  import fetcher from "isomorphic-fetch";
 
   export async function preload({ params }) {
-    const responseArticle = await this.fetch(
+    const responseArticle = await fetcher(
       `${api.host}/articles/${params.slug}`
     );
     const article = await responseArticle.json();
 
-    const responseAuthor = await this.fetch(
-      `${api.host}/authors/${article.userId}`
-    );
-    const author = await responseAuthor.json();
     return {
       article,
-      author,
+      author: article.user,
     };
   }
 </script>

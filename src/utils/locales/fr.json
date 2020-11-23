@@ -30,11 +30,16 @@
     "academies": {
       "title": "La liste des académies françaises",
       "subtitle": "Visitez la page de votre académie"
+    },
+    "academy": {
+      "authors_title": "Les auteurs de l'académie",
+      "authors_subtitle": "Visitez leur page"
     }
   },
   "components": {
     "SingleArticleBlock": {
-      "link": "Lire l'article entier"
+      "link": "Lire l'article entier",
+      "written_by": "Écrit par"
     },
     "AuthorIdCard": {
       "academy": "Académie",

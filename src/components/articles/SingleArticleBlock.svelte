@@ -4,7 +4,6 @@
   import SingleTagLink from "../common/SingleTagLink.svelte";
 
   export let article;
-  export let index;
 </script>
 
 <style lang="scss">
@@ -26,6 +25,13 @@
     {new Date(article.createdAt).toLocaleString()}
   </div>
   <div class="title is-4">{article.title}</div>
+  {#if article.user}
+    <div class="subtitle is-6">
+      {$_('components.SingleArticleBlock.written_by')}
+      {article.user.firstName}
+      {article.user.firstName}
+    </div>
+  {/if}
   <div class="content">{article.description}</div>
   <div class="tags">
     {#each article.tags as tag}

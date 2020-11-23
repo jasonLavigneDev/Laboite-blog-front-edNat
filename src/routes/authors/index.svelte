@@ -12,7 +12,7 @@
     const apiurl = "authors";
     const where = { articlesCount: { gt: 0 } };
 
-    const { items, total } = await fetchData(this.fetch, {
+    const { items, total } = await fetchData({
       limit,
       order,
       fields,

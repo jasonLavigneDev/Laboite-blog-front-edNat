@@ -10,14 +10,28 @@
     const searchFields = ["description", "title", "slug", "tags"];
     const order = "createdAt DESC";
     const apiurl = "articles";
+    const include = [
+      {
+        relation: "user",
+        scope: {
+          fields: {
+            articlesCount: false,
+            username: false,
+            structure: false,
+          },
+          limit: 1,
+        },
+      },
+    ];
 
-    const { items, total } = await fetchData(this.fetch, {
+    const { items, total } = await fetchData({
       limit,
       order,
       fields,
       searchFields,
       apiurl,
       value: search,
+      include,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
     return {
@@ -78,7 +92,7 @@
     {#if articles.length}
       <div class="columns is-multiline">
         {#each articles as article, index}
-          <SingleArticleBlock {article} {index} />
+          <SingleArticleBlock {article} />
         {/each}
       </div>
     {:else}

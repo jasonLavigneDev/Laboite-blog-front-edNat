@@ -1,19 +1,18 @@
 import { api } from "../../settings";
+import fetcher from "isomorphic-fetch";
 
-export async function fetchData(
-  fetcher,
-  {
-    limit = 10,
-    order,
-    fields = {},
-    where = {},
-    searchFields = [],
-    apiurl = "articles",
-    value,
-    skip = 0,
-    count = true,
-  }
-) {
+export async function fetchData({
+  limit = 10,
+  order,
+  fields = {},
+  where = {},
+  searchFields = [],
+  apiurl = "articles",
+  value,
+  skip = 0,
+  count = true,
+  include,
+}) {
   const whereQuery = { ...where };
   if (value) {
     whereQuery.or = searchFields.map((field) => ({
@@ -26,6 +25,7 @@ export async function fetchData(
     where: whereQuery,
     fields,
     skip,
+    include,
   };
   const response = await fetcher(
     `${api.host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`

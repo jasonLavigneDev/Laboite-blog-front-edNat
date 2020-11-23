@@ -14,14 +14,28 @@
     const fields = { content: false, _id: false, updatedAt: false };
     const order = "createdAt DESC";
     const apiurl = "articles";
+    const include = [
+      {
+        relation: "user",
+        scope: {
+          fields: {
+            articlesCount: false,
+            username: false,
+            structure: false,
+          },
+          limit: 1,
+        },
+      },
+    ];
 
-    const { items } = await fetchData(fetch, {
+    const { items } = await fetchData({
       limit,
       order,
       fields,
       apiurl,
       skip: 0,
       count: false,
+      include,
     });
     loading = false;
     articles = items;

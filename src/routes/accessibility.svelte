@@ -6,7 +6,7 @@
     const fields = { accessibility: true };
     const apiurl = "legal-texts";
 
-    const { items } = await fetchData(this.fetch, {
+    const { items } = await fetchData({
       fields,
       apiurl,
       count: false,

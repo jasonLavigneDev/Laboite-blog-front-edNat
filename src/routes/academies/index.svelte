@@ -25,7 +25,9 @@
     <Divider />
     <div class="columns is-multiline">
       {#each structureOptions as structure}
-        <div>{structure.label}</div>
+        <a
+          rel="prefetch"
+          href="/academies/{structure.slug}">{structure.label}</a>
         <Divider />
       {/each}
     </div>

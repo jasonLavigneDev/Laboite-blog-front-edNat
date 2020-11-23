@@ -1,6 +1,7 @@
 <script context="module">
   import { api, identity } from "../../settings";
   import { fetchData } from "../../utils/api/methods";
+  import fetcher from "isomorphic-fetch";
 
   export async function preload({ params, query, path }) {
     const { page = 1, search = "" } = query;
@@ -12,7 +13,7 @@
     const apiurl = `articles`;
     const where = { userId: params._id };
 
-    const { items, total } = await fetchData(this.fetch, {
+    const { items, total } = await fetchData({
       limit,
       order,
       fields,
@@ -22,9 +23,7 @@
       where,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-    const responseAuthor = await this.fetch(
-      `${api.host}/authors/${params._id}`
-    );
+    const responseAuthor = await fetcher(`${api.host}/authors/${params._id}`);
     const author = await responseAuthor.json();
     return {
       articles: items,

@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "start-dev": "npm-run-all --parallel server css-watch dev",
+    "init-dev": "npm-run-all --parallel yarn cd ../laboite-blog-api && yarn",
     "dev": "sapper dev -p 4000",
     "build": "yarn css-build && sapper build --legacy",
     "server": "cd ../laboite-blog-api && yarn start",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
+    "isomorphic-fetch": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "polka": "next",
     "sirv": "^1.0.0",
