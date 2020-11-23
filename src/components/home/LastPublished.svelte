@@ -1,45 +1,9 @@
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../common/Divider.svelte";
-  import { fetchData } from "../../utils/api/methods";
-  import Loader from "../common/Loader.svelte";
   import SingleArticleBlock from "../articles/SingleArticleBlock.svelte";
-  import { onMount } from "svelte";
 
-  let articles = [];
-  let loading = true;
-
-  onMount(async function () {
-    const limit = 4;
-    const fields = { content: false, _id: false, updatedAt: false };
-    const order = "createdAt DESC";
-    const apiurl = "articles";
-    const include = [
-      {
-        relation: "user",
-        scope: {
-          fields: {
-            articlesCount: false,
-            username: false,
-            structure: false,
-          },
-          limit: 1,
-        },
-      },
-    ];
-
-    const { items } = await fetchData({
-      limit,
-      order,
-      fields,
-      apiurl,
-      skip: 0,
-      count: false,
-      include,
-    });
-    loading = false;
-    articles = items;
-  });
+  export let articles = [];
 </script>
 
 <style lang="scss">
@@ -55,13 +19,9 @@
     <h2 class="subtitle">{$_('pages.home.last_subtitle')}</h2>
   </div>
   <Divider />
-  {#if !articles.length && loading}
-    <Loader message={$_('loading')} />
-  {:else}
-    <div class="columns is-multiline">
-      {#each articles as article}
-        <SingleArticleBlock {article} />
-      {/each}
-    </div>
-  {/if}
+  <div class="columns is-multiline">
+    {#each articles as article}
+      <SingleArticleBlock {article} />
+    {/each}
+  </div>
 </section>
