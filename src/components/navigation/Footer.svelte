@@ -2,8 +2,7 @@
   import { _ } from "svelte-i18n";
   import { stores } from "@sapper/app";
   import { footer } from "./items";
-
-  export let footerData;
+  import { HOST_LABOITE } from "../../settings";
 
   const { page } = stores();
 </script>
@@ -29,11 +28,10 @@
     <div class="navbar-start">
       {#each footer as { path, text }}
         <a
-          rel="prefetch"
           class:is-active={$page.path === path}
           class="navbar-item"
-          target={footerData[text] && footerData[text].external ? '_blank' : ''}
-          href={footerData[text] && footerData[text].external ? footerData[text].link : path}>
+          target="_blank"
+          href="{HOST_LABOITE}{path}">
           {$_(`links.${text}`)}
         </a>
       {/each}

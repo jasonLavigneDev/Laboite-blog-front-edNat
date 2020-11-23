@@ -20,18 +20,18 @@ export const items = [
 export const footer = [
   {
     text: "legal",
-    path: "/legal-notice",
+    path: "/legal/legalnotice",
   },
   {
     text: "accessibility",
-    path: "/accessibility",
+    path: "/legal/accessibility",
   },
   {
     text: "gcu",
-    path: "/conditions",
+    path: "/legal/conditions",
   },
   {
     text: "personalData",
-    path: "/personal-data",
+    path: "/legal/personal-data",
   },
 ];

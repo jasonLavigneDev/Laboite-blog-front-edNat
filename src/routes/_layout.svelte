@@ -1,21 +1,9 @@
 <script context="module">
   import { waitLocale } from "svelte-i18n";
   import "../utils/theme/index.css";
-  import { fetchData } from "../utils/api/methods";
 
   export async function preload() {
     waitLocale();
-    const fields = {};
-    const apiurl = "legal-texts";
-
-    const { items } = await fetchData({
-      fields,
-      apiurl,
-      count: false,
-    });
-    return {
-      footerData: items,
-    };
   }
 </script>
 
@@ -23,7 +11,6 @@
   import "../utils/locales/index";
   import Nav from "../components/navigation/Nav.svelte";
   import Footer from "../components/navigation/Footer.svelte";
-  export let footerData;
 </script>
 
 <style global lang="scss">
@@ -42,4 +29,4 @@
   <slot />
 </main>
 
-<Footer {footerData} />
+<Footer />
