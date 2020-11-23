@@ -2,39 +2,41 @@
   import { fetchData } from "../../../utils/api/methods";
   import { structureOptions } from "../_academies";
 
-  export async function preload({ params, query, path }) {
-    const { page = 1, search = "" } = query;
+  export async function preload({ params }) {
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
 
-    const limit = 4;
-    const fields = {};
-    const order = "articlesCount DESC";
-    const apiurl = "authors";
-    const where = { articlesCount: { gt: 0 }, structure: academy.value };
-    const include = [
-      {
-        relation: "articles",
-        scope: {
-          fields: {
-            content: false,
-          },
-          limit: 2,
-          order: ["createdAt DESC"],
-        },
-      },
-    ];
-
-    const { items } = await fetchData({
-      limit,
-      order,
-      fields,
+    const { items: authors } = await fetchData({
+      limit: 6,
+      order: "articlesCount DESC",
+      fields: {},
       count: false,
-      apiurl,
-      where,
-      include,
+      apiurl: "authors",
+      where: { articlesCount: { gt: 0 }, structure: academy.value },
     });
+    const { items: articles } = await fetchData({
+      limit: 4,
+      order: "createdAt DESC",
+      fields: { content: false },
+      count: false,
+      apiurl: "articles",
+      where: { structure: academy.value },
+      include: [
+        {
+          relation: "user",
+          scope: {
+            fields: {
+              username: false,
+              structure: false,
+              articlesCount: false,
+            },
+          },
+        },
+      ],
+    });
+
     return {
-      authors: items,
+      authors,
+      articles,
       academy,
     };
   }
@@ -45,8 +47,10 @@
 
   import LastPublished from "../../../components/academies/LastPublished.svelte";
   import { identity } from "../../../settings";
+  import Authors from "../../../components/academies/Authors.svelte";
 
   export let academy;
+  export let articles;
   export let authors;
 </script>
 
@@ -64,5 +68,6 @@
   <div class="container">
     <h1 class="title">{academy.label}</h1>
   </div>
-  <LastPublished {authors} {academy} />
+  <Authors {authors} {academy} />
+  <LastPublished {articles} {academy} />
 </PageTransition>
