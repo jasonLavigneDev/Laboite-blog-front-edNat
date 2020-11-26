@@ -41,11 +41,11 @@
   import { _ } from "svelte-i18n";
   import Divider from "../../../../components/common/Divider.svelte";
   import PageTransition from "../../../../components/common/PageTransition.svelte";
-  import SingleAuthorBlock from "../../../../components/authors/SingleAuthorBlock.svelte";
   import SearchField from "../../../../components/common/SearchField.svelte";
   import Pagination from "../../../../components/common/Pagination.svelte";
   import Loader from "../../../../components/common/Loader.svelte";
   import NoResults from "../../../../components/common/NoResults.svelte";
+  import AuthorIdCard from "../../../../components/authors/AuthorIdCard.svelte";
 
   export let authors = [];
   export let total = 0;
@@ -58,7 +58,7 @@
 </script>
 
 <style lang="scss">
-  .box {
+  .box-transparent {
     margin-bottom: var(--space-between);
   }
   .container .title {
@@ -76,15 +76,22 @@
         {academy.label}
       </h1></a>
   </div>
-  <section class="box">
+  <section class="box-transparent">
     <div class="container">
       <h1 class="title">{$_('pages.authors.title')}</h1>
       <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
     </div>
     <Divider />
-    <SearchField bind:loading {query} {path} />
-    <Divider transparent />
-    <Pagination {total} {page} {limit} {query} {path} bind:loading />
+    <div class="columns is-multiline">
+      <div class="column is-half is-full-mobile">
+        <SearchField bind:loading {query} {path} />
+      </div>
+      <div class="column is-half is-full-mobile">
+        {#if !loading}
+          <Pagination {total} {page} {limit} {query} {path} bind:loading />
+        {/if}
+      </div>
+    </div>
 
     {#if loading}
       <Loader message={$_('loading')} />
@@ -92,7 +99,9 @@
     {#if authors.length}
       <div class="columns is-multiline">
         {#each authors as author}
-          <SingleAuthorBlock {author} />
+          <div class="column is-one-third is-half-tablet is-full-mobile">
+            <AuthorIdCard {author} />
+          </div>
         {/each}
       </div>
     {:else}

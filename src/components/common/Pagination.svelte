@@ -21,24 +21,25 @@
     })}`;
 </script>
 
-{#if total > limit}
-  <nav class="pagination" role="navigation" aria-label="pagination">
-    {#if page !== 1}
-      <a
-        class="pagination-previous"
-        rel="prefetch"
-        on:click={setLoader}
-        href={urlMaker(page - 1)}>{$_('components.Pagination.previous')}</a>
-    {/if}
-    {#if page !== array.length}
-      <a
-        class="pagination-next"
-        rel="prefetch"
-        on:click={setLoader}
-        href={urlMaker(page + 1)}>{$_('components.Pagination.next')}</a>
-    {/if}
+<style>
+  .pagination-previous {
+    order: 0 !important;
+  }
+</style>
 
+{#if total > limit}
+  <nav
+    class="pagination is-primary is-right"
+    role="navigation"
+    aria-label="pagination">
     <ul class="pagination-list">
+      {#if page !== 1}
+        <a
+          class="pagination-previous"
+          rel="prefetch"
+          on:click={setLoader}
+          href={urlMaker(page - 1)}>{$_('components.Pagination.previous')}</a>
+      {/if}
       {#if array.length >= 10 && [1, 2].indexOf(page) === -1}
         <li>
           <a
@@ -89,6 +90,13 @@
             class:is-current={array.length === page}
             aria-label="Goto last page">{array.length}</a>
         </li>
+      {/if}
+      {#if page !== array.length}
+        <a
+          class="pagination-next"
+          rel="prefetch"
+          on:click={setLoader}
+          href={urlMaker(page + 1)}>{$_('components.Pagination.next')}</a>
       {/if}
     </ul>
   </nav>

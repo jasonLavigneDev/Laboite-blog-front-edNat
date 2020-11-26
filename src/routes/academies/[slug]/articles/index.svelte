@@ -72,7 +72,7 @@
 </script>
 
 <style lang="scss">
-  .box {
+  .box-transparent {
     margin-bottom: var(--space-between);
   }
   .container .title {
@@ -90,15 +90,22 @@
         {academy.label}
       </h1></a>
   </div>
-  <section class="box">
+  <section class="box-transparent">
     <div class="container">
       <h1 class="title">{$_('pages.articles.title')}: {total}</h1>
       <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
     </div>
     <Divider />
-    <SearchField bind:loading {query} {path} />
-    <Divider transparent />
-    <Pagination {total} {page} {limit} {query} {path} bind:loading />
+    <div class="columns is-multiline">
+      <div class="column is-half is-full-mobile">
+        <SearchField bind:loading {query} {path} />
+      </div>
+      <div class="column is-half is-full-mobile">
+        {#if !loading}
+          <Pagination {total} {page} {limit} {query} {path} bind:loading />
+        {/if}
+      </div>
+    </div>
 
     {#if loading}
       <Loader message={$_('loading')} />

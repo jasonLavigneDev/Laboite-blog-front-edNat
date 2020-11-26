@@ -21,6 +21,26 @@
   .hidden {
     display: none;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .title {
+    font-family: "WorkSansBold" !important;
+  }
+
+  .title,
+  .subtitle,
+  p,
+  .content {
+    color: var(--texts);
+  }
+  .box-transparent {
+    padding: 20px;
+  }
 </style>
 
 <Nav />

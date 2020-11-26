@@ -68,6 +68,6 @@
   <div class="container">
     <h1 class="title">{academy.label}</h1>
   </div>
-  <Authors {authors} {academy} />
   <LastPublished {articles} {academy} />
+  <Authors {authors} {academy} />
 </PageTransition>

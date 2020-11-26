@@ -31,6 +31,12 @@
   };
 </script>
 
+<style>
+  .button.is-secondary {
+    background-color: var(--secondary);
+  }
+</style>
+
 <form on:submit={submit}>
   <div class="field has-addons">
     <p class="control" class:is-loading={loading}>
@@ -43,7 +49,7 @@
     </p>
     <div class="control">
       <a
-        class="button is-info"
+        class="button is-primary"
         rel="prefetch"
         on:click={setLoader}
         href={urlMaker(search)}>
@@ -54,7 +60,7 @@
     {#if search}
       <div class="control">
         <a
-          class="button is-warning"
+          class="button is-secondary"
           rel="prefetch"
           on:click={resetSearch}
           href={urlMaker()}>

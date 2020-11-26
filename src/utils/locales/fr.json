@@ -43,6 +43,9 @@
       "link": "Lire l'article entier",
       "written_by": "Écrit par"
     },
+    "SingleAcademy": {
+      "articles": "Nombre d'articles"
+    },
     "AuthorIdCard": {
       "academy": "Académie",
       "articles": "Nombre d'articles",

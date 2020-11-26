@@ -60,7 +60,7 @@
 <PageTransition>
   <div class="columns is-multiline">
     <div class="column is-three-quarters is-full-mobile">
-      <div class="box">
+      <section class="box-transparent">
         <div class="title is-4">{article.title}</div>
 
         <div class="content">
@@ -70,7 +70,7 @@
             {@html article.content}
           {/if}
         </div>
-      </div>
+      </section>
     </div>
     <div class="column is-one-quarters is-full-mobile">
       <AuthorIdCard {author} full />

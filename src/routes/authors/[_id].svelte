@@ -47,6 +47,7 @@
   import Loader from "../../components/common/Loader.svelte";
   import Pagination from "../../components/common/Pagination.svelte";
   import NoResults from "../../components/common/NoResults.svelte";
+  import Avatar from "../../components/authors/Avatar.svelte";
 
   export let articles = [];
   export let author = {};
@@ -59,8 +60,11 @@
 </script>
 
 <style lang="scss">
-  .box {
+  .box-transparent {
     margin-bottom: var(--space-between);
+  }
+  .media-content .content * {
+    color: var(--texts);
   }
 </style>
 
@@ -69,16 +73,33 @@
 </svelte:head>
 
 <PageTransition>
-  <section class="box">
+  <section class="box-transparent">
     <div class="container">
-      <h1 class="title">{author.firstName} {author.lastName}</h1>
-      <h2 class="subtitle">{author.username}</h2>
-      <div>{author.structure}</div>
+      <article class="media">
+        <figure class="media-left">
+          <Avatar avatar={author.avatar} firstName={author.firstName} />
+        </figure>
+
+        <div class="media-content">
+          <div class="content">
+            <h1 class="title">{author.firstName} {author.lastName}</h1>
+            <div class="subtitle">{author.username}</div>
+            <div>{author.structure}</div>
+          </div>
+        </div>
+      </article>
     </div>
     <Divider />
-    <SearchField bind:loading {query} {path} />
-    <Divider transparent />
-    <Pagination {total} {page} {limit} {query} {path} bind:loading />
+    <div class="columns is-multiline">
+      <div class="column is-half is-full-mobile">
+        <SearchField bind:loading {query} {path} />
+      </div>
+      <div class="column is-half is-full-mobile">
+        {#if !loading}
+          <Pagination {total} {page} {limit} {query} {path} bind:loading />
+        {/if}
+      </div>
+    </div>
 
     {#if loading}
       <Loader message={$_('loading')} />
