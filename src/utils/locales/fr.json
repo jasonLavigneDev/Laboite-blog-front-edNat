@@ -33,7 +33,9 @@
     },
     "academy": {
       "authors_title": "Les auteurs de l'académie",
-      "authors_subtitle": "Visitez leur page"
+      "authors_subtitle": "Visitez leur page",
+      "all_articles": "Voir tous les articles",
+      "all_authors": "Voir tous les auteurs"
     }
   },
   "components": {
