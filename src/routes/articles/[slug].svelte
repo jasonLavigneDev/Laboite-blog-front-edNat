@@ -21,6 +21,7 @@
   import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
   import SingleTagLink from "../../components/common/SingleTagLink.svelte";
+  import BackButton from "../../components/navigation/BackButton.svelte";
 
   export let article, author;
 </script>
@@ -58,6 +59,7 @@
 </svelte:head>
 
 <PageTransition>
+  <BackButton previousLocation="/articles" useHistory={true} />
   <div class="columns is-multiline">
     <div class="column is-three-quarters is-full-mobile">
       <section class="box-transparent">

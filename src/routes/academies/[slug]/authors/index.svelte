@@ -46,6 +46,7 @@
   import Loader from "../../../../components/common/Loader.svelte";
   import NoResults from "../../../../components/common/NoResults.svelte";
   import AuthorIdCard from "../../../../components/authors/AuthorIdCard.svelte";
+  import BackButton from "../../../../components/navigation/BackButton.svelte";
 
   export let authors = [];
   export let total = 0;
@@ -57,22 +58,14 @@
   export let academy;
 </script>
 
-<style lang="scss">
-  .box-transparent {
-    margin-bottom: var(--space-between);
-  }
-  .container .title {
-    margin-bottom: var(--space-between);
-  }
-</style>
-
 <svelte:head>
   <title>{identity.title} | {academy.label} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>
-  <div class="container">
-    <a href="/academies/{academy.slug}" rel="prefetch"><h1 class="title">
+  <BackButton previousLocation="/academies/{academy.slug}" />
+  <div class="container box-transparent">
+    <a href="/academies/{academy.slug}" rel="prefetch"><h1 class="title is-2">
         {academy.label}
       </h1></a>
   </div>

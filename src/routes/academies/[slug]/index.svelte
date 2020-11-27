@@ -48,25 +48,21 @@
   import LastPublished from "../../../components/academies/LastPublished.svelte";
   import { identity } from "../../../settings";
   import Authors from "../../../components/academies/Authors.svelte";
+  import BackButton from "../../../components/navigation/BackButton.svelte";
 
   export let academy;
   export let articles;
   export let authors;
 </script>
 
-<style>
-  .container .title {
-    margin-bottom: var(--space-between);
-  }
-</style>
-
 <svelte:head>
   <title>{identity.title} | {academy.label}</title>
 </svelte:head>
 
 <PageTransition>
-  <div class="container">
-    <h1 class="title">{academy.label}</h1>
+  <BackButton previousLocation="/academies" />
+  <div class="container box-transparent">
+    <h1 class="title is-2">{academy.label}</h1>
   </div>
   <LastPublished {articles} {academy} />
   <Authors {authors} {academy} />

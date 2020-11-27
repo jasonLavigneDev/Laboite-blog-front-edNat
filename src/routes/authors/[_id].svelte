@@ -48,6 +48,7 @@
   import Pagination from "../../components/common/Pagination.svelte";
   import NoResults from "../../components/common/NoResults.svelte";
   import Avatar from "../../components/authors/Avatar.svelte";
+  import BackButton from "../../components/navigation/BackButton.svelte";
 
   export let articles = [];
   export let author = {};
@@ -73,6 +74,7 @@
 </svelte:head>
 
 <PageTransition>
+  <BackButton previousLocation="/authors" useHistory={true} />
   <section class="box-transparent">
     <div class="container">
       <article class="media">

@@ -11,6 +11,9 @@
   import "../utils/locales/index";
   import Nav from "../components/navigation/Nav.svelte";
   import Footer from "../components/navigation/Footer.svelte";
+  import { trackLocation } from "../utils/functions/locationTracker";
+
+  trackLocation();
 </script>
 
 <style global lang="scss">
