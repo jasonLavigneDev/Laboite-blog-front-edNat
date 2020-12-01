@@ -45,8 +45,6 @@
         return list;
       });
     }
-
-    console.log(article);
   });
 </script>
 
