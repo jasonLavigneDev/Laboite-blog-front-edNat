@@ -1,7 +1,7 @@
 <script>
   export let tag;
   export let disabled = false;
-  export let onDelete;
+  export let onDelete = null;
 </script>
 
 <style lang="scss">

@@ -15,9 +15,6 @@
   };
 </script>
 
-<style lang="scss">
-</style>
-
 <section class="box-transparent">
   <button class="button" on:click={goBackward}>
     <span class="icon"> <i class="fa fa-arrow-left" /> </span>

@@ -15,6 +15,10 @@ export const items = [
     text: "links.authors",
     path: "/authors",
   },
+  {
+    text: "links.favorites",
+    path: "/favorites",
+  },
 ];
 
 export const footer = [

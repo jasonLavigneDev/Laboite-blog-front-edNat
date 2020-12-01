@@ -1,12 +1,13 @@
 <script>
   import { _ } from "svelte-i18n";
   import { stores } from "@sapper/app";
-  import { items } from "./items";
   import { fade } from "svelte/transition";
+  import { items } from "./items";
   import MobileMenu from "./MobileMenu.svelte";
 
   const { page } = stores();
   let mobileMenu = false;
+
   const toggleMobileMenu = () => {
     mobileMenu = !mobileMenu;
   };

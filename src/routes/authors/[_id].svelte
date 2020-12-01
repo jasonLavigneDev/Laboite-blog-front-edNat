@@ -54,6 +54,7 @@
   import Avatar from "../../components/authors/Avatar.svelte";
   import BackButton from "../../components/navigation/BackButton.svelte";
   import TagsFilter from "../../components/common/TagsFilter.svelte";
+  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
 
   export let articles = [];
   export let author = {};
@@ -73,6 +74,13 @@
   .media-content .content * {
     color: var(--texts);
   }
+  .favorites {
+    display: flex;
+    justify-content: flex-end;
+    .box-transparent {
+      padding-right: 0px;
+    }
+  }
 </style>
 
 <svelte:head>
@@ -80,7 +88,16 @@
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/authors" useHistory={true} />
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <BackButton previousLocation="/authors" useHistory={true} />
+    </div>
+    <div class="column is-half favorites">
+      <div class="box-transparent">
+        <FavoritesButton type="author" itemId={author._id} />
+      </div>
+    </div>
+  </div>
   <section class="box-transparent">
     <div class="container">
       <article class="media">

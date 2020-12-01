@@ -20,14 +20,14 @@
   import SvelteMarkdown from "svelte-markdown";
   import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
-  import SingleTagLink from "../../components/common/SingleTag.svelte";
   import BackButton from "../../components/navigation/BackButton.svelte";
   import SingleTag from "../../components/common/SingleTag.svelte";
+  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
 
   export let article, author;
 </script>
 
-<style>
+<style lang="scss">
   .content :global(h2) {
     font-size: 1.4em;
     font-weight: 500;
@@ -53,6 +53,13 @@
   .content :global(li) {
     margin: 0 0 0.5em 0;
   }
+  .favorites {
+    display: flex;
+    justify-content: flex-end;
+    .box-transparent {
+      padding-right: 0px;
+    }
+  }
 </style>
 
 <svelte:head>
@@ -60,7 +67,16 @@
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/articles" useHistory={true} />
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <BackButton previousLocation="/articles" useHistory={true} />
+    </div>
+    <div class="column is-half favorites">
+      <div class="box-transparent">
+        <FavoritesButton type="article" itemId={article._id} />
+      </div>
+    </div>
+  </div>
   <div class="columns is-multiline">
     <div class="column is-three-quarters is-full-mobile">
       <section class="box-transparent">

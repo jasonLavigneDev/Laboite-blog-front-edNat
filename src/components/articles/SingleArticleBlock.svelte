@@ -24,6 +24,10 @@
     margin-bottom: 10px;
     text-align: justify;
   }
+  .favorites {
+    display: flex;
+    justify-content: flex-end;
+  }
 </style>
 
 <div class="column is-half is-full-mobile ">
@@ -45,6 +49,7 @@
         <SingleTag {tag} />
       {/each}
     </div>
+
     <BigLink
       link="/articles/{article.slug}"
       text={$_('components.SingleArticleBlock.link')} />

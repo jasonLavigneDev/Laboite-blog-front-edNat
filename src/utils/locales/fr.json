@@ -8,6 +8,7 @@
     "articles": "Articles",
     "academies": "Académies",
     "authors": "Auteurs",
+    "favorites": "Favoris",
     "legal": "Mentions légales",
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
@@ -33,6 +34,18 @@
       "title": "La liste des académies françaises",
       "subtitle": "Visitez la page de votre académie"
     },
+    "favorites": {
+      "title": "Vos articles et auteurs favoris",
+      "subtitle": "blablabla",
+      "articles_title": "Liste de vos articles",
+      "articles_subtitle": "articles_subtitle",
+      "authors_title": "Liste de vos auteurs",
+      "authors_subtitle": "Visitez leur page",
+      "noauthors_title": "Vous n'avez aucun auteurs dans vos favoris",
+      "noauthors_subtitle": "noauthors_subtitle",
+      "noarticles_title": "Vous n'avez aucun articles dans vos favoris",
+      "noarticles_subtitle": "noarticles_subtitle"
+    },
     "academy": {
       "authors_title": "Les auteurs de l'académie",
       "authors_subtitle": "Visitez leur page",
@@ -45,10 +58,20 @@
       "link": "Lire l'article entier",
       "written_by": "Écrit par"
     },
+    "SmallArticleBlock": {
+      "link": "Lire",
+      "written_by": "Écrit par",
+      "written_on": "le"
+    },
     "SingleAcademy": {
       "articles": "Nombre d'articles"
     },
     "AuthorIdCard": {
+      "academy": "Académie",
+      "articles": "Nombre d'articles",
+      "all_articles": "Voir tous les articles"
+    },
+    "SmallAuthorIdCard": {
       "academy": "Académie",
       "articles": "Nombre d'articles",
       "all_articles": "Voir tous les articles"
