@@ -9,9 +9,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     position: absolute;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(255, 255, 255, 0.6);
     z-index: 10;
   }

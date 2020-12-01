@@ -8,13 +8,10 @@
 
   export let query = {};
   export let path;
-  export let loading;
   export let tagsList = [];
 
   let opened = false;
   let queryTags = query.tags ? query.tags.split(",") : [];
-
-  const setLoader = () => (loading = true);
 
   const resetUrl = () =>
     `${path}?${toQuery({
@@ -26,7 +23,6 @@
   const toggleOpened = () => (opened = !opened);
 
   const deleteTag = (tag) => {
-    setLoader();
     const tagIndex = queryTags.findIndex((t) => tag === t);
     const tagsArray = [...queryTags];
     if (tagsArray.length === 1) {
@@ -43,7 +39,6 @@
     }
   };
   const addTag = (tag) => {
-    setLoader();
     const tagsArray = [...queryTags];
     tagsArray.push(tag);
     const tagsString = tagsArray.join(",");
@@ -81,7 +76,7 @@
       on:click={toggleOpened}>{$_('components.TagsFilters.close')}</span>
     {#if query.tags}
       {' - '}
-      <a rel="prefetch" on:click={setLoader} href={resetUrl()}>
+      <a rel="prefetch" href={resetUrl()}>
         {$_('components.TagsFilters.reset')}
       </a>
     {/if}

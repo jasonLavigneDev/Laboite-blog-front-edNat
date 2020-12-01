@@ -5,7 +5,7 @@
 
 <style>
   div {
-    position: relative;
+    position: inherit;
   }
 </style>
 

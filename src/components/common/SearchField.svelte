@@ -8,8 +8,6 @@
   export let loading;
   let search = query.search || "";
 
-  const setLoader = () => (loading = true);
-
   const urlMaker = (search) =>
     `${path}?${toQuery({
       ...query,
@@ -21,13 +19,11 @@
     if (event.preventDefault) {
       event.preventDefault();
     }
-    setLoader();
     goto(urlMaker(search));
   };
 
   const resetSearch = () => {
     search = "";
-    setLoader();
   };
 </script>
 
@@ -48,11 +44,7 @@
         placeholder={$_('components.SearchField.placeholder')} />
     </p>
     <div class="control">
-      <a
-        class="button is-primary"
-        rel="prefetch"
-        on:click={setLoader}
-        href={urlMaker(search)}>
+      <a class="button is-primary" rel="prefetch" href={urlMaker(search)}>
         <i class="fas fa-search" />
       </a>
     </div>

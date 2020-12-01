@@ -29,20 +29,19 @@
       page: Number(page),
       query,
       path,
-      loading: false,
     };
   }
 </script>
 
 <script>
   import { _ } from "svelte-i18n";
+  import { stores } from "@sapper/app";
   import Divider from "../../components/common/Divider.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
   import Pagination from "../../components/common/Pagination.svelte";
-  import Loader from "../../components/common/Loader.svelte";
   import NoResults from "../../components/common/NoResults.svelte";
   import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
+  import PageTransition from "../../components/common/PageTransition.svelte";
 
   export let authors = [];
   export let total = 0;
@@ -50,7 +49,7 @@
   export let page = 1;
   export let query = {};
   export let path = "";
-  export let loading = false;
+  const { preloading } = stores();
 </script>
 
 <style lang="scss">
@@ -73,18 +72,15 @@
 
     <div class="columns is-multiline">
       <div class="column is-half is-full-mobile">
-        <SearchField bind:loading {query} {path} />
+        <SearchField loading={$preloading} {query} {path} />
       </div>
       <div class="column is-half is-full-mobile">
-        {#if !loading}
-          <Pagination {total} {page} {limit} {query} {path} bind:loading />
+        {#if !$preloading}
+          <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>
     </div>
 
-    {#if loading}
-      <Loader message={$_('loading')} />
-    {/if}
     {#if authors.length}
       <div class="columns is-multiline">
         {#each authors as author}
@@ -96,6 +92,6 @@
     {:else}
       <NoResults query={!!Object.keys(query).length} />
     {/if}
-    <Pagination {total} {page} {limit} {query} {path} bind:loading />
+    <Pagination {total} {page} {limit} {query} {path} />
   </section>
 </PageTransition>

@@ -1,12 +1,9 @@
 <script>
   import { onMount } from "svelte";
-  import PageTransition from "../components/common/PageTransition.svelte";
-  import Authors from "../components/academies/Authors.svelte";
-  import BackButton from "../components/navigation/BackButton.svelte";
-  import LastPublished from "../components/academies/LastPublished.svelte";
 
   import { identity } from "../settings";
   import { fetchData } from "../utils/api/methods";
+
   import {
     favoritesArticles,
     favoritesAuthors,
@@ -15,10 +12,11 @@
   import FavoritesArticles from "../components/favorites/FavoritesArticles.svelte";
   import FavoritesAuthors from "../components/favorites/FavoritesAuthors.svelte";
   import Loader from "../components/common/Loader.svelte";
+  import PageTransition from "../components/common/PageTransition.svelte";
 
   let articles = [];
   let authors = [];
-  let loading = true;
+  let loading = false;
 
   const getFavorites = async () => {
     loading = true;
@@ -65,13 +63,15 @@
 </svelte:head>
 
 <PageTransition>
-  <div class="container box-transparent">
-    <h1 class="title is-2">{$_('pages.favorites.title')}</h1>
-  </div>
+  <section class="box-transparent">
+    <div class="container">
+      <h1 class="title is-2">{$_('pages.favorites.title')}</h1>
+    </div>
 
-  {#if loading}
-    <Loader message={$_('loading')} />
-  {/if}
-  <FavoritesArticles {articles} />
-  <FavoritesAuthors {authors} />
+    {#if loading}
+      <Loader message={$_('loading')} />
+    {/if}
+    <FavoritesArticles {articles} />
+    <FavoritesAuthors {authors} />
+  </section>
 </PageTransition>

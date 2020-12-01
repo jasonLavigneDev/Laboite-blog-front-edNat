@@ -55,6 +55,9 @@
 </script>
 
 <style lang="scss">
+  .content {
+    text-align: justify;
+  }
   .content :global(h2) {
     font-size: 1.4em;
     font-weight: 500;
@@ -115,7 +118,7 @@
     </div>
     <div class="columns is-multiline">
       <div
-        class="column is-three-quarters-fullhd is-full-desktop is-full-tablet">
+        class="column is-three-quarters-widescreen is-full-desktop is-full-tablet">
         <section class="box-transparent">
           <div class="title is-4">{article.title}</div>
 
@@ -128,7 +131,8 @@
           </div>
         </section>
       </div>
-      <div class="column is-one-quarter-fullhd is-full-desktop is-full-tablet">
+      <div
+        class="column is-one-quarter-widescreen is-full-desktop is-full-tablet">
         <div class="box-transparent">
           <AuthorIdCard {author} full />
           <div class="box">

@@ -43,14 +43,13 @@
 </script>
 
 <script>
-  import PageTransition from "../../../components/common/PageTransition.svelte";
-
   import LastPublished from "../../../components/academies/LastPublished.svelte";
   import { identity } from "../../../settings";
   import Authors from "../../../components/academies/Authors.svelte";
   import BackButton from "../../../components/navigation/BackButton.svelte";
   import { onMount } from "svelte";
   import { lastAcademy } from "../../../utils/functions/stores";
+  import PageTransition from "../../../components/common/PageTransition.svelte";
 
   export let academy;
   export let articles;

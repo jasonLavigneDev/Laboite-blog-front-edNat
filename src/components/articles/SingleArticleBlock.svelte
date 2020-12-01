@@ -26,10 +26,6 @@
     margin-bottom: 10px;
     text-align: justify;
   }
-  .favorites {
-    display: flex;
-    justify-content: flex-end;
-  }
   .blank {
     flex-grow: 1;
     display: flex;
@@ -58,7 +54,7 @@
     </div>
     <div class="blank">
       <BigLink
-        link="/articles/{article.slug}ferferf"
+        link="/articles/{article.slug}"
         text={$_('components.SingleArticleBlock.link')} />
     </div>
   </div>

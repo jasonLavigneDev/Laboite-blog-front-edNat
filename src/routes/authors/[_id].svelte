@@ -1,5 +1,5 @@
 <script context="module">
-  import { api, identity } from "../../settings";
+  import { api, identity, IN_TRANSITION } from "../../settings";
   import { fetchData, getTags } from "../../utils/api/methods";
   import fetcher from "isomorphic-fetch";
 
@@ -35,7 +35,6 @@
       page: Number(page),
       query,
       path,
-      loading: false,
       author,
       tagsList,
     };
@@ -44,17 +43,17 @@
 
 <script>
   import { _ } from "svelte-i18n";
+  import { stores } from "@sapper/app";
   import Divider from "../../components/common/Divider.svelte";
   import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
-  import Loader from "../../components/common/Loader.svelte";
   import Pagination from "../../components/common/Pagination.svelte";
   import NoResults from "../../components/common/NoResults.svelte";
   import Avatar from "../../components/authors/Avatar.svelte";
   import BackButton from "../../components/navigation/BackButton.svelte";
   import TagsFilter from "../../components/common/TagsFilter.svelte";
   import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import PageTransition from "../../components/common/PageTransition.svelte";
 
   export let articles = [];
   export let author = {};
@@ -63,8 +62,8 @@
   export let page = 1;
   export let query = {};
   export let path = "";
-  export let loading = false;
   export let tagsList = [];
+  const { preloading } = stores();
 </script>
 
 <style lang="scss">
@@ -117,23 +116,20 @@
     <Divider />
     <div class="columns is-multiline">
       <div class="column is-half is-full-mobile">
-        <SearchField bind:loading {query} {path} />
+        <SearchField loading={$preloading} {query} {path} />
       </div>
       <div class="column is-half is-full-mobile">
-        {#if !loading}
-          <Pagination {total} {page} {limit} {query} {path} bind:loading />
+        {#if !$preloading}
+          <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>
       <div class="column is-full">
-        {#if !loading}
-          <TagsFilter bind:loading {query} {path} {tagsList} />
+        {#if !$preloading}
+          <TagsFilter loading={$preloading} {query} {path} {tagsList} />
         {/if}
       </div>
     </div>
 
-    {#if loading}
-      <Loader message={$_('loading')} />
-    {/if}
     {#if articles.length}
       <div class="columns is-multiline">
         {#each articles as article}
@@ -143,6 +139,6 @@
     {:else}
       <NoResults query={!!Object.keys(query).length} />
     {/if}
-    <Pagination {total} {page} {limit} {query} {path} bind:loading />
+    <Pagination {total} {page} {limit} {query} {path} />
   </section>
 </PageTransition>

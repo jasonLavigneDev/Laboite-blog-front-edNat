@@ -2,9 +2,9 @@
   import { _ } from "svelte-i18n";
   import { identity } from "../../settings";
   import Divider from "../../components/common/Divider.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
   import { structureOptions } from "./_academies";
   import SingleAcademy from "../../components/academies/SingleAcademy.svelte";
+  import PageTransition from "../../components/common/PageTransition.svelte";
 </script>
 
 <style lang="scss">
