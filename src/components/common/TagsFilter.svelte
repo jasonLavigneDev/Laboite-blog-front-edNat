@@ -63,6 +63,9 @@
   .toggle {
     cursor: pointer;
   }
+  .tags {
+    margin-top: 5px;
+  }
 </style>
 
 {#if !opened}
