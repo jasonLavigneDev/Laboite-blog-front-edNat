@@ -24,17 +24,29 @@
   import BackButton from "../../components/navigation/BackButton.svelte";
   import SingleTag from "../../components/common/SingleTag.svelte";
   import FavoritesButton from "../../components/common/FavoritesButton.svelte";
-  import { lastRead } from "../../utils/functions/stores";
+  import { articlesRead } from "../../utils/functions/stores";
 
   export let article, author;
-  onMount(() => {
-    lastRead.update((list) => {
-      list.unshift(article._id);
-      if (list.length > 4) {
-        list.length = 4;
-      }
-      return list;
-    });
+  onMount(async () => {
+    if (!$articlesRead.find((i) => i === article._id)) {
+      await fetcher(`${api.host}/articles/${article._id}/read`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          visits: article.visits + 1,
+        }),
+      });
+      articlesRead.update((list) => {
+        if (!list.find((i) => i === article._id)) {
+          list.unshift(article._id);
+        }
+        return list;
+      });
+    }
+
+    console.log(article);
   });
 </script>
 
@@ -67,9 +79,9 @@
   .favorites {
     display: flex;
     justify-content: flex-end;
-    .box-transparent {
-      padding-right: 0px;
-    }
+  }
+  .last-box {
+    margin-bottom: var(--space-between);
   }
 </style>
 
@@ -78,7 +90,7 @@
 </svelte:head>
 
 <PageTransition>
-  <div class="columns is-multiline">
+  <div class="columns is-multiline is-mobile">
     <div class="column is-half">
       <BackButton previousLocation="/articles" useHistory={true} />
     </div>
@@ -89,7 +101,7 @@
     </div>
   </div>
   <div class="columns is-multiline">
-    <div class="column is-three-quarters is-full-mobile">
+    <div class="column is-three-quarters-fullhd is-full-desktop is-full-tablet">
       <section class="box-transparent">
         <div class="title is-4">{article.title}</div>
 
@@ -102,14 +114,23 @@
         </div>
       </section>
     </div>
-    <div class="column is-one-quarters is-full-mobile">
-      <AuthorIdCard {author} full />
-      <div class="box">
-        <div class="title is-5">{$_('pages.article.tags')}</div>
-        <div class="tags">
-          {#each article.tags as tag}
-            <SingleTag {tag} />
-          {/each}
+    <div class="column is-one-quarter-fullhd is-full-desktop is-full-tablet">
+      <div class="box-transparent">
+        <AuthorIdCard {author} full />
+        <div class="box">
+          <div class="title is-5">{$_('pages.article.tags')}</div>
+          <div class="tags">
+            {#each article.tags as tag}
+              <SingleTag {tag} />
+            {/each}
+          </div>
+        </div>
+        <div class="box last-box">
+          <div class="title is-5">
+            {$_('pages.article.read_times')}
+            :
+            {article.visits}
+          </div>
         </div>
       </div>
     </div>

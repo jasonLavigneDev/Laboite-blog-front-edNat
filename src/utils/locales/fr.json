@@ -28,7 +28,8 @@
       "subtitle": "Recherchez dans la liste des articles"
     },
     "article": {
-      "tags": "Tags"
+      "tags": "Tags",
+      "read_times": "Nombre de lectures"
     },
     "authors": {
       "title": "La liste des auteurs",

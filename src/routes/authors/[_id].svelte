@@ -88,7 +88,7 @@
 </svelte:head>
 
 <PageTransition>
-  <div class="columns is-multiline">
+  <div class="columns is-multiline is-mobile">
     <div class="column is-half">
       <BackButton previousLocation="/authors" useHistory={true} />
     </div>
