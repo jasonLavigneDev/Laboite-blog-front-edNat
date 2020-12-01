@@ -2,6 +2,7 @@
   "loading": "Chargement",
   "articles": "Articles",
   "back": "Retour",
+  "menu": "Menu",
   "links": {
     "home": "Accueil",
     "articles": "Articles",
@@ -63,6 +64,12 @@
     "NoResults": {
       "title": "Aucun résultats",
       "subtitle": "Reformulez votre recherche"
+    },
+    "TagsFilters": {
+      "filter": "Filtrer la recherche par tag",
+      "reset": "Effacer",
+      "open": "Filtrer par tag",
+      "close": "Fermer"
     }
   }
 }

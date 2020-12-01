@@ -28,6 +28,9 @@ $card-radius: 8px;
 $pagination-current-background-color: var(--primary);
 $pagination-current-border-color: var(--primary);
 $pagination-focus-border-color: var(--primary);
+
+@import "../../../node_modules/bulma/bulma.sass";
+
 // Import only what you need from Bulma
 // Base
 // @import "../../../node_modules/bulma/sass/utilities/_all.sass";
@@ -36,7 +39,6 @@ $pagination-focus-border-color: var(--primary);
 // @import "../../../node_modules/bulma/sass/helpers/_all.sass";
 // @import "../../../node_modules/bulma/sass/grid/_all.sass";
 // @import "../../../node_modules/bulma/sass/layout/_all.sass";
-@import "../../../node_modules/bulma/bulma.sass";
 
 // Components
 // @import "../../../node_modules/bulma/sass/components/navbar.sass";

@@ -20,8 +20,9 @@
   import SvelteMarkdown from "svelte-markdown";
   import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
-  import SingleTagLink from "../../components/common/SingleTagLink.svelte";
+  import SingleTagLink from "../../components/common/SingleTag.svelte";
   import BackButton from "../../components/navigation/BackButton.svelte";
+  import SingleTag from "../../components/common/SingleTag.svelte";
 
   export let article, author;
 </script>
@@ -80,7 +81,7 @@
         <div class="title is-5">{$_('pages.article.tags')}</div>
         <div class="tags">
           {#each article.tags as tag}
-            <SingleTagLink {tag} />
+            <SingleTag {tag} />
           {/each}
         </div>
       </div>

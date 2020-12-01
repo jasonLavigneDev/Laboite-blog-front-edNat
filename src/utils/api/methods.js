@@ -41,3 +41,13 @@ export async function fetchData({
   }
   return { items, total };
 }
+
+export async function getTags() {
+  const queryFilters = { fields: { _id: false } };
+  const response = await fetcher(
+    `${api.host}/tags?filter=${JSON.stringify(queryFilters)}`
+  );
+  const items = await response.json();
+  const tags = items.map(({ name }) => name);
+  return tags;
+}

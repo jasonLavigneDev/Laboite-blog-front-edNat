@@ -1,17 +1,19 @@
 <script context="module">
   import { api, identity } from "../../settings";
-  import { fetchData } from "../../utils/api/methods";
+  import { fetchData, getTags } from "../../utils/api/methods";
   import fetcher from "isomorphic-fetch";
 
   export async function preload({ params, query, path }) {
-    const { page = 1, search = "" } = query;
+    const { page = 1, search = "", tags } = query;
 
     const limit = 10;
     const fields = { content: false, _id: false, updatedAt: false };
     const searchFields = ["description", "title", "slug", "tags"];
     const order = "createdAt DESC";
     const apiurl = `articles`;
-    const where = { userId: params._id };
+    const where = tags
+      ? { userId: params._id, tags: { inq: [tags] } }
+      : { userId: params._id };
 
     const { items, total } = await fetchData({
       limit,
@@ -25,6 +27,7 @@
     });
     const responseAuthor = await fetcher(`${api.host}/authors/${params._id}`);
     const author = await responseAuthor.json();
+    const tagsList = await getTags();
     return {
       articles: items,
       total,
@@ -34,6 +37,7 @@
       path,
       loading: false,
       author,
+      tagsList,
     };
   }
 </script>
@@ -49,6 +53,7 @@
   import NoResults from "../../components/common/NoResults.svelte";
   import Avatar from "../../components/authors/Avatar.svelte";
   import BackButton from "../../components/navigation/BackButton.svelte";
+  import TagsFilter from "../../components/common/TagsFilter.svelte";
 
   export let articles = [];
   export let author = {};
@@ -58,6 +63,7 @@
   export let query = {};
   export let path = "";
   export let loading = false;
+  export let tagsList = [];
 </script>
 
 <style lang="scss">
@@ -99,6 +105,11 @@
       <div class="column is-half is-full-mobile">
         {#if !loading}
           <Pagination {total} {page} {limit} {query} {path} bind:loading />
+        {/if}
+      </div>
+      <div class="column is-full">
+        {#if !loading}
+          <TagsFilter bind:loading {query} {path} {tagsList} />
         {/if}
       </div>
     </div>
