@@ -101,7 +101,7 @@
       </div>
       <div class="column is-full">
         {#if !$preloading}
-          <TagsFilter loading={$preloading} {query} {path} {tagsList} />
+          <TagsFilter {query} {path} {tagsList} />
         {/if}
       </div>
     </div>
@@ -115,7 +115,7 @@
     {:else}
       <NoResults query={!!Object.keys(query).length} />
     {/if}
-    {#if !loading}
+    {#if !$preloading}
       <Pagination {total} {page} {limit} {query} {path} />
     {/if}
   </section>

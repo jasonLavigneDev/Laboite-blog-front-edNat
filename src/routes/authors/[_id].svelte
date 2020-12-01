@@ -125,7 +125,7 @@
       </div>
       <div class="column is-full">
         {#if !$preloading}
-          <TagsFilter loading={$preloading} {query} {path} {tagsList} />
+          <TagsFilter {query} {path} {tagsList} />
         {/if}
       </div>
     </div>

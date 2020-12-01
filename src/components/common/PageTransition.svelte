@@ -1,6 +1,6 @@
 <script>
-  import { fly, fade } from "svelte/transition";
-  let inTransition = { y: 100, duration: 600, delay: 200 };
+  import { fly, fade, blur } from "svelte/transition";
+  let inTransition = { y: 100, duration: 600, delay: 100 };
 </script>
 
 <style>
@@ -9,6 +9,6 @@
   }
 </style>
 
-<div in:fly={inTransition} out:fade={{ duration: 200 }}>
+<div in:blur|local={inTransition} out:blur|local={{ duration: 200 }}>
   <slot />
 </div>

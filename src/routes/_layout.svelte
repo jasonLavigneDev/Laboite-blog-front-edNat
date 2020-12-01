@@ -52,10 +52,11 @@
 
 <Nav />
 
+{#if $preloading}
+  <Loader message={$_('loading')} />
+{/if}
+
 <main class="container">
-  {#if $preloading}
-    <Loader message={$_('loading')} />
-  {/if}
   <slot />
 </main>
 

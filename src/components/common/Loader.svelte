@@ -31,7 +31,7 @@
   }
 </style>
 
-<div class="wrapper" transition:fade>
+<div class="wrapper" transition:fade|local={{ duration: 200, delay: 200 }}>
   <div class="loader-wrapper">
     <img src={loader} class="loader-svg" alt="loader" />
     {#if message}<span class="subtitle">{message}</span>{/if}

@@ -68,7 +68,7 @@
     class="toggle"
     on:click={toggleOpened}>{$_('components.TagsFilters.open')}</span>
 {:else}
-  <div class="main-header" transition:slide>
+  <div class="main-header">
     <span class="subtitle">{$_('components.TagsFilters.filter')}</span>
     {' - '}
     <span
@@ -88,7 +88,7 @@
       .filter((t) => queryTags.findIndex((qt) => qt === t) === -1)
       .map((t) => ({ value: t, label: t }))} />
 {/if}
-<div class="tags" transition:slide>
+<div class="tags">
   {#each queryTags as tag}
     <SingleTag {tag} onDelete={() => deleteTag(tag)} />
   {/each}

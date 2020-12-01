@@ -16,10 +16,8 @@
 
   let articles = [];
   let authors = [];
-  let loading = false;
 
   const getFavorites = async () => {
-    loading = true;
     const resultsAuthors = await fetchData({
       limit: 6,
       order: "articlesCount DESC",
@@ -50,7 +48,6 @@
     });
     authors = resultsAuthors.items;
     articles = resultsArticles.items;
-    loading = false;
   };
 
   onMount(getFavorites);
@@ -68,9 +65,6 @@
       <h1 class="title is-2">{$_('pages.favorites.title')}</h1>
     </div>
 
-    {#if loading}
-      <Loader message={$_('loading')} />
-    {/if}
     <FavoritesArticles {articles} />
     <FavoritesAuthors {authors} />
   </section>
