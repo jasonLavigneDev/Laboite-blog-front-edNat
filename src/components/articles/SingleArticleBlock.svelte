@@ -9,6 +9,8 @@
 <style lang="scss">
   .box {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .subtitle.is-6 {
     color: var(--lightgrey2) !important;
@@ -27,6 +29,11 @@
   .favorites {
     display: flex;
     justify-content: flex-end;
+  }
+  .blank {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
   }
 </style>
 
@@ -49,9 +56,10 @@
         <SingleTag {tag} />
       {/each}
     </div>
-
-    <BigLink
-      link="/articles/{article.slug}"
-      text={$_('components.SingleArticleBlock.link')} />
+    <div class="blank">
+      <BigLink
+        link="/articles/{article.slug}"
+        text={$_('components.SingleArticleBlock.link')} />
+    </div>
   </div>
 </div>
