@@ -17,7 +17,11 @@
   "pages": {
     "home": {
       "last_title": "Derniers articles",
-      "last_subtitle": "Voici les derniers articles publiés"
+      "last_subtitle": "Voici les derniers articles publiés",
+      "last_read_title": "Vos lectures",
+      "last_read_subtitle": "Voulez-vous les relire ?",
+      "your_academy_title": "Votre académie",
+      "your_academy_subtitle": "Retrouver les articles et les auteurs qui vous concernent"
     },
     "articles": {
       "title": "Les articles",
@@ -34,6 +38,14 @@
       "title": "La liste des académies françaises",
       "subtitle": "Visitez la page de votre académie"
     },
+    "academy": {
+      "authors_title": "Les auteurs de l'académie",
+      "authors_subtitle": "Visitez leur page",
+      "all_articles": "Voir tous les articles",
+      "all_authors": "Voir tous les auteurs",
+      "last_title": "Derniers articles",
+      "last_subtitle": "Voici les derniers articles publiés"
+    },
     "favorites": {
       "title": "Vos articles et auteurs favoris",
       "subtitle": "blablabla",
@@ -45,12 +57,6 @@
       "noauthors_subtitle": "noauthors_subtitle",
       "noarticles_title": "Vous n'avez aucun articles dans vos favoris",
       "noarticles_subtitle": "noarticles_subtitle"
-    },
-    "academy": {
-      "authors_title": "Les auteurs de l'académie",
-      "authors_subtitle": "Visitez leur page",
-      "all_articles": "Voir tous les articles",
-      "all_authors": "Voir tous les auteurs"
     }
   },
   "components": {

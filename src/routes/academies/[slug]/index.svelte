@@ -49,10 +49,15 @@
   import { identity } from "../../../settings";
   import Authors from "../../../components/academies/Authors.svelte";
   import BackButton from "../../../components/navigation/BackButton.svelte";
+  import { onMount } from "svelte";
+  import { lastAcademy } from "../../../utils/functions/stores";
 
   export let academy;
   export let articles;
   export let authors;
+  onMount(() => {
+    lastAcademy.set(academy.value);
+  });
 </script>
 
 <svelte:head>

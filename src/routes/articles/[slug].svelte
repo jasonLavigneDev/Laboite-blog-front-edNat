@@ -18,13 +18,24 @@
 <script>
   import { _ } from "svelte-i18n";
   import SvelteMarkdown from "svelte-markdown";
+  import { onMount } from "svelte";
   import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
   import BackButton from "../../components/navigation/BackButton.svelte";
   import SingleTag from "../../components/common/SingleTag.svelte";
   import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import { lastRead } from "../../utils/functions/stores";
 
   export let article, author;
+  onMount(() => {
+    lastRead.update((list) => {
+      list.unshift(article._id);
+      if (list.length > 4) {
+        list.length = 4;
+      }
+      return list;
+    });
+  });
 </script>
 
 <style lang="scss">
