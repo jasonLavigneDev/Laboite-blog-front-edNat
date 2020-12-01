@@ -11,7 +11,7 @@
   export let loading;
   export let tagsList = [];
 
-  let opened = !!query.tags;
+  let opened = false;
   let queryTags = query.tags ? query.tags.split(",") : [];
 
   const setLoader = () => (loading = true);
@@ -92,9 +92,9 @@
     options={tagsList
       .filter((t) => queryTags.findIndex((qt) => qt === t) === -1)
       .map((t) => ({ value: t, label: t }))} />
-  <div class="tags" transition:slide>
-    {#each queryTags as tag}
-      <SingleTag {tag} onDelete={() => deleteTag(tag)} />
-    {/each}
-  </div>
 {/if}
+<div class="tags" transition:slide>
+  {#each queryTags as tag}
+    <SingleTag {tag} onDelete={() => deleteTag(tag)} />
+  {/each}
+</div>

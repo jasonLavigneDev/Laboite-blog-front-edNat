@@ -1,7 +1,7 @@
 <script>
   import { _ } from "svelte-i18n";
   import BigLink from "../common/BigLink.svelte";
-  import SingleTagLink from "../common/SingleTagLink.svelte";
+  import SingleTag from "../common/SingleTag.svelte";
 
   export let article;
 </script>
@@ -42,7 +42,7 @@
     </div>
     <div class="tags">
       {#each article.tags as tag}
-        <SingleTagLink {tag} />
+        <SingleTag {tag} />
       {/each}
     </div>
     <BigLink
