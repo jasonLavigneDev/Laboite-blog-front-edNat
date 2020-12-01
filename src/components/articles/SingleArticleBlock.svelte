@@ -58,7 +58,7 @@
     </div>
     <div class="blank">
       <BigLink
-        link="/articles/{article.slug}"
+        link="/articles/{article.slug}ferferf"
         text={$_('components.SingleArticleBlock.link')} />
     </div>
   </div>

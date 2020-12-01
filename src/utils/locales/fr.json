@@ -29,7 +29,9 @@
     },
     "article": {
       "tags": "Tags",
-      "read_times": "Nombre de lectures"
+      "read_times": "Nombre de lectures",
+      "no_article_title": "Article non trouvé",
+      "no_article_subtitle": "Aucun article n'a été trouvé sur cet URL"
     },
     "authors": {
       "title": "La liste des auteurs",
