@@ -50,7 +50,6 @@
     })}`;
     goto(url);
   };
-  $: console.log(queryTags, query);
 </script>
 
 <style>
