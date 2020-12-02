@@ -1,6 +1,5 @@
 import { writable, derived } from "svelte/store";
 import { beforeUpdate } from "svelte";
-import { loader } from "./stores";
 
 export const location = writable({
   current: undefined,
@@ -19,8 +18,8 @@ export function trackLocation() {
   beforeUpdate(() => {
     if (typeof window !== "undefined") {
       location.update((l) => {
-        if (l.current && l.current.pathname !== window.location.pathname) {
-          loader.set(true);
+        if (l.current && l.current.pathname === window.location.pathname) {
+          return l;
         }
         return {
           previous: l.current,

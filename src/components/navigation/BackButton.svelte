@@ -6,11 +6,11 @@
   export let previousLocation;
   export let useHistory = false;
   const goBackward = async () => {
-    if (!useHistory || !$location.previous) {
+    console.log(useHistory, previousLocation, $location.previous);
+    if (!useHistory || !$location || !$location.previous) {
       await goto(previousLocation);
     } else {
       await goto($location.previous.pathname);
-      //   window.history.back();
     }
   };
 </script>
