@@ -45,7 +45,6 @@
       page: Number(page),
       query,
       path,
-      loading: false,
       tagsList,
     };
   }
@@ -68,7 +67,6 @@
   export let page = 1;
   export let query = {};
   export let path = "";
-  export let loading = false;
   export let tagsList = [];
   const { preloading } = stores();
 </script>
