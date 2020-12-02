@@ -9,9 +9,10 @@
   export let query = {};
   export let path;
   export let tagsList = [];
-
+  let queryTags;
   let opened = false;
-  let queryTags = query.tags ? query.tags.split(",") : [];
+
+  $: queryTags = query.tags ? query.tags.split(",") : [];
 
   const resetUrl = () =>
     `${path}?${toQuery({
@@ -49,6 +50,7 @@
     })}`;
     goto(url);
   };
+  $: console.log(queryTags, query);
 </script>
 
 <style>

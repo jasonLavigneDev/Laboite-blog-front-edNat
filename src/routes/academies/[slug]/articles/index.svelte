@@ -3,7 +3,7 @@
   import { fetchData, getTags } from "../../../../utils/api/methods";
 
   export async function preload({ params, query, path }) {
-    const { page = 1, search = "", tags = [] } = query;
+    const { page = 1, search = "", tags } = query;
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
 
     const limit = 10;
