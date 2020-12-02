@@ -19,7 +19,19 @@ export function trackLocation() {
     if (typeof window !== "undefined") {
       location.update((l) => {
         if (l.current && l.current.pathname === window.location.pathname) {
-          return l;
+          return {
+            previous: l.previous,
+            current: { ...window.location },
+          };
+        } else if (
+          l.current &&
+          l.previous &&
+          window.location.href === l.previous.href
+        ) {
+          return {
+            previous: null,
+            current: { ...window.location },
+          };
         }
         return {
           previous: l.current,

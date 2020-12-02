@@ -10,7 +10,7 @@
     if (!useHistory || !$location || !$location.previous) {
       await goto(previousLocation);
     } else {
-      await goto($location.previous.pathname);
+      await goto(`${$location.previous.pathname}${$location.previous.search}`);
     }
   };
 </script>
