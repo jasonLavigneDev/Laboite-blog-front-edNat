@@ -17,7 +17,6 @@
 
 <script>
   import { _ } from "svelte-i18n";
-  import SvelteMarkdown from "svelte-markdown";
   import { onMount } from "svelte";
   import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
@@ -26,10 +25,17 @@
   import FavoritesButton from "../../components/common/FavoritesButton.svelte";
   import { articlesRead } from "../../utils/functions/stores";
   import NoResults from "../../components/common/NoResults.svelte";
-  import BigLink from "../../components/common/BigLink.svelte";
+  let MarkdownViewer;
 
   export let article, author;
+
   onMount(async () => {
+    if (article.markdown) {
+      const module = await import(
+        "../../components/articles/MarkdownViewer.svelte"
+      );
+      MarkdownViewer = module.default;
+    }
     if (
       article &&
       article._id &&
@@ -124,7 +130,9 @@
 
           <div class="content">
             {#if article.markdown}
-              <SvelteMarkdown source={article.content} />
+              <svelte:component
+                this={MarkdownViewer}
+                content={article.content} />
             {:else}
               {@html article.content}
             {/if}
@@ -134,7 +142,7 @@
       <div
         class="column is-one-quarter-widescreen is-full-desktop is-full-tablet">
         <div class="box-transparent">
-          <AuthorIdCard {author} full />
+          <AuthorIdCard {author} />
           <div class="box">
             <div class="title is-5">{$_('pages.article.tags')}</div>
             <div class="tags">
