@@ -73,13 +73,6 @@
   .media-content .content * {
     color: var(--texts);
   }
-  .favorites {
-    display: flex;
-    justify-content: flex-end;
-    .box-transparent {
-      padding-right: 0px;
-    }
-  }
 </style>
 
 <svelte:head>
@@ -91,7 +84,7 @@
     <div class="column is-half">
       <BackButton previousLocation="/authors" useHistory={true} />
     </div>
-    <div class="column is-half favorites">
+    <div class="column is-half fav-button-wrap">
       <div class="box-transparent">
         <FavoritesButton type="author" itemId={author._id} />
       </div>

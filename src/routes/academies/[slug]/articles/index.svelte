@@ -5,6 +5,16 @@
   export async function preload({ params, query, path }) {
     const { page = 1, search = "", tags } = query;
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
+    const isResearchLink = !!tags || !!search;
+    const request =
+      !!tags || !!search
+        ? {
+            path,
+            query: { search, tags },
+            type: "articles",
+            academy,
+          }
+        : null;
 
     const limit = 10;
     const fields = { content: false, _id: false, updatedAt: false };
@@ -49,6 +59,8 @@
       path,
       academy,
       tagsList,
+      isResearchLink,
+      request,
     };
   }
 </script>
@@ -65,6 +77,7 @@
   import BackButton from "../../../../components/navigation/BackButton.svelte";
   import TagsFilter from "../../../../components/common/TagsFilter.svelte";
   import PageTransition from "../../../../components/common/PageTransition.svelte";
+  import FavoritesButton from "../../../../components/common/FavoritesButton.svelte";
 
   export let articles = [];
   export let total = 0;
@@ -74,6 +87,8 @@
   export let path = "";
   export let tagsList = [];
   export let academy;
+  export let isResearchLink;
+  export let request;
   const { preloading } = stores();
 </script>
 
@@ -89,9 +104,22 @@
       </h1></a>
   </div>
   <section class="box-transparent">
-    <div class="container">
-      <h1 class="title">{$_('pages.articles.title')}: {total}</h1>
-      <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+    <div class="columns is-multiline is-mobile">
+      <div
+        class="column"
+        class:is-full={!isResearchLink}
+        class:is-half={isResearchLink}>
+        <h1 class="title">{$_('pages.articles.title')}: {total}</h1>
+        <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+      </div>
+      {#if isResearchLink}
+        <div class="column is-half fav-button-wrap">
+          <div class="box-transparent">
+            <div>{$_('save_research')}</div>
+            <FavoritesButton type="research" itemId={JSON.stringify(request)} />
+          </div>
+        </div>
+      {/if}
     </div>
     <Divider />
     <div class="columns is-multiline">

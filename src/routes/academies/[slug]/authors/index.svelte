@@ -6,6 +6,15 @@
   export async function preload({ params, query, path }) {
     const { page = 1, search = "" } = query;
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
+    const isResearchLink = !!search;
+    const request = !!search
+      ? {
+          path,
+          query: { search },
+          academy,
+          type: "authors",
+        }
+      : null;
 
     const limit = 9;
     const fields = {};
@@ -32,6 +41,8 @@
       query,
       path,
       academy,
+      isResearchLink,
+      request,
     };
   }
 </script>
@@ -46,6 +57,7 @@
   import AuthorIdCard from "../../../../components/authors/AuthorIdCard.svelte";
   import BackButton from "../../../../components/navigation/BackButton.svelte";
   import PageTransition from "../../../../components/common/PageTransition.svelte";
+  import FavoritesButton from "../../../../components/common/FavoritesButton.svelte";
 
   export let authors = [];
   export let total = 0;
@@ -54,6 +66,8 @@
   export let query = {};
   export let path = "";
   export let academy;
+  export let isResearchLink;
+  export let request;
   const { preloading } = stores();
 </script>
 
@@ -69,9 +83,22 @@
       </h1></a>
   </div>
   <section class="box-transparent">
-    <div class="container">
-      <h1 class="title">{$_('pages.authors.title')}</h1>
-      <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
+    <div class="columns is-multiline is-mobile">
+      <div
+        class="column"
+        class:is-full={!isResearchLink}
+        class:is-half={isResearchLink}>
+        <h1 class="title">{$_('pages.authors.title')}: {total}</h1>
+        <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
+      </div>
+      {#if isResearchLink}
+        <div class="column is-half fav-button-wrap">
+          <div class="box-transparent">
+            <div>{$_('save_research')}</div>
+            <FavoritesButton type="research" itemId={JSON.stringify(request)} />
+          </div>
+        </div>
+      {/if}
     </div>
     <Divider />
     <div class="columns is-multiline">

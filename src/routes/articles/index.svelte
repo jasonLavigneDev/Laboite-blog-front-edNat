@@ -2,9 +2,17 @@
   import { identity } from "../../settings";
   import { fetchData, getTags } from "../../utils/api/methods";
 
-  export async function preload({ params, query, path }) {
+  export async function preload({ query, path }) {
     const { page = 1, search = "", tags } = query;
-
+    const isResearchLink = !!tags || !!search;
+    const request =
+      !!tags || !!search
+        ? {
+            path,
+            query: { search, tags },
+            type: "articles",
+          }
+        : null;
     const limit = 10;
     const fields = { content: false, _id: false, updatedAt: false };
     const searchFields = ["description", "title", "slug", "tags"];
@@ -46,6 +54,8 @@
       query,
       path,
       tagsList,
+      isResearchLink,
+      request,
     };
   }
 </script>
@@ -60,6 +70,7 @@
   import NoResults from "../../components/common/NoResults.svelte";
   import TagsFilter from "../../components/common/TagsFilter.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
+  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
 
   export let articles = [];
   export let total = 0;
@@ -68,6 +79,8 @@
   export let query = {};
   export let path = "";
   export let tagsList = [];
+  export let isResearchLink;
+  export let request;
   const { preloading } = stores();
 </script>
 
@@ -83,9 +96,22 @@
 
 <PageTransition>
   <section class="box-transparent">
-    <div class="container">
-      <h1 class="title">{$_('pages.articles.title')}: {total}</h1>
-      <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+    <div class="columns is-multiline is-mobile">
+      <div
+        class="column"
+        class:is-full={!isResearchLink}
+        class:is-half={isResearchLink}>
+        <h1 class="title">{$_('pages.articles.title')}: {total}</h1>
+        <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+      </div>
+      {#if isResearchLink}
+        <div class="column is-half fav-button-wrap">
+          <div class="box-transparent">
+            <div>{$_('save_research')}</div>
+            <FavoritesButton type="research" itemId={JSON.stringify(request)} />
+          </div>
+        </div>
+      {/if}
     </div>
     <Divider />
     <div class="columns is-multiline">

@@ -11,8 +11,8 @@
   import { _ } from "svelte-i18n";
   import FavoritesArticles from "../components/favorites/FavoritesArticles.svelte";
   import FavoritesAuthors from "../components/favorites/FavoritesAuthors.svelte";
-  import Loader from "../components/common/Loader.svelte";
   import PageTransition from "../components/common/PageTransition.svelte";
+  import FavoritesResearch from "../components/favorites/FavoritesResearch.svelte";
 
   let articles = [];
   let authors = [];
@@ -66,5 +66,6 @@
     </div>
   </section>
   <FavoritesArticles {articles} />
+  <FavoritesResearch />
   <FavoritesAuthors {authors} />
 </PageTransition>

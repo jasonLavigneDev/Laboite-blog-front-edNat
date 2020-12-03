@@ -89,10 +89,6 @@
   .content :global(li) {
     margin: 0 0 0.5em 0;
   }
-  .favorites {
-    display: flex;
-    justify-content: flex-end;
-  }
   .last-box {
     margin-bottom: var(--space-between);
   }
@@ -116,7 +112,7 @@
       <div class="column is-half">
         <BackButton previousLocation="/articles" useHistory={true} />
       </div>
-      <div class="column is-half favorites">
+      <div class="column is-half fav-button-wrap">
         <div class="box-transparent">
           <FavoritesButton type="article" itemId={article._id} />
         </div>

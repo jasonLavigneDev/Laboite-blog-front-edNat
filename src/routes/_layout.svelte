@@ -48,6 +48,18 @@
   .box-transparent {
     padding: 20px;
   }
+
+  .fav-button-wrap {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .fav-button-wrap .box-transparent {
+    display: flex;
+    align-items: center;
+    div {
+      margin-right: 5px;
+    }
+  }
 </style>
 
 <Nav />

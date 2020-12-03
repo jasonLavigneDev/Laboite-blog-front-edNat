@@ -3,6 +3,7 @@
   "articles": "Articles",
   "back": "Retour",
   "menu": "Menu",
+  "save_research": "Enregistrer la recherche",
   "links": {
     "home": "Accueil",
     "articles": "Articles",
@@ -61,7 +62,11 @@
       "noauthors_title": "Vous n'avez aucun auteurs dans vos favoris",
       "noauthors_subtitle": "noauthors_subtitle",
       "noarticles_title": "Vous n'avez aucun articles dans vos favoris",
-      "noarticles_subtitle": "noarticles_subtitle"
+      "noarticles_subtitle": "noarticles_subtitle",
+      "research_title": "Vos recherches",
+      "research_subtitle": "Retrouvez vos résultats en un clin d'oeil",
+      "noresearch_title": "Aucune recherche enregistrée",
+      "noresearch_subtitle": "noresearch_subtitle"
     }
   },
   "components": {
@@ -104,6 +109,11 @@
       "reset": "Effacer",
       "open": "Filtrer par tag",
       "close": "Fermer"
+    },
+    "SingleResearch": {
+      "type": "Type",
+      "search": "Recherche",
+      "go": "Voir les résultats"
     }
   }
 }
