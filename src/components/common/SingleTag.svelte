@@ -8,7 +8,7 @@
   .tag {
     text-decoration: none;
     transition: all 0.2s ease-in-out;
-    cursor: pointer;
+    // cursor: pointer;
     background-color: var(--secondary);
     color: var(--tertiary);
     border-radius: 20px;

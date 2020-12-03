@@ -24,12 +24,10 @@
   const toggleOpened = () => (opened = !opened);
 
   const deleteTag = (tag) => {
-    const tagIndex = queryTags.findIndex((t) => tag === t);
-    const tagsArray = [...queryTags];
-    if (tagsArray.length === 1) {
+    if (queryTags.length === 1) {
       goto(resetUrl());
     } else {
-      tagsArray.splice(tagIndex, 1);
+      const tagsArray = queryTags.filter((t) => tag !== t);
       const tagsString = tagsArray.join(",");
       const url = `${path}?${toQuery({
         ...query,

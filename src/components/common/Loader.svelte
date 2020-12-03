@@ -1,5 +1,5 @@
 <script>
-  import loader from "../common/loader2.svg";
+  import loader from "../common/loader.svg";
   import { fade } from "svelte/transition";
   export let message;
 </script>

@@ -1,9 +1,13 @@
 <script>
   import { _ } from "svelte-i18n";
+  import { stores } from "@sapper/app";
   import BigLink from "../common/BigLink.svelte";
   import SingleTag from "../common/SingleTag.svelte";
+  const { page } = stores();
 
   export let article;
+  let queryTags = [];
+  $: queryTags = $page.query.tags ? $page.query.tags.split(",") : [];
 </script>
 
 <style lang="scss">
@@ -49,7 +53,9 @@
     </div>
     <div class="tags">
       {#each article.tags as tag}
-        <SingleTag {tag} />
+        <SingleTag
+          {tag}
+          disabled={!!queryTags.length && queryTags.filter((t) => t !== tag).length === queryTags.length} />
       {/each}
     </div>
     <div class="blank">

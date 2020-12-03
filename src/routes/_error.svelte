@@ -6,25 +6,9 @@
 </script>
 
 <style>
-  h1,
-  p {
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-size: 2.8em;
-    font-weight: 700;
-    margin: 0 0 0.5em 0;
-  }
-
-  p {
-    margin: 1em auto;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      font-size: 4em;
-    }
+  .title,
+  .subtitle {
+    text-align: center;
   }
 </style>
 
@@ -32,10 +16,14 @@
   <title>{status}</title>
 </svelte:head>
 
-<h1>{status}</h1>
-
-<p>{error.message}</p>
-
-{#if dev && error.stack}
-  <pre>{error.stack}</pre>
-{/if}
+<section class="hero is-medium is-grey is-bold is-centered">
+  <div class="hero-body">
+    <div class="container">
+      <div class="title is-1">{status}</div>
+      <div class="subtitle is-3">{error.message}</div>
+      {#if dev && error.stack}
+        <pre>{error.stack}</pre>
+      {/if}
+    </div>
+  </div>
+</section>

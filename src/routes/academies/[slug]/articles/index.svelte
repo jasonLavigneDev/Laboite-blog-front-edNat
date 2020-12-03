@@ -12,7 +12,7 @@
     const order = "createdAt DESC";
     const apiurl = "articles";
     const where = tags
-      ? { tags: { inq: [tags] }, structure: academy.value }
+      ? { tags: { inq: tags.split(",") }, structure: academy.value }
       : { structure: academy.value };
     const include = [
       {
