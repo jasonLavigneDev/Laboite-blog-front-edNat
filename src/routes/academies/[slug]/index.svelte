@@ -47,24 +47,50 @@
   import { identity } from "../../../settings";
   import Authors from "../../../components/academies/Authors.svelte";
   import BackButton from "../../../components/navigation/BackButton.svelte";
-  import { onMount } from "svelte";
-  import { lastAcademy } from "../../../utils/functions/stores";
   import PageTransition from "../../../components/common/PageTransition.svelte";
+  import SingleFavoriteButton from "../../../components/common/SingleFavoriteButton.svelte";
+  import { onMount } from "svelte";
+  import { lastAcademies } from "../../../utils/functions/stores";
 
   export let academy;
   export let articles;
   export let authors;
+
   onMount(() => {
-    lastAcademy.set(academy.value);
+    lastAcademies.update((list) => {
+      if (!list.find((i) => i === academy.value)) {
+        list.unshift(academy.value);
+      }
+      if (list.length > 4) {
+        list.length = 4;
+      }
+      return list;
+    });
   });
 </script>
+
+<style>
+  .favorites {
+    display: flex;
+    justify-content: flex-end;
+  }
+</style>
 
 <svelte:head>
   <title>{identity.title} | {academy.label}</title>
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/academies" />
+  <div class="columns is-multiline is-mobile">
+    <div class="column is-half">
+      <BackButton previousLocation="/academies" useHistory={true} />
+    </div>
+    <div class="column is-half favorites">
+      <div class="box-transparent">
+        <SingleFavoriteButton type="academy" itemId={academy.value} />
+      </div>
+    </div>
+  </div>
   <div class="container box-transparent">
     <h1 class="title is-2">{academy.label}</h1>
   </div>

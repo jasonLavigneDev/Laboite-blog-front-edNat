@@ -20,8 +20,10 @@
       "last_subtitle": "Voici les derniers articles publiés",
       "last_read_title": "Vos lectures",
       "last_read_subtitle": "Voulez-vous les relire ?",
-      "your_academy_title": "Votre académie",
-      "your_academy_subtitle": "Retrouver les articles et les auteurs qui vous concernent"
+      "your_academy_title": "Votre académie favorite",
+      "your_academy_subtitle": "Retrouver les articles et les auteurs qui vous concernent",
+      "last_academies_title": "Vos académies",
+      "last_academies_subtitle": "Retrouver les académies que vous avez consulté"
     },
     "articles": {
       "title": "Les articles",

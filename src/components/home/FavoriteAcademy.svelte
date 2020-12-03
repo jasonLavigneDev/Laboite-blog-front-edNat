@@ -2,7 +2,7 @@
   import { _ } from "svelte-i18n";
 
   import { structureOptions } from "../../routes/academies/_academies";
-  import { lastAcademy } from "../../utils/functions/stores";
+  import { favoritesAcademy } from "../../utils/functions/stores";
   import SingleAcademy from "../academies/SingleAcademy.svelte";
   import Divider from "../common/Divider.svelte";
 </script>
@@ -21,5 +21,5 @@
   <Divider />
 
   <SingleAcademy
-    academy={structureOptions.find((t) => t.value === $lastAcademy)} />
+    academy={structureOptions.find((t) => t.value === $favoritesAcademy)} />
 </section>

@@ -30,12 +30,17 @@
 
 <script>
   import PageTransition from "../components/common/PageTransition.svelte";
-  import LastAcademy from "../components/home/LastAcademy.svelte";
+  import FavoriteAcademy from "../components/home/FavoriteAcademy.svelte";
 
   import LastPublished from "../components/home/LastPublished.svelte";
   import LastRead from "../components/home/LastRead.svelte";
+  import LastAcademies from "../components/home/LastAcademies.svelte";
   import { identity } from "../settings";
-  import { lastAcademy, lastRead } from "../utils/functions/stores";
+  import {
+    favoritesAcademy,
+    lastAcademies,
+    lastRead,
+  } from "../utils/functions/stores";
 
   export let articles;
 </script>
@@ -45,11 +50,14 @@
 </svelte:head>
 
 <PageTransition>
-  {#if $lastAcademy}
-    <LastAcademy />
+  {#if $favoritesAcademy}
+    <FavoriteAcademy />
   {/if}
   <LastPublished {articles} />
   {#if $lastRead.length}
     <LastRead />
+  {/if}
+  {#if $lastAcademies.length}
+    <LastAcademies />
   {/if}
 </PageTransition>
