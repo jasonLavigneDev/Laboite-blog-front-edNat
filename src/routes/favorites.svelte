@@ -59,7 +59,7 @@
 </script>
 
 <svelte:head>
-  <title>{$session.env.IDENTITY} | {$_('links.favorites')}</title>
+  <title>{$_('title')} | {$_('links.favorites')}</title>
 </svelte:head>
 
 <PageTransition>

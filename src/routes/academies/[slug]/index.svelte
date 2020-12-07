@@ -40,7 +40,6 @@
       authors,
       articles,
       academy,
-      env,
     };
   }
 </script>
@@ -53,11 +52,11 @@
   import SingleFavoriteButton from "../../../components/common/SingleFavoriteButton.svelte";
   import { onMount } from "svelte";
   import { lastAcademies } from "../../../utils/functions/stores";
+  import { _ } from "svelte-i18n";
 
   export let academy;
   export let articles;
   export let authors;
-  export let env;
 
   onMount(() => {
     lastAcademies.update((list) => {
@@ -80,7 +79,7 @@
 </style>
 
 <svelte:head>
-  <title>{env.IDENTITY} | {academy.label}</title>
+  <title>{$_('title')} | {academy.label}</title>
 </svelte:head>
 
 <PageTransition>

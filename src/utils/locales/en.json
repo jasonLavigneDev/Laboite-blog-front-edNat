@@ -1,12 +1,120 @@
 {
-  "home": "Home",
+  "title": "LaBoite - Le blog",
+  "loading": "Chargement",
   "articles": "Articles",
-  "academies": "Academies",
-  "authors": "Authors",
+  "back": "Retour",
+  "menu": "Menu",
+  "save_research": "Enregistrer la recherche",
+  "links": {
+    "home": "Accueil",
+    "articles": "Articles",
+    "academies": "Académies",
+    "authors": "Auteurs",
+    "favorites": "Favoris",
+    "legal": "Mentions légales",
+    "accessibility": "Accessibilité",
+    "gcu": "Conditions générales d'utilisation",
+    "personalData": "Données personnelles"
+  },
   "pages": {
     "home": {
-      "title": "Un titre",
-      "subtitle": "un sous titre"
+      "last_title": "Derniers articles",
+      "last_subtitle": "Voici les derniers articles publiés",
+      "last_read_title": "Vos lectures",
+      "last_read_subtitle": "Voulez-vous les relire ?",
+      "your_academy_title": "Votre académie favorite",
+      "your_academy_subtitle": "Retrouver les articles et les auteurs qui vous concernent",
+      "last_academies_title": "Vos académies",
+      "last_academies_subtitle": "Retrouver les académies que vous avez consulté"
+    },
+    "articles": {
+      "title": "Les articles",
+      "subtitle": "Recherchez dans la liste des articles"
+    },
+    "article": {
+      "tags": "Tags",
+      "read_times": "Nombre de lectures",
+      "no_article_title": "Article non trouvé",
+      "no_article_subtitle": "Aucun article n'a été trouvé sur cet URL"
+    },
+    "authors": {
+      "title": "La liste des auteurs",
+      "subtitle": "Recherchez dans la liste des auteurs"
+    },
+    "academies": {
+      "title": "La liste des académies françaises",
+      "subtitle": "Visitez la page de votre académie"
+    },
+    "academy": {
+      "authors_title": "Les auteurs de l'académie",
+      "authors_subtitle": "Visitez leur page",
+      "all_articles": "Voir tous les articles",
+      "all_authors": "Voir tous les auteurs",
+      "last_title": "Derniers articles",
+      "last_subtitle": "Voici les derniers articles publiés"
+    },
+    "favorites": {
+      "title": "Vos articles et auteurs favoris",
+      "subtitle": "blablabla",
+      "articles_title": "Liste de vos articles",
+      "articles_subtitle": "articles_subtitle",
+      "authors_title": "Liste de vos auteurs",
+      "authors_subtitle": "Visitez leur page",
+      "noauthors_title": "Vous n'avez aucun auteurs dans vos favoris",
+      "noauthors_subtitle": "noauthors_subtitle",
+      "noarticles_title": "Vous n'avez aucun articles dans vos favoris",
+      "noarticles_subtitle": "noarticles_subtitle",
+      "research_title": "Vos recherches",
+      "research_subtitle": "Retrouvez vos résultats en un clin d'oeil",
+      "noresearch_title": "Aucune recherche enregistrée",
+      "noresearch_subtitle": "noresearch_subtitle"
+    }
+  },
+  "components": {
+    "SingleArticleBlock": {
+      "link": "Lire l'article entier",
+      "written_by": "Écrit par"
+    },
+    "SmallArticleBlock": {
+      "link": "Lire",
+      "written_by": "Écrit par",
+      "written_on": "le"
+    },
+    "SingleAcademy": {
+      "articles": "Nombre d'articles"
+    },
+    "AuthorIdCard": {
+      "academy": "Académie",
+      "articles": "Nombre d'articles",
+      "all_articles": "Voir tous les articles"
+    },
+    "SmallAuthorIdCard": {
+      "academy": "Académie",
+      "articles": "Nombre d'articles",
+      "all_articles": "Voir tous les articles"
+    },
+    "SearchField": {
+      "search": "Rechercher",
+      "placeholder": "Rechercher"
+    },
+    "Pagination": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    },
+    "NoResults": {
+      "title": "Aucun résultats",
+      "subtitle": "Reformulez votre recherche"
+    },
+    "TagsFilters": {
+      "filter": "Filtrer la recherche par tag",
+      "reset": "Effacer",
+      "open": "Filtrer par tag",
+      "close": "Fermer"
+    },
+    "SingleResearch": {
+      "type": "Type",
+      "search": "Recherche",
+      "go": "Voir les résultats"
     }
   }
 }

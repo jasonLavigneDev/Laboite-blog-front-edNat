@@ -98,7 +98,7 @@
 
 <svelte:head>
   <title>
-    {env.IDENTITY}
+    {$_('title')}
     |
     {article ? article.title : $_('pages.article.no_article_title')}
   </title>

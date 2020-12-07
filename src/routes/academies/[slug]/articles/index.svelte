@@ -61,7 +61,6 @@
       tagsList,
       isResearchLink,
       request,
-      env,
     };
   }
 </script>
@@ -90,12 +89,11 @@
   export let academy;
   export let isResearchLink;
   export let request;
-  export let env;
   const { preloading } = stores();
 </script>
 
 <svelte:head>
-  <title>{env.IDENTITY} | {academy.label} | {$_('links.articles')}</title>
+  <title>{$_('title')} | {academy.label} | {$_('links.articles')}</title>
 </svelte:head>
 
 <PageTransition>

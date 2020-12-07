@@ -39,7 +39,6 @@
       path,
       isResearchLink,
       request,
-      env,
     };
   }
 </script>
@@ -63,7 +62,6 @@
   export let path = "";
   export let isResearchLink;
   export let request;
-  export let env;
   const { preloading } = stores();
 </script>
 
@@ -74,7 +72,7 @@
 </style>
 
 <svelte:head>
-  <title>{env.IDENTITY} | {$_('links.authors')}</title>
+  <title>{$_('title')} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>

@@ -1,16 +1,9 @@
-<script context="module">
-  export function preload(page, { env }) {
-    return { env };
-  }
-</script>
-
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../../components/common/Divider.svelte";
   import { structureOptions } from "./_academies";
   import SingleAcademy from "../../components/academies/SingleAcademy.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
-  export let env;
 </script>
 
 <style lang="scss">
@@ -20,7 +13,7 @@
 </style>
 
 <svelte:head>
-  <title>{env.IDENTITY} | {$_('links.academies')}</title>
+  <title>{$_('title')} | {$_('links.academies')}</title>
 </svelte:head>
 
 <PageTransition>

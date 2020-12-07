@@ -3,7 +3,7 @@ import polka from "polka";
 import compression from "compression";
 import * as sapper from "@sapper/server";
 
-const { PORT, NODE_ENV, IDENTITY, API_HOST, LABOITE_HOST } = process.env;
+const { PORT, NODE_ENV, API_HOST, LABOITE_HOST } = process.env;
 const dev = NODE_ENV === "development";
 
 polka() // You can also use Express
@@ -12,7 +12,7 @@ polka() // You can also use Express
     sirv("static", { dev }),
     sapper.middleware({
       session: (req) => ({
-        env: { IDENTITY, API_HOST, LABOITE_HOST },
+        env: { API_HOST, LABOITE_HOST },
       }),
     })
   )

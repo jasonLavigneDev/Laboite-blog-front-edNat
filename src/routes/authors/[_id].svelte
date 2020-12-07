@@ -39,7 +39,6 @@
       path,
       author,
       tagsList,
-      env,
     };
   }
 </script>
@@ -66,7 +65,6 @@
   export let query = {};
   export let path = "";
   export let tagsList = [];
-  export let env;
   const { preloading } = stores();
 </script>
 
@@ -80,7 +78,7 @@
 </style>
 
 <svelte:head>
-  <title>{env.IDENTITY} | {$_('articles')}</title>
+  <title>{$_('title')} | {$_('articles')}</title>
 </svelte:head>
 
 <PageTransition>

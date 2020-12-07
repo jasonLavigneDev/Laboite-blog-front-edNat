@@ -25,12 +25,12 @@
 
     return {
       articles,
-      env,
     };
   }
 </script>
 
 <script>
+  import { _ } from "svelte-i18n";
   import PageTransition from "../components/common/PageTransition.svelte";
   import FavoriteAcademy from "../components/home/FavoriteAcademy.svelte";
 
@@ -44,11 +44,10 @@
   } from "../utils/functions/stores";
 
   export let articles;
-  export let env;
 </script>
 
 <svelte:head>
-  <title>{env.IDENTITY}</title>
+  <title>{$_('title')}</title>
 </svelte:head>
 
 <PageTransition>
