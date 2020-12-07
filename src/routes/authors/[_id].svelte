@@ -1,9 +1,8 @@
 <script context="module">
-  import { api, identity, IN_TRANSITION } from "../../settings";
   import { fetchData, getTags } from "../../utils/api/methods";
   import fetcher from "isomorphic-fetch";
 
-  export async function preload({ params, query, path }) {
+  export async function preload({ params, query, path }, { env }) {
     const { page = 1, search = "", tags } = query;
 
     const limit = 10;
@@ -16,6 +15,7 @@
       : { userId: params._id };
 
     const { items, total } = await fetchData({
+      host: env.API_HOST,
       limit,
       order,
       fields,
@@ -25,9 +25,11 @@
       where,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-    const responseAuthor = await fetcher(`${api.host}/authors/${params._id}`);
+    const responseAuthor = await fetcher(
+      `${env.API_HOST}/authors/${params._id}`
+    );
     const author = await responseAuthor.json();
-    const tagsList = await getTags();
+    const tagsList = await getTags(env.API_HOST);
     return {
       articles: items,
       total,
@@ -37,6 +39,7 @@
       path,
       author,
       tagsList,
+      env,
     };
   }
 </script>
@@ -63,6 +66,7 @@
   export let query = {};
   export let path = "";
   export let tagsList = [];
+  export let env;
   const { preloading } = stores();
 </script>
 
@@ -76,7 +80,7 @@
 </style>
 
 <svelte:head>
-  <title>{identity.title} | {$_('articles')}</title>
+  <title>{env.IDENTITY} | {$_('articles')}</title>
 </svelte:head>
 
 <PageTransition>

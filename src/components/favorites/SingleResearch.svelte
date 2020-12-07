@@ -2,7 +2,6 @@
   import { _ } from "svelte-i18n";
   import { toQuery } from "../../utils/functions/queryStringMaker";
   import BigLink from "../common/BigLink.svelte";
-  import Divider from "../common/Divider.svelte";
   import FavoritesButton from "../common/FavoritesButton.svelte";
   import SingleTag from "../common/SingleTag.svelte";
 

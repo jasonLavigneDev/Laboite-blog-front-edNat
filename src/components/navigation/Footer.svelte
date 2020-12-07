@@ -2,9 +2,8 @@
   import { _ } from "svelte-i18n";
   import { stores } from "@sapper/app";
   import { footer } from "./items";
-  import { HOST_LABOITE } from "../../settings";
 
-  const { page } = stores();
+  const { page, session } = stores();
 </script>
 
 <style lang="scss">
@@ -31,7 +30,7 @@
           class:is-active={$page.path === path}
           class="navbar-item"
           target="_blank"
-          href="{HOST_LABOITE}{path}">
+          href="{$session.env.LABOITE_HOST}{path}">
           {$_(`links.${text}`)}
         </a>
       {/each}

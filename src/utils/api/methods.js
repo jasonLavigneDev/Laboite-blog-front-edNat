@@ -1,7 +1,7 @@
-import { api } from "../../settings";
 import fetcher from "isomorphic-fetch";
 
 export async function fetchData({
+  host,
   limit = 10,
   order,
   fields = {},
@@ -28,13 +28,13 @@ export async function fetchData({
     include,
   };
   const response = await fetcher(
-    `${api.host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`
+    `${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`
   );
   const items = await response.json();
   let total;
   if (count) {
     const newTotal = await fetcher(
-      `${api.host}/${apiurl}/count?where=${JSON.stringify(whereQuery)}`
+      `${host}/${apiurl}/count?where=${JSON.stringify(whereQuery)}`
     );
     const result = await newTotal.json();
     total = result.count;
@@ -42,10 +42,10 @@ export async function fetchData({
   return { items, total };
 }
 
-export async function getTags() {
+export async function getTags(host) {
   const queryFilters = { fields: { _id: false } };
   const response = await fetcher(
-    `${api.host}/tags?filter=${JSON.stringify(queryFilters)}`
+    `${host}/tags?filter=${JSON.stringify(queryFilters)}`
   );
   const items = await response.json();
   const tags = items.map(({ name }) => name);

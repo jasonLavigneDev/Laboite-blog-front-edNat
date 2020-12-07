@@ -2,8 +2,9 @@
   import Avatar from "../authors/Avatar.svelte";
   import { onMount } from "svelte";
   import fetcher from "isomorphic-fetch";
-  import { api } from "../../settings";
   import { _ } from "svelte-i18n";
+  import { stores } from "@sapper/app";
+  const { session } = stores();
 
   export let academy = {};
   let total;
@@ -13,7 +14,7 @@
     const where = { structure: academy.value };
 
     const response = await fetcher(
-      `${api.host}/articles/count?where=${JSON.stringify(where)}`
+      `${$session.env.API_HOST}/articles/count?where=${JSON.stringify(where)}`
     );
     const { count } = await response.json();
 

@@ -1,8 +1,7 @@
 <script context="module">
-  import { identity } from "../../settings";
   import { fetchData } from "../../utils/api/methods";
 
-  export async function preload({ query, path }) {
+  export async function preload({ query, path }, { env }) {
     const { page = 1, search = "" } = query;
     const isResearchLink = !!search;
     const request = !!search
@@ -21,6 +20,7 @@
     const where = { articlesCount: { gt: 0 } };
 
     const { items, total } = await fetchData({
+      host: env.API_HOST,
       limit,
       order,
       fields,
@@ -39,6 +39,7 @@
       path,
       isResearchLink,
       request,
+      env,
     };
   }
 </script>
@@ -62,6 +63,7 @@
   export let path = "";
   export let isResearchLink;
   export let request;
+  export let env;
   const { preloading } = stores();
 </script>
 
@@ -72,7 +74,7 @@
 </style>
 
 <svelte:head>
-  <title>{identity.title} | {$_('links.authors')}</title>
+  <title>{env.IDENTITY} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>

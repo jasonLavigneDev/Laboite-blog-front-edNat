@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
 
-  import { identity } from "../settings";
   import { fetchData } from "../utils/api/methods";
 
   import {
@@ -13,12 +12,15 @@
   import FavoritesAuthors from "../components/favorites/FavoritesAuthors.svelte";
   import PageTransition from "../components/common/PageTransition.svelte";
   import FavoritesResearch from "../components/favorites/FavoritesResearch.svelte";
+  import { stores } from "@sapper/app";
+  const { session } = stores();
 
   let articles = [];
   let authors = [];
 
   const getFavorites = async () => {
     const resultsAuthors = await fetchData({
+      host: $session.env.API_HOST,
       limit: 6,
       order: "articlesCount DESC",
       fields: {},
@@ -27,6 +29,7 @@
       where: { articlesCount: { gt: 0 }, _id: { inq: $favoritesAuthors } },
     });
     const resultsArticles = await fetchData({
+      host: $session.env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },
@@ -56,7 +59,7 @@
 </script>
 
 <svelte:head>
-  <title>{identity.title} | {$_('links.favorites')}</title>
+  <title>{$session.env.IDENTITY} | {$_('links.favorites')}</title>
 </svelte:head>
 
 <PageTransition>

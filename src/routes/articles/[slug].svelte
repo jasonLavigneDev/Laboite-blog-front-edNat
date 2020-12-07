@@ -1,16 +1,16 @@
 <script context="module">
-  import { api, identity } from "../../settings";
   import fetcher from "isomorphic-fetch";
 
-  export async function preload({ params }) {
+  export async function preload({ params }, { env }) {
     const responseArticle = await fetcher(
-      `${api.host}/articles/${params.slug}`
+      `${env.API_HOST}/articles/${params.slug}`
     );
     const article = await responseArticle.json();
 
     return {
       article,
       author: article && article.user,
+      env,
     };
   }
 </script>
@@ -27,7 +27,9 @@
   import NoResults from "../../components/common/NoResults.svelte";
   let MarkdownViewer;
 
-  export let article, author;
+  export let article;
+  export let author;
+  export let env;
 
   onMount(async () => {
     if (article.markdown) {
@@ -41,7 +43,7 @@
       article._id &&
       !$articlesRead.find((i) => i === article._id)
     ) {
-      await fetcher(`${api.host}/articles/${article._id}/read`, {
+      await fetcher(`${env.API_HOST}/articles/${article._id}/read`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -96,7 +98,7 @@
 
 <svelte:head>
   <title>
-    {identity.title}
+    {env.IDENTITY}
     |
     {article ? article.title : $_('pages.article.no_article_title')}
   </title>

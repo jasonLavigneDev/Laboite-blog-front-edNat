@@ -1,9 +1,8 @@
 <script context="module">
-  import { identity } from "../../../../settings";
   import { fetchData } from "../../../../utils/api/methods";
   import { structureOptions } from "../../_academies";
 
-  export async function preload({ params, query, path }) {
+  export async function preload({ params, query, path }, { env }) {
     const { page = 1, search = "" } = query;
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
     const isResearchLink = !!search;
@@ -24,6 +23,7 @@
     const where = { articlesCount: { gt: 0 }, structure: academy.value };
 
     const { items, total } = await fetchData({
+      host: env.API_HOST,
       limit,
       order,
       fields,
@@ -43,6 +43,7 @@
       academy,
       isResearchLink,
       request,
+      env,
     };
   }
 </script>
@@ -68,11 +69,12 @@
   export let academy;
   export let isResearchLink;
   export let request;
+  export let env;
   const { preloading } = stores();
 </script>
 
 <svelte:head>
-  <title>{identity.title} | {academy.label} | {$_('links.authors')}</title>
+  <title>{env.IDENTITY} | {academy.label} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>

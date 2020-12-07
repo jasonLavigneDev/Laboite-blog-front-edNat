@@ -2,10 +2,11 @@
   import { fetchData } from "../../../utils/api/methods";
   import { structureOptions } from "../_academies";
 
-  export async function preload({ params }) {
+  export async function preload({ params }, { env }) {
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
 
     const { items: authors } = await fetchData({
+      host: env.API_HOST,
       limit: 6,
       order: "articlesCount DESC",
       fields: {},
@@ -14,6 +15,7 @@
       where: { articlesCount: { gt: 0 }, structure: academy.value },
     });
     const { items: articles } = await fetchData({
+      host: env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },
@@ -38,13 +40,13 @@
       authors,
       articles,
       academy,
+      env,
     };
   }
 </script>
 
 <script>
   import LastPublished from "../../../components/academies/LastPublished.svelte";
-  import { identity } from "../../../settings";
   import Authors from "../../../components/academies/Authors.svelte";
   import BackButton from "../../../components/navigation/BackButton.svelte";
   import PageTransition from "../../../components/common/PageTransition.svelte";
@@ -55,6 +57,7 @@
   export let academy;
   export let articles;
   export let authors;
+  export let env;
 
   onMount(() => {
     lastAcademies.update((list) => {
@@ -77,7 +80,7 @@
 </style>
 
 <svelte:head>
-  <title>{identity.title} | {academy.label}</title>
+  <title>{env.IDENTITY} | {academy.label}</title>
 </svelte:head>
 
 <PageTransition>

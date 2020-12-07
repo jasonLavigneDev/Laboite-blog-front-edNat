@@ -1,8 +1,7 @@
 <script context="module">
-  import { identity } from "../../../../settings";
   import { fetchData, getTags } from "../../../../utils/api/methods";
 
-  export async function preload({ params, query, path }) {
+  export async function preload({ params, query, path }, { env }) {
     const { page = 1, search = "", tags } = query;
     const academy = structureOptions.find(({ slug }) => slug === params.slug);
     const isResearchLink = !!tags || !!search;
@@ -39,6 +38,7 @@
     ];
 
     const { items, total } = await fetchData({
+      host: env.API_HOST,
       limit,
       order,
       fields,
@@ -49,7 +49,7 @@
       include,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-    const tagsList = await getTags();
+    const tagsList = await getTags(env.API_HOST);
     return {
       articles: items,
       total,
@@ -61,6 +61,7 @@
       tagsList,
       isResearchLink,
       request,
+      env,
     };
   }
 </script>
@@ -89,11 +90,12 @@
   export let academy;
   export let isResearchLink;
   export let request;
+  export let env;
   const { preloading } = stores();
 </script>
 
 <svelte:head>
-  <title>{identity.title} | {academy.label} | {$_('links.articles')}</title>
+  <title>{env.IDENTITY} | {academy.label} | {$_('links.articles')}</title>
 </svelte:head>
 
 <PageTransition>
