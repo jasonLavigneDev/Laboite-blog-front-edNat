@@ -65,7 +65,7 @@
 <Nav />
 
 {#if $preloading}
-  <Loader message={$_('loading')} />
+  <Loader message={$_('loading')} mainLoader={true} />
 {/if}
 
 <main class="container">
