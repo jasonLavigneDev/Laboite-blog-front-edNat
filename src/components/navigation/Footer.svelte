@@ -10,20 +10,24 @@
   .navbar {
     height: 64px;
   }
+  .navbar-menu {
+    background-color: var(--primary) !important;
+  }
   .navbar-item {
     margin-left: 10px;
     margin-right: 10px;
     font-weight: 400;
     font-family: "WorkSansBold" !important;
     font-size: 14px;
+    color: var(--tertiary);
     &.is-active {
-      color: var(--primary);
+      color: var(--tertiary);
     }
   }
 </style>
 
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div id="navbarMenu" class="navbar-menu">
+  <div class="navbar-menu is-active">
     <div class="navbar-start">
       {#each footer as { path, text }}
         <a

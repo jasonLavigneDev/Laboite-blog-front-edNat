@@ -110,7 +110,7 @@
       title={$_('pages.article.no_article_title')}
       subtitle={$_('pages.article.no_article_subtitle')} />
   {:else}
-    <div class="columns is-multiline is-mobile">
+    <div class="columns is-gapless is-multiline is-mobile">
       <div class="column is-half">
         <BackButton previousLocation="/articles" useHistory={true} />
       </div>
@@ -120,7 +120,7 @@
         </div>
       </div>
     </div>
-    <div class="columns is-multiline">
+    <div class="columns is-gapless is-multiline">
       <div
         class="column is-three-quarters-widescreen is-full-desktop is-full-tablet">
         <section class="box-transparent">

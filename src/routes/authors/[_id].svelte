@@ -82,7 +82,7 @@
 </svelte:head>
 
 <PageTransition>
-  <div class="columns is-multiline is-mobile">
+  <div class="columns is-gapless is-multiline is-mobile">
     <div class="column is-half">
       <BackButton previousLocation="/authors" useHistory={true} />
     </div>
@@ -109,7 +109,7 @@
       </article>
     </div>
     <Divider />
-    <div class="columns is-multiline">
+    <div class="columns is-gapless is-multiline">
       <div class="column is-half is-full-mobile">
         <SearchField loading={$preloading} {query} {path} />
       </div>
