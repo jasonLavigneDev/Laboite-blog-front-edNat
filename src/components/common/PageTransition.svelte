@@ -1,5 +1,5 @@
 <script>
-  import { fly, fade, blur } from "svelte/transition";
+  import { blur } from "svelte/transition";
   let inTransition = { y: 100, duration: 600, delay: 100 };
 </script>
 

@@ -2,19 +2,19 @@
   "title": "LaBoite - Le blog",
   "loading": "Chargement",
   "articles": "Articles",
-  "back": "Retour",
+  "back": "Back",
   "menu": "Menu",
-  "save_research": "Enregistrer la recherche",
+  "save_research": "Save search",
   "links": {
-    "home": "Accueil",
+    "home": "Home",
     "articles": "Articles",
-    "academies": "Académies",
-    "authors": "Auteurs",
-    "favorites": "Favoris",
-    "legal": "Mentions légales",
-    "accessibility": "Accessibilité",
-    "gcu": "Conditions générales d'utilisation",
-    "personalData": "Données personnelles"
+    "academies": "Academies",
+    "authors": "Authors",
+    "favorites": "Favorites",
+    "legal": "Legal",
+    "accessibility": "Accessibility",
+    "gcu": "Term of use",
+    "personalData": "Personnal data"
   },
   "pages": {
     "home": {

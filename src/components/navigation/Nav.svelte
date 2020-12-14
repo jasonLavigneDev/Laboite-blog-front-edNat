@@ -4,6 +4,7 @@
   import { fade } from "svelte/transition";
   import { items } from "./items";
   import MobileMenu from "./MobileMenu.svelte";
+  import LanguageSwitcher from "../common/LanguageSwitcher.svelte";
 
   const { page } = stores();
   let mobileMenu = false;
@@ -74,7 +75,9 @@
         </a>
       {/each}
     </div>
-    <div class="navbar-end" />
+    <div class="navbar-end">
+      <LanguageSwitcher />
+    </div>
   </div>
 </nav>
 

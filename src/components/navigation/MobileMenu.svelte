@@ -1,6 +1,7 @@
 <script>
   import { _ } from "svelte-i18n";
   import { fade, fly } from "svelte/transition";
+  import LanguageSwitcher from "../common/LanguageSwitcher.svelte";
   import { items } from "./items";
 
   export let toggle, pathname;
@@ -56,6 +57,10 @@
               </a>
             </li>
           {/each}
+          <br />
+          <li>
+            <LanguageSwitcher mobile={true} />
+          </li>
         </ul>
       </div>
     </section>
