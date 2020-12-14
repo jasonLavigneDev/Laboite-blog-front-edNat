@@ -18,103 +18,103 @@
   },
   "pages": {
     "home": {
-      "last_title": "Derniers articles",
-      "last_subtitle": "Voici les derniers articles publiés",
-      "last_read_title": "Vos lectures",
-      "last_read_subtitle": "Voulez-vous les relire ?",
-      "your_academy_title": "Votre académie favorite",
-      "your_academy_subtitle": "Retrouver les articles et les auteurs qui vous concernent",
-      "last_academies_title": "Vos académies",
-      "last_academies_subtitle": "Retrouver les académies que vous avez consulté"
+      "last_title": "Last articles",
+      "last_subtitle": "These are the last articles published",
+      "last_read_title": "Your readings",
+      "last_read_subtitle": "Do you want to read them again ?",
+      "your_academy_title": "Your favortie academy",
+      "your_academy_subtitle": "Find articles and articles that concern you",
+      "last_academies_title": "Your academies",
+      "last_academies_subtitle": "Find here the academies you have consulted"
     },
     "articles": {
-      "title": "Les articles",
-      "subtitle": "Recherchez dans la liste des articles"
+      "title": "All articles",
+      "subtitle": "Research in the list of articles"
     },
     "article": {
       "tags": "Tags",
-      "read_times": "Nombre de lectures",
-      "no_article_title": "Article non trouvé",
-      "no_article_subtitle": "Aucun article n'a été trouvé sur cet URL"
+      "read_times": "Times read",
+      "no_article_title": "Article not found",
+      "no_article_subtitle": "No article has been found on this URL"
     },
     "authors": {
-      "title": "La liste des auteurs",
-      "subtitle": "Recherchez dans la liste des auteurs"
+      "title": "Authors list",
+      "subtitle": "Research in the list of authors"
     },
     "academies": {
-      "title": "La liste des académies françaises",
-      "subtitle": "Visitez la page de votre académie"
+      "title": "French academies list",
+      "subtitle": "Visit your academy's page"
     },
     "academy": {
-      "authors_title": "Les auteurs de l'académie",
-      "authors_subtitle": "Visitez leur page",
-      "all_articles": "Voir tous les articles",
-      "all_authors": "Voir tous les auteurs",
-      "last_title": "Derniers articles",
-      "last_subtitle": "Voici les derniers articles publiés"
+      "authors_title": "The authors in this academy",
+      "authors_subtitle": "Visit their page",
+      "all_articles": "See all articles",
+      "all_authors": "See all authors",
+      "last_title": "Last articles",
+      "last_subtitle": "These are the last articles published"
     },
     "favorites": {
-      "title": "Vos articles et auteurs favoris",
-      "subtitle": "blablabla",
-      "articles_title": "Liste de vos articles",
+      "title": "Your favorites authors and articles",
+      "subtitle": "subtitle",
+      "articles_title": "Liste of your articles",
       "articles_subtitle": "articles_subtitle",
-      "authors_title": "Liste de vos auteurs",
-      "authors_subtitle": "Visitez leur page",
-      "noauthors_title": "Vous n'avez aucun auteurs dans vos favoris",
+      "authors_title": "Liste of your authors",
+      "authors_subtitle": "Visit their page",
+      "noauthors_title": "You have no authors in your favorites",
       "noauthors_subtitle": "noauthors_subtitle",
-      "noarticles_title": "Vous n'avez aucun articles dans vos favoris",
+      "noarticles_title": "You have no articles in your favorites",
       "noarticles_subtitle": "noarticles_subtitle",
-      "research_title": "Vos recherches",
-      "research_subtitle": "Retrouvez vos résultats en un clin d'oeil",
-      "noresearch_title": "Aucune recherche enregistrée",
+      "research_title": "Your researches",
+      "research_subtitle": "Find you favorties research in a blink",
+      "noresearch_title": "No researches saved",
       "noresearch_subtitle": "noresearch_subtitle"
     }
   },
   "components": {
     "SingleArticleBlock": {
-      "link": "Lire l'article entier",
-      "written_by": "Écrit par"
+      "link": "Read the article",
+      "written_by": "Written by"
     },
     "SmallArticleBlock": {
-      "link": "Lire",
-      "written_by": "Écrit par",
-      "written_on": "le"
+      "link": "Read",
+      "written_by": "Written by",
+      "written_on": "on the"
     },
     "SingleAcademy": {
-      "articles": "Nombre d'articles"
+      "articles": "Number of articles"
     },
     "AuthorIdCard": {
-      "academy": "Académie",
-      "articles": "Nombre d'articles",
-      "all_articles": "Voir tous les articles"
+      "academy": "Academy",
+      "articles": "Number of articles",
+      "all_articles": "See all articles"
     },
     "SmallAuthorIdCard": {
-      "academy": "Académie",
-      "articles": "Nombre d'articles",
-      "all_articles": "Voir tous les articles"
+      "academy": "Academy",
+      "articles": "Number of articles",
+      "all_articles": "See all articles"
     },
     "SearchField": {
-      "search": "Rechercher",
-      "placeholder": "Rechercher"
+      "search": "Search",
+      "placeholder": "Search"
     },
     "Pagination": {
-      "next": "Suivante",
-      "previous": "Précédente"
+      "next": "Next",
+      "previous": "Previous"
     },
     "NoResults": {
-      "title": "Aucun résultats",
-      "subtitle": "Reformulez votre recherche"
+      "title": "No results",
+      "subtitle": "Make a new research"
     },
     "TagsFilters": {
-      "filter": "Filtrer la recherche par tag",
-      "reset": "Effacer",
-      "open": "Filtrer par tag",
-      "close": "Fermer"
+      "filter": "Filter the research by tags",
+      "reset": "Clear",
+      "open": "Filter by tag",
+      "close": "Close"
     },
     "SingleResearch": {
       "type": "Type",
-      "search": "Recherche",
-      "go": "Voir les résultats"
+      "search": "Search",
+      "go": "See the results"
     }
   }
 }
