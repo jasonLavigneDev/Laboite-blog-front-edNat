@@ -1,11 +1,13 @@
 <script>
   import { fly } from "svelte/transition";
   import { locales, locale } from "svelte-i18n";
+  import { language } from "../../utils/functions/stores";
   export let mobile = false;
   let opened = false;
   const toggle = () => (opened = !opened);
   const selectLocale = (l) => {
     locale.set(l);
+    language.set(l);
     toggle();
   };
 </script>

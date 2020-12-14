@@ -1,5 +1,5 @@
 <script context="module">
-  import { waitLocale, _ } from "svelte-i18n";
+  import { waitLocale, _, locale } from "svelte-i18n";
   import "../utils/theme/index.css";
 
   export async function preload() {
@@ -14,6 +14,16 @@
   import Footer from "../components/navigation/Footer.svelte";
   import { trackLocation } from "../utils/functions/locationTracker";
   import Loader from "../components/common/Loader.svelte";
+  import { onMount } from "svelte";
+  import { language } from "../utils/functions/stores";
+
+  onMount(() => {
+    if (!$language) {
+      language.set($locale.split("-")[0]);
+    } else {
+      locale.set($language);
+    }
+  });
 
   trackLocation();
 
