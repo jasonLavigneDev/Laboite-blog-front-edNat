@@ -21,7 +21,10 @@
     const order = "createdAt DESC";
     const apiurl = "articles";
     const where = tags
-      ? { tags: { inq: tags.split(",") }, structure: academy.value }
+      ? {
+          and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
+          structure: academy.value,
+        }
       : { structure: academy.value };
     const include = [
       {

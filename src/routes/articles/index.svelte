@@ -17,7 +17,9 @@
     const searchFields = ["description", "title", "slug", "tags"];
     const order = "createdAt DESC";
     const apiurl = "articles";
-    const where = tags ? { tags: { inq: tags.split(",") } } : {};
+    const where = tags
+      ? { and: tags.split(",").map((t) => ({ tags: { inq: [t] } })) }
+      : {};
     const include = [
       {
         relation: "user",
