@@ -21,13 +21,11 @@
       minHeight: 100,
       maxHeight: 600,
     };
-    if ($session.env.UML_SERVER) {
       const umlOptions = {
         rendererURL:
           $session.env.UML_SERVER || "https://www.plantuml.com/plantuml/png/",
       };
       umlPlugin = [uml, umlOptions];
-    }
     new Viewer({
       el: document.querySelector("#viewer"),
       initialValue: content,
