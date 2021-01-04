@@ -45,12 +45,6 @@
     ) {
       await fetcher(`${env.API_HOST}/articles/${article._id}/read`, {
         method: "PATCH",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-        body: JSON.stringify({
-          visits: article.visits + 1,
-        }),
       });
       articlesRead.update((list) => {
         if (!list.find((i) => i === article._id)) {
