@@ -44,7 +44,7 @@
       <div class="subtitle is-6">
         {$_('components.SingleArticleBlock.written_by')}
         {article.user.firstName}
-        {article.user.firstName}
+        {article.user.lastName}
       </div>
     {/if}
     <div class="content">{article.description}</div>

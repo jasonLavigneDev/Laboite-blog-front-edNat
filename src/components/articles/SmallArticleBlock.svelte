@@ -14,7 +14,7 @@
         <div class="subtitle is-6">
           {$_('components.SmallArticleBlock.written_by')}
           {article.user.firstName}
-          {article.user.firstName}
+          {article.user.lastName}
           {$_('components.SmallArticleBlock.written_on')}
           {new Date(article.createdAt).toLocaleString()}
         </div>

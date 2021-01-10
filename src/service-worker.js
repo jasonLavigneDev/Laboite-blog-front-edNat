@@ -51,7 +51,7 @@ async function fetchAndCache(request) {
   }
 }
 // On test si le cache est toujours
-// moins vieux que 30 minutes
+// moins vieux que 10 minutes
 const isValid = (response) => {
   if (!response) return false;
   var fetched = response.headers.get("sw-fetched-on");
