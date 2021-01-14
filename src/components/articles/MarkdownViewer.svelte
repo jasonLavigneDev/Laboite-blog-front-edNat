@@ -13,6 +13,8 @@
   const { session } = stores();
 
   export let content;
+  export let viewerInstance;
+
   onMount(async () => {
     let umlPlugin = uml;
     const chartOptions = {
@@ -21,12 +23,12 @@
       minHeight: 100,
       maxHeight: 600,
     };
-      const umlOptions = {
-        rendererURL:
-          $session.env.UML_SERVER || "https://www.plantuml.com/plantuml/png/",
-      };
-      umlPlugin = [uml, umlOptions];
-    new Viewer({
+    const umlOptions = {
+      rendererURL:
+        $session.env.UML_SERVER || "https://www.plantuml.com/plantuml/png/",
+    };
+    umlPlugin = [uml, umlOptions];
+    viewerInstance = new Viewer({
       el: document.querySelector("#viewer"),
       initialValue: content,
       height: "600px",
