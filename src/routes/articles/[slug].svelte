@@ -127,7 +127,7 @@
           </div>
           <div class="box">
             <button class="button is-primary" on:click={handleExport}>
-              <span class="icon"><i class="fa fa-style-pdf" /></span>
+              <span class="icon"><i class="far fa-file-pdf" /></span>
               <span>{$_('pages.article.exportPDF')}</span>
             </button>
             <label class="checkbox check_landscape">
