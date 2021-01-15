@@ -35,7 +35,9 @@
       "tags": "Tags",
       "read_times": "Times read",
       "no_article_title": "Article not found",
-      "no_article_subtitle": "No article has been found on this URL"
+      "no_article_subtitle": "No article has been found on this URL",
+      "exportPDF": "Export to PDF",
+      "exportLandscape": "landscape mode"
     },
     "authors": {
       "title": "Authors list",
