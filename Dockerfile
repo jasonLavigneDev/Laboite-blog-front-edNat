@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM hub.eole/education/proxyhub/library/node:12-alpine
 ENV PORT=4000
 ENV NODE_ENV=production
 WORKDIR /app
