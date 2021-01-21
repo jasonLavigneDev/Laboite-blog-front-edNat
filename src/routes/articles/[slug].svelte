@@ -23,6 +23,7 @@
   import FavoritesButton from '../../components/common/FavoritesButton.svelte';
   import { articlesRead } from '../../utils/functions/stores';
   import NoResults from '../../components/common/NoResults.svelte';
+  import { element } from 'svelte/internal';
   let MarkdownViewer;
   let landscape = false;
 
@@ -48,7 +49,7 @@
     }
   });
 
-  async function handleExport() {
+  async function handleExportOld() {
     // Export to PDF. Currently exported as images
     // try to use jsPDF directly ?
     // https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript
@@ -76,10 +77,71 @@
     // html2pdf.default(divContents);
     html2pdf.default().set(opt).from(divContents).save();
   }
+
+  async function handleExport() {
+    // convert image src to base64, video and audio to link
+    const convertHTML = (content) => {
+      const node = document.createElement('div');
+      node.innerHTML = content;
+
+      const getBase64Images = () => {
+        // not working yet ...
+        // https://stackoverflow.com/questions/934012/get-image-data-url-in-javascript/42916772#42916772
+        const elts = node.getElementsByTagName('img');
+        const orig_src = element.src;
+        Object.keys(elts).forEach((index) => {
+          const element = elts[index];
+          var img = new Image();
+          img.setAttribute('crossOrigin', 'anonymous');
+          img.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(this, 0, 0);
+
+            var dataURL = canvas.toDataURL('image/png');
+
+            element.src = dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
+          };
+          img.src = orig_src;
+          console.log(element);
+        });
+      };
+      const replacewithLink = (tagName, replaceParent = false) => {
+        const elts = node.getElementsByTagName(tagName);
+        Object.keys(elts).forEach((index) => {
+          const element = elts[index];
+          const newLink = document.createElement('a');
+          newLink.href = element.src;
+          newLink.textContent = element.src.split('/').slice(-1).pop();
+          if (replaceParent) {
+            // replace the parent div (embedded player)
+            element.parentNode.replaceWith(newLink);
+          } else {
+            element.replaceWith(newLink);
+          }
+        });
+      };
+      getBase64Images();
+      replacewithLink('video', true);
+      replacewithLink('audio', true);
+      return node.innerHTML;
+    };
+    let divContents = convertHTML(article.markdown ? document.getElementById('viewer').innerHTML : article.content);
+    var val = htmlToPdfmake(divContents);
+    var dataDefinition = { content: val, pageOrientation: landscape ? 'landscape' : 'portrait', pageSize: 'A4' };
+    pdfMake.createPdf(dataDefinition).download();
+  }
 </script>
 
-<svelte:head>
-  <title>
+<svelte:head
+  ><script defer src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js"></script><script
+    defer
+    src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js"></script><script
+    defer
+    src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script><title>
     {$_('title')}
     |
     {article ? article.title : $_('pages.article.no_article_title')}
