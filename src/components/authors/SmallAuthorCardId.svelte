@@ -1,20 +1,13 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import { structureOptions } from "../../routes/academies/_academies";
-  import BigLink from "../common/BigLink.svelte";
-  import FavoritesButton from "../common/FavoritesButton.svelte";
-  import Avatar from "./Avatar.svelte";
+  import { _ } from 'svelte-i18n';
+  import { structureOptions } from '../../routes/academies/_academies';
+  import BigLink from '../common/BigLink.svelte';
+  import FavoritesButton from '../common/FavoritesButton.svelte';
+  import Avatar from './Avatar.svelte';
 
   export let author;
-  const academy =
-    structureOptions.find(({ value }) => value === author.structure) || {};
+  const academy = structureOptions.find(({ value }) => value === (author.structure || 'Autre')) || {};
 </script>
-
-<style>
-  .title {
-    margin-bottom: 0px;
-  }
-</style>
 
 <div class="column is-full ">
   <div class="media box">
@@ -30,10 +23,14 @@
       </div>
     </div>
     <div class="media-right">
-      <BigLink
-        link="/authors/{author._id}"
-        text={$_('components.SmallAuthorIdCard.all_articles')} />
+      <BigLink link="/authors/{author._id}" text={$_('components.SmallAuthorIdCard.all_articles')} />
       <FavoritesButton type="author" itemId={author._id} />
     </div>
   </div>
 </div>
+
+<style>
+  .title {
+    margin-bottom: 0px;
+  }
+</style>
