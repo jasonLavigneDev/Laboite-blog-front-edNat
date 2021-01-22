@@ -23,7 +23,6 @@
   import FavoritesButton from '../../components/common/FavoritesButton.svelte';
   import { articlesRead } from '../../utils/functions/stores';
   import NoResults from '../../components/common/NoResults.svelte';
-  import { element } from 'svelte/internal';
   let MarkdownViewer;
   let landscape = false;
 
@@ -49,84 +48,90 @@
     }
   });
 
-  async function handleExportOld() {
-    // Export to PDF. Currently exported as images
-    // try to use jsPDF directly ?
-    // https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript
+  const replacewithLink = (docNode, tagName, replaceParent = false) => {
+    // replace audio / video / ... with an url (using src attribute)
+    // replace parent : replaces the parent element instead of the element itself
+    const elts = docNode.getElementsByTagName(tagName);
+    Object.keys(elts).forEach((index) => {
+      const element = elts[index];
+      const newLink = document.createElement('a');
+      newLink.href = element.src;
+      newLink.textContent = element.src.split('/').slice(-1).pop();
+      if (replaceParent) {
+        // replace the parent div (embedded player)
+        element.parentNode.replaceWith(newLink);
+      } else {
+        element.replaceWith(newLink);
+      }
+    });
+  };
 
+  async function handleExport() {
+    // Export to PDF. Currently exported as images
     // hack, import on execution to avoid errors on server side (where window is not defined)
     const html2pdf = await import('html2pdf.js');
     const divContents = article.markdown ? document.getElementById('viewer').innerHTML : article.content;
+    const node = document.createElement('div');
+    node.innerHTML = divContents;
+    replacewithLink(node, 'video', true);
+    replacewithLink(node, 'audio', true);
     const opt = {
       filename: `article_${article.slug}.pdf`,
       enableLinks: true,
       margin: 4,
-      image: { type: 'jpeg', quality: 0.98 },
+      image: { type: 'jpeg' },
       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
       html2canvas: {
         // https://html2canvas.hertzen.com/configuration
         useCORS: true,
       },
-      jsPDF: {
+      jspdf: {
         // https://rawgit.com/MrRio/jsPDF/master/docs/jsPDF.html
         unit: 'mm',
         format: 'a4',
         orientation: landscape ? 'landscape' : 'portrait',
       },
     };
-    // html2pdf.default(divContents);
-    html2pdf.default().set(opt).from(divContents).save();
+    // html2pdf.default(node);
+    html2pdf.default().set(opt).from(node, 'element').save();
   }
 
-  async function handleExport() {
-    // convert image src to base64, video and audio to link
+  async function handleExport2() {
+    // export with html-to-pdfmake. Produces clean PDF files
+    // does not work yet because images need to be included as base64 in src attribute
+    // still need to find a way to
     const convertHTML = (content) => {
+      // convert image src to base64, video and audio to link
       const node = document.createElement('div');
       node.innerHTML = content;
 
       const getBase64Images = () => {
         // not working yet ...
         // https://stackoverflow.com/questions/934012/get-image-data-url-in-javascript/42916772#42916772
+        function getDataUrl(img) {
+          // Create canvas
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          // Set width and height
+          canvas.width = img.width;
+          canvas.height = img.height;
+          // Draw the image
+          ctx.drawImage(img, 0, 0);
+          return canvas.toDataURL('image/jpeg');
+        }
         const elts = node.getElementsByTagName('img');
-        const orig_src = element.src;
         Object.keys(elts).forEach((index) => {
           const element = elts[index];
-          var img = new Image();
-          img.setAttribute('crossOrigin', 'anonymous');
-          img.onload = function () {
-            var canvas = document.createElement('canvas');
-            canvas.width = this.width;
-            canvas.height = this.height;
-
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(this, 0, 0);
-
-            var dataURL = canvas.toDataURL('image/png');
-
-            element.src = dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
-          };
-          img.src = orig_src;
-          console.log(element);
+          element.addEventListener('load', function (event) {
+            const dataUrl = getDataUrl(event.currentTarget);
+            console.log(dataUrl);
+          });
         });
       };
-      const replacewithLink = (tagName, replaceParent = false) => {
-        const elts = node.getElementsByTagName(tagName);
-        Object.keys(elts).forEach((index) => {
-          const element = elts[index];
-          const newLink = document.createElement('a');
-          newLink.href = element.src;
-          newLink.textContent = element.src.split('/').slice(-1).pop();
-          if (replaceParent) {
-            // replace the parent div (embedded player)
-            element.parentNode.replaceWith(newLink);
-          } else {
-            element.replaceWith(newLink);
-          }
-        });
-      };
-      getBase64Images();
-      replacewithLink('video', true);
-      replacewithLink('audio', true);
+      // getBase64Images();
+      replacewithLink(node, 'img');
+      replacewithLink(node, 'video', true);
+      replacewithLink(node, 'audio', true);
       return node.innerHTML;
     };
     let divContents = convertHTML(article.markdown ? document.getElementById('viewer').innerHTML : article.content);
@@ -136,12 +141,13 @@
   }
 </script>
 
-<svelte:head
-  ><script defer src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js"></script><script
+<svelte:head>
+  <!--<script defer src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js"></script><script
     defer
-    src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js"></script><script
+    src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js" ✂prettier:content✂="" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=">{}</script><script
     defer
-    src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script><title>
+    src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js" ✂prettier:content✂="" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=" ✂prettier:content✂="e30=">{}</script>-->
+  <title>
     {$_('title')}
     |
     {article ? article.title : $_('pages.article.no_article_title')}
