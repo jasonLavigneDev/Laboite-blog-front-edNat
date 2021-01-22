@@ -1,22 +1,22 @@
 <script context="module">
-  import { fetchData } from "../../utils/api/methods";
+  import { fetchData } from '../../utils/api/methods';
 
   export async function preload({ query, path }, { env }) {
-    const { page = 1, search = "" } = query;
+    const { page = 1, search = '' } = query;
     const isResearchLink = !!search;
     const request = !!search
       ? {
           path,
           query: { search },
-          type: "authors",
+          type: 'authors',
         }
       : null;
 
     const limit = 9;
     const fields = {};
-    const searchFields = ["firstName", "lastName", "username", "structure"];
-    const order = "articlesCount DESC";
-    const apiurl = "authors";
+    const searchFields = ['firstName', 'lastName', 'structure'];
+    const order = 'articlesCount DESC';
+    const apiurl = 'authors';
     const where = { articlesCount: { gt: 0 } };
 
     const { items, total } = await fetchData({
@@ -44,32 +44,26 @@
 </script>
 
 <script>
-  import { _ } from "svelte-i18n";
-  import { stores } from "@sapper/app";
-  import Divider from "../../components/common/Divider.svelte";
-  import SearchField from "../../components/common/SearchField.svelte";
-  import Pagination from "../../components/common/Pagination.svelte";
-  import NoResults from "../../components/common/NoResults.svelte";
-  import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
-  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import { _ } from 'svelte-i18n';
+  import { stores } from '@sapper/app';
+  import Divider from '../../components/common/Divider.svelte';
+  import SearchField from '../../components/common/SearchField.svelte';
+  import Pagination from '../../components/common/Pagination.svelte';
+  import NoResults from '../../components/common/NoResults.svelte';
+  import AuthorIdCard from '../../components/authors/AuthorIdCard.svelte';
+  import PageTransition from '../../components/common/PageTransition.svelte';
+  import FavoritesButton from '../../components/common/FavoritesButton.svelte';
 
   export let authors = [];
   export let total = 0;
   export let limit;
   export let page = 1;
   export let query = {};
-  export let path = "";
+  export let path = '';
   export let isResearchLink;
   export let request;
   const { preloading } = stores();
 </script>
-
-<style lang="scss">
-  .box-transparent {
-    margin-bottom: var(--space-between);
-  }
-</style>
 
 <svelte:head>
   <title>{$_('title')} | {$_('links.authors')}</title>
@@ -78,10 +72,7 @@
 <PageTransition>
   <section class="box-transparent">
     <div class="columns is-multiline is-mobile">
-      <div
-        class="column"
-        class:is-full={!isResearchLink}
-        class:is-half={isResearchLink}>
+      <div class="column" class:is-full={!isResearchLink} class:is-half={isResearchLink}>
         <h1 class="title">{$_('pages.authors.title')}: {total}</h1>
         <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
       </div>
@@ -121,3 +112,9 @@
     <Pagination {total} {page} {limit} {query} {path} />
   </section>
 </PageTransition>
+
+<style lang="scss">
+  .box-transparent {
+    margin-bottom: var(--space-between);
+  }
+</style>
