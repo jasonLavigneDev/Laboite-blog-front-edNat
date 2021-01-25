@@ -1,23 +1,10 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import { favoritesResearches } from "../../utils/functions/stores";
-  import Divider from "../common/Divider.svelte";
-  import NoResults from "../common/NoResults.svelte";
-  import SingleResearch from "./SingleResearch.svelte";
+  import { _ } from 'svelte-i18n';
+  import { favoritesResearches } from '../../utils/functions/stores';
+  import Divider from '../common/Divider.svelte';
+  import NoResults from '../common/NoResults.svelte';
+  import SingleResearch from './SingleResearch.svelte';
 </script>
-
-<style lang="scss">
-  .box-transparent {
-    margin-bottom: var(--space-between);
-    min-height: 450px;
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-</style>
 
 <section class="box-transparent">
   <div class="container">
@@ -32,10 +19,21 @@
       <SingleResearch {research} />
     {:else}
       <div class="column is-full">
-        <NoResults
-          title={$_('pages.favorites.noresearch_title')}
-          subtitle={$_('pages.favorites.noresearch_subtitle')} />
+        <NoResults title={$_('pages.favorites.noresearch_title')} />
       </div>
     {/each}
   </div>
 </section>
+
+<style lang="scss">
+  .box-transparent {
+    margin-bottom: var(--space-between);
+    min-height: 450px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+</style>
