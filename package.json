@@ -1,7 +1,7 @@
 {
-  "name": "TODO",
-  "description": "TODO",
-  "version": "0.0.1",
+  "name": "laboite-blog-front",
+  "description": "laboite blog service frontend",
+  "version": "1.0.0",
   "scripts": {
     "start-dev": "npm-run-all --parallel server css-watch dev",
     "init-dev": "yarn && cd ../laboite-blog-api && yarn",
