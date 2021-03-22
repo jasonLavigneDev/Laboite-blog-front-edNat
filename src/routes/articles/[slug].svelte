@@ -1,5 +1,5 @@
 <script context="module">
-  import fetcher from 'isomorphic-fetch';
+  import fetcher from "isomorphic-fetch";
 
   export async function preload({ params }, { env }) {
     const responseArticle = await fetcher(`${env.API_HOST}/articles/${params.slug}`);
@@ -14,15 +14,19 @@
 </script>
 
 <script>
-  import { _ } from 'svelte-i18n';
-  import { onMount } from 'svelte';
-  import AuthorIdCard from '../../components/authors/AuthorIdCard.svelte';
-  import PageTransition from '../../components/common/PageTransition.svelte';
-  import BackButton from '../../components/navigation/BackButton.svelte';
-  import SingleTag from '../../components/common/SingleTag.svelte';
-  import FavoritesButton from '../../components/common/FavoritesButton.svelte';
-  import { articlesRead } from '../../utils/functions/stores';
-  import NoResults from '../../components/common/NoResults.svelte';
+  import { _ } from "svelte-i18n";
+  import { onMount } from "svelte";
+  import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
+  import PageTransition from "../../components/common/PageTransition.svelte";
+  import BackButton from "../../components/navigation/BackButton.svelte";
+  import SingleTag from "../../components/common/SingleTag.svelte";
+  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import { articlesRead } from "../../utils/functions/stores";
+  import NoResults from "../../components/common/NoResults.svelte";
+
+  import nodePandoc from "node-pandoc";
+  // import fs from "fs-extra";
+
   let MarkdownViewer;
   let landscape = false;
 
@@ -32,12 +36,12 @@
 
   onMount(async () => {
     if (article.markdown) {
-      const module = await import('../../components/articles/MarkdownViewer.svelte');
+      const module = await import("../../components/articles/MarkdownViewer.svelte");
       MarkdownViewer = module.default;
     }
     if (article && article._id && !$articlesRead.find((i) => i === article._id)) {
       await fetcher(`${env.API_HOST}/articles/${article._id}/read`, {
-        method: 'PATCH',
+        method: "PATCH",
       });
       articlesRead.update((list) => {
         if (!list.find((i) => i === article._id)) {
@@ -54,9 +58,9 @@
     const elts = docNode.getElementsByTagName(tagName);
     Object.keys(elts).forEach((index) => {
       const element = elts[index];
-      const newLink = document.createElement('a');
+      const newLink = document.createElement("a");
       newLink.href = element.src;
-      newLink.textContent = element.src.split('/').slice(-1).pop();
+      newLink.textContent = element.src.split("/").slice(-1).pop();
       if (replaceParent) {
         // replace the parent div (embedded player)
         element.parentNode.replaceWith(newLink);
@@ -67,92 +71,124 @@
   };
 
   async function handleExport() {
-    // Export to PDF. Currently exported as images
-    // hack, import on execution to avoid errors on server side (where window is not defined)
-    const html2pdf = await import('html2pdf.js');
-    const divContents = article.markdown ? document.getElementById('viewer').innerHTML : article.content;
-    const node = document.createElement('div');
+    // Export to PDF with Pandoc
+    const divContents = article.markdown ? document.getElementById("viewer").innerHTML : article.content;
+    const node = document.createElement("div");
     node.innerHTML = divContents;
-    replacewithLink(node, 'video', true);
-    replacewithLink(node, 'audio', true);
-    const opt = {
-      filename: `article_${article.slug}.pdf`,
-      enableLinks: true,
-      margin: 4,
-      image: { type: 'jpeg' },
-      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
-      html2canvas: {
-        // https://html2canvas.hertzen.com/configuration
-        useCORS: true,
-      },
-      jspdf: {
-        // https://rawgit.com/MrRio/jsPDF/master/docs/jsPDF.html
-        unit: 'mm',
-        format: 'a4',
-        orientation: landscape ? 'landscape' : 'portrait',
-      },
-    };
-    // html2pdf.default(node);
-    html2pdf.default().set(opt).from(node, 'element').save();
+    replacewithLink(node, "video", true);
+    replacewithLink(node, "audio", true);
+
+    // const fs = require("fs-extra");
+
+    const directoryAndFilename = `/article_${article.slug}.pdf`;
+    let args = ["-f", "html", "-o", directoryAndFilename, "--pdf-engine=pdflatex"];
+    nodePandoc(node, args, (err) => {
+      if (err) {
+        // if (fs.existsSync(directoryAndFilename)) {
+        //   fs.unlinkSync(directoryAndFilename);
+        // }
+
+        console.log("Erreur nodePandoc : ", err);
+        return;
+      }
+      try {
+        console.log("coucou");
+        // const data = fs.readFileSync(directoryAndFilename);
+        // fs.unlinkSync(directoryAndFilename);
+        console.log("PDF : ", data);
+      } catch (readError) {
+        console.log("readError", readError);
+      }
+    });
   }
 
-  async function handleExport2() {
-    // export with html-to-pdfmake. Produces clean PDF files
-    // does not work yet because images need to be included as base64 in src attribute
-    // still need to find a way to
-    const convertHTML = (content) => {
-      // convert image src to base64, video and audio to link
-      const node = document.createElement('div');
-      node.innerHTML = content;
+  // async function handleExport1() {
+  //   // Export to PDF. Currently exported as images
+  //   // hack, import on execution to avoid errors on server side (where window is not defined)
+  //   const html2pdf = await import("html2pdf.js");
+  //   const divContents = article.markdown ? document.getElementById("viewer").innerHTML : article.content;
+  //   const node = document.createElement("div");
+  //   node.innerHTML = divContents;
+  //   replacewithLink(node, "video", true);
+  //   replacewithLink(node, "audio", true);
+  //   const opt = {
+  //     filename: `article_${article.slug}.pdf`,
+  //     enableLinks: true,
+  //     margin: 4,
+  //     image: { type: "jpeg" },
+  //     pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+  //     html2canvas: {
+  //       // https://html2canvas.hertzen.com/configuration
+  //       useCORS: true,
+  //     },
+  //     jspdf: {
+  //       // https://rawgit.com/MrRio/jsPDF/master/docs/jsPDF.html
+  //       unit: "mm",
+  //       format: "a4",
+  //       orientation: landscape ? "landscape" : "portrait",
+  //     },
+  //   };
+  //   // html2pdf.default(node);
+  //   html2pdf.default().set(opt).from(node, "element").save();
+  // }
 
-      const getBase64Images = () => {
-        // not working yet ...
-        // https://stackoverflow.com/questions/934012/get-image-data-url-in-javascript/42916772#42916772
-        function getDataUrl(img) {
-          // Create canvas
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          // Set width and height
-          canvas.width = img.width;
-          canvas.height = img.height;
-          // Draw the image
-          ctx.drawImage(img, 0, 0);
-          return canvas.toDataURL('image/jpeg');
-        }
-        const elts = node.getElementsByTagName('img');
-        Object.keys(elts).forEach((index) => {
-          const element = elts[index];
-          element.addEventListener('load', function (event) {
-            const dataUrl = getDataUrl(event.currentTarget);
-            console.log(dataUrl);
-          });
-        });
-      };
-      // getBase64Images();
-      replacewithLink(node, 'img');
-      replacewithLink(node, 'video', true);
-      replacewithLink(node, 'audio', true);
-      return node.innerHTML;
-    };
-    let divContents = convertHTML(article.markdown ? document.getElementById('viewer').innerHTML : article.content);
-    var val = htmlToPdfmake(divContents);
-    var dataDefinition = { content: val, pageOrientation: landscape ? 'landscape' : 'portrait', pageSize: 'A4' };
-    pdfMake.createPdf(dataDefinition).download();
-  }
+  // async function handleExport2() {
+  //   // export with html-to-pdfmake. Produces clean PDF files
+  //   // does not work yet because images need to be included as base64 in src attribute
+  //   // still need to find a way to
+  //   const convertHTML = (content) => {
+  //     // convert image src to base64, video and audio to link
+  //     const node = document.createElement("div");
+  //     node.innerHTML = content;
+
+  //     const getBase64Images = () => {
+  //       // not working yet ...
+  //       // https://stackoverflow.com/questions/934012/get-image-data-url-in-javascript/42916772#42916772
+  //       function getDataUrl(img) {
+  //         // Create canvas
+  //         const canvas = document.createElement("canvas");
+  //         const ctx = canvas.getContext("2d");
+  //         // Set width and height
+  //         canvas.width = img.width;
+  //         canvas.height = img.height;
+  //         // Draw the image
+  //         ctx.drawImage(img, 0, 0);
+  //         return canvas.toDataURL("image/jpeg");
+  //       }
+  //       const elts = node.getElementsByTagName("img");
+  //       Object.keys(elts).forEach((index) => {
+  //         const element = elts[index];
+  //         element.addEventListener("load", function (event) {
+  //           const dataUrl = getDataUrl(event.currentTarget);
+  //           console.log(dataUrl);
+  //         });
+  //       });
+  //     };
+  //     // getBase64Images();
+  //     replacewithLink(node, "img");
+  //     replacewithLink(node, "video", true);
+  //     replacewithLink(node, "audio", true);
+  //     return node.innerHTML;
+  //   };
+  //   let divContents = convertHTML(article.markdown ? document.getElementById("viewer").innerHTML : article.content);
+  //   var val = htmlToPdfmake(divContents);
+  //   var dataDefinition = { content: val, pageOrientation: landscape ? "landscape" : "portrait", pageSize: "A4" };
+  //   pdfMake.createPdf(dataDefinition).download();
+  // }
 </script>
 
 <svelte:head>
   <!--<script defer src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>-->
   <title>
-    {$_('title')}
+    {$_("title")}
     |
-    {article ? article.title : $_('pages.article.no_article_title')}
+    {article ? article.title : $_("pages.article.no_article_title")}
   </title>
 </svelte:head>
 
 <PageTransition>
   {#if !article}
-    <NoResults title={$_('pages.article.no_article_title')} subtitle={$_('pages.article.no_article_subtitle')} />
+    <NoResults title={$_("pages.article.no_article_title")} subtitle={$_("pages.article.no_article_subtitle")} />
   {:else}
     <div class="columns is-gapless is-multiline is-mobile">
       <div class="column is-half">
@@ -182,7 +218,7 @@
         <div class="box-transparent">
           <AuthorIdCard {author} />
           <div class="box">
-            <div class="title is-5">{$_('pages.article.tags')}</div>
+            <div class="title is-5">{$_("pages.article.tags")}</div>
             <div class="tags">
               {#each article.tags as tag}
                 <SingleTag {tag} />
@@ -192,16 +228,16 @@
           <div class="box">
             <button class="button is-primary" on:click={handleExport}>
               <span class="icon"><i class="far fa-file-pdf" /></span>
-              <span>{$_('pages.article.exportPDF')}</span>
+              <span>{$_("pages.article.exportPDF")}</span>
             </button>
             <label class="checkbox check_landscape">
               <input type="checkbox" bind:checked={landscape} />
-              {$_('pages.article.exportLandscape')}
+              {$_("pages.article.exportLandscape")}
             </label>
           </div>
           <div class="box last-box">
             <div class="title is-5">
-              {$_('pages.article.read_times')}
+              {$_("pages.article.read_times")}
               :
               {article.visits}
             </div>
