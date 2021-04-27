@@ -23,14 +23,6 @@
     const include = [
       {
         relation: "user",
-        scope: {
-          fields: {
-            articlesCount: false,
-            username: false,
-            structure: false,
-          },
-          limit: 1,
-        },
       },
     ];
 
@@ -86,14 +78,8 @@
   const { preloading } = stores();
 </script>
 
-<style lang="scss">
-  .box-transparent {
-    margin-bottom: var(--space-between);
-  }
-</style>
-
 <svelte:head>
-  <title>{$_('title')} | {$_('links.articles')}</title>
+  <title>{$_("title")} | {$_("links.articles")}</title>
 </svelte:head>
 
 <PageTransition>
@@ -102,14 +88,15 @@
       <div
         class="column"
         class:is-full={!isResearchLink}
-        class:is-half={isResearchLink}>
-        <h1 class="title">{$_('pages.articles.title')}: {total}</h1>
-        <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
+        class:is-half={isResearchLink}
+      >
+        <h1 class="title">{$_("pages.articles.title")}: {total}</h1>
+        <h2 class="subtitle">{$_("pages.articles.subtitle")}</h2>
       </div>
       {#if isResearchLink}
         <div class="column is-half fav-button-wrap">
           <div class="box-transparent">
-            <div>{$_('save_research')}</div>
+            <div>{$_("save_research")}</div>
             <FavoritesButton type="research" itemId={JSON.stringify(request)} />
           </div>
         </div>
@@ -146,3 +133,9 @@
     {/if}
   </section>
 </PageTransition>
+
+<style lang="scss">
+  .box-transparent {
+    margin-bottom: var(--space-between);
+  }
+</style>
