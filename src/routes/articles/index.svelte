@@ -18,8 +18,11 @@
     const order = "createdAt DESC";
     const apiurl = "articles";
     const where = tags
-      ? { and: tags.split(",").map((t) => ({ tags: { inq: [t] } })) }
-      : {};
+      ? {
+          draft: { ne: true },
+          and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
+        }
+      : { draft: { ne: true } };
     const include = [
       {
         relation: "user",

@@ -9,6 +9,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
+      where: { draft: { ne: true } },
       include: [
         {
           relation: "user",
@@ -47,7 +48,7 @@
 </script>
 
 <svelte:head>
-  <title>{$_('title')}</title>
+  <title>{$_("title")}</title>
 </svelte:head>
 
 <PageTransition>

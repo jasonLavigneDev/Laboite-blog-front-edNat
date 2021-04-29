@@ -20,7 +20,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { _id: { inq: $lastRead } },
+      where: { _id: { inq: $lastRead }, draft: { ne: true } },
       include: [
         {
           relation: "user",
@@ -39,22 +39,15 @@
   });
 </script>
 
-<style lang="scss">
-  .box-transparent {
-    margin-bottom: var(--space-between);
-    min-height: 450px;
-  }
-</style>
-
 <section class="box-transparent">
   <div class="container">
-    <h1 class="title">{$_('pages.home.last_read_title')}</h1>
-    <h2 class="subtitle">{$_('pages.home.last_read_subtitle')}</h2>
+    <h1 class="title">{$_("pages.home.last_read_title")}</h1>
+    <h2 class="subtitle">{$_("pages.home.last_read_subtitle")}</h2>
   </div>
   <Divider />
 
   {#if loading}
-    <Loader message={$_('loading')} />
+    <Loader message={$_("loading")} />
   {/if}
   <div class="columns is-multiline">
     {#each articles as article}
@@ -62,3 +55,10 @@
     {/each}
   </div>
 </section>
+
+<style lang="scss">
+  .box-transparent {
+    margin-bottom: var(--space-between);
+    min-height: 450px;
+  }
+</style>
