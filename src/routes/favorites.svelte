@@ -35,7 +35,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { _id: { inq: $favoritesArticles } },
+      where: { _id: { inq: $favoritesArticles }, draft: { neq: true } },
       include: [
         {
           relation: "user",
@@ -59,13 +59,13 @@
 </script>
 
 <svelte:head>
-  <title>{$_('title')} | {$_('links.favorites')}</title>
+  <title>{$_("title")} | {$_("links.favorites")}</title>
 </svelte:head>
 
 <PageTransition>
   <section class="box-transparent">
     <div class="container">
-      <h1 class="title is-2">{$_('pages.favorites.title')}</h1>
+      <h1 class="title is-2">{$_("pages.favorites.title")}</h1>
     </div>
   </section>
   <FavoritesArticles {articles} />
