@@ -11,8 +11,8 @@
     const order = "createdAt DESC";
     const apiurl = `articles`;
     const where = tags
-      ? { userId: params._id, tags: { inq: [tags] }, draft: { ne: true } }
-      : { userId: params._id, draft: { ne: true } };
+      ? { userId: params._id, tags: { inq: [tags] }, draft: { neq: true } }
+      : { userId: params._id, draft: { neq: true } };
 
     const { items, total } = await fetchData({
       host: env.API_HOST,

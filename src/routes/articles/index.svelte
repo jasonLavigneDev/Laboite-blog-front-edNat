@@ -19,10 +19,10 @@
     const apiurl = "articles";
     const where = tags
       ? {
-          draft: { ne: true },
+          draft: { neq: true },
           and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
         }
-      : { draft: { ne: true } };
+      : { draft: { neq: true } };
     const include = [
       {
         relation: "user",

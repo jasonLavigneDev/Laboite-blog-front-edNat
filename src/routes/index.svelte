@@ -9,7 +9,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { draft: { ne: true } },
+      where: { draft: { neq: true } },
       include: [
         {
           relation: "user",

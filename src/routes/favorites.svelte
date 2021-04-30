@@ -35,7 +35,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { _id: { inq: $favoritesArticles }, draft: { ne: true } },
+      where: { _id: { inq: $favoritesArticles }, draft: { neq: true } },
       include: [
         {
           relation: "user",

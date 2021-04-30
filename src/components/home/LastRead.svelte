@@ -20,7 +20,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { _id: { inq: $lastRead }, draft: { ne: true } },
+      where: { _id: { inq: $lastRead }, draft: { neq: true } },
       include: [
         {
           relation: "user",

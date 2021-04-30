@@ -24,9 +24,9 @@
       ? {
           and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
           structure: academy.value,
-          draft: { ne: true },
+          draft: { neq: true },
         }
-      : { structure: academy.value, draft: { ne: true } };
+      : { structure: academy.value, draft: { neq: true } };
     const include = [
       {
         relation: "user",

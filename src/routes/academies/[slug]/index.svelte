@@ -21,7 +21,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { structure: academy.value, draft: { ne: true } },
+      where: { structure: academy.value, draft: { neq: true } },
       include: [
         {
           relation: "user",
