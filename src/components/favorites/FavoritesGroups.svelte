@@ -1,26 +1,26 @@
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../common/Divider.svelte";
-  import SmallAuthorCardId from "../authors/SmallAuthorCardId.svelte";
   import NoResults from "../common/NoResults.svelte";
+  import GroupCard from "../groups/GroupCard.svelte";
 
-  export let authors = [];
+  export let groups = [];
 </script>
 
 <section class="box-transparent">
   <div class="container">
     <div>
-      <h1 class="title">{$_("pages.favorites.authors_title")}</h1>
-      <h2 class="subtitle">{$_("pages.favorites.authors_subtitle")}</h2>
+      <h1 class="title">{$_("pages.favorites.groups_title")}</h1>
+      <h2 class="subtitle">{$_("pages.favorites.groups_subtitle")}</h2>
     </div>
   </div>
   <Divider />
   <div class="columns is-multiline">
-    {#each authors as author}
-      <SmallAuthorCardId {author} />
+    {#each groups as group}
+      <GroupCard {group} />
     {:else}
       <div class="column is-full">
-        <NoResults title={$_("pages.favorites.noauthors_title")} />
+        <NoResults title={$_("pages.favorites.nogroups_title")} />
       </div>
     {/each}
   </div>

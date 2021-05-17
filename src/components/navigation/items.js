@@ -16,6 +16,10 @@ export const items = [
     path: "/authors",
   },
   {
+    text: "links.groups",
+    path: "/groups",
+  },
+  {
     text: "links.favorites",
     path: "/favorites",
   },

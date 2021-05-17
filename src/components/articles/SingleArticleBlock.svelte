@@ -10,11 +10,66 @@
   $: queryTags = $page.query.tags ? $page.query.tags.split(",") : [];
 </script>
 
+<div class="column is-half is-full-mobile ">
+  <div class="box">
+    <div class="title is-4">{article.title}</div>
+    {#if article.user}
+      <div class="subtitle is-6">
+        {$_("components.SingleArticleBlock.written_by")}
+        {article.user.firstName}
+        {article.user.lastName}
+      </div>
+    {/if}
+    <div class="content">{article.description}</div>
+    <div class="subtitle is-6">
+      {new Date(article.createdAt).toLocaleString()}
+    </div>
+    {#if article.groups}
+      <h4>{$_("components.SingleArticleBlock.groups")}</h4>
+      <div class="tags">
+        {#each article.groups as tag}
+          <span class="tag is-medium">
+            {tag.name}
+          </span>
+        {/each}
+      </div>
+    {/if}
+    {#if article.tags && article.tags.length}
+      <h4>{$_("components.SingleArticleBlock.tags")}</h4>
+      <div class="tags">
+        {#each article.tags as tag}
+          <SingleTag
+            {tag}
+            disabled={!!queryTags.length &&
+              queryTags.filter((t) => t !== tag).length === queryTags.length}
+          />
+        {/each}
+      </div>
+    {/if}
+
+    <div class="blank">
+      <BigLink
+        link="/articles/{article.slug}"
+        text={$_("components.SingleArticleBlock.link")}
+      />
+    </div>
+  </div>
+</div>
+
 <style lang="scss">
   .box {
     height: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  .tag {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    // cursor: pointer;
+    background-color: var(--primary);
+    color: var(--tertiary);
+    border-radius: 20px;
   }
   .subtitle.is-6 {
     color: var(--lightgrey2) !important;
@@ -36,32 +91,3 @@
     align-items: flex-end;
   }
 </style>
-
-<div class="column is-half is-full-mobile ">
-  <div class="box">
-    <div class="title is-4">{article.title}</div>
-    {#if article.user}
-      <div class="subtitle is-6">
-        {$_('components.SingleArticleBlock.written_by')}
-        {article.user.firstName}
-        {article.user.lastName}
-      </div>
-    {/if}
-    <div class="content">{article.description}</div>
-    <div class="subtitle is-6">
-      {new Date(article.createdAt).toLocaleString()}
-    </div>
-    <div class="tags">
-      {#each article.tags as tag}
-        <SingleTag
-          {tag}
-          disabled={!!queryTags.length && queryTags.filter((t) => t !== tag).length === queryTags.length} />
-      {/each}
-    </div>
-    <div class="blank">
-      <BigLink
-        link="/articles/{article.slug}"
-        text={$_('components.SingleArticleBlock.link')} />
-    </div>
-  </div>
-</div>

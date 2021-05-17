@@ -9,6 +9,7 @@
     "home": "Home",
     "articles": "Articles",
     "academies": "Academies",
+    "groups": "Groups",
     "authors": "Authors",
     "favorites": "Favorites",
     "legal": "Legal",
@@ -41,6 +42,10 @@
       "title": "Authors list",
       "subtitle": "Research in the list of authors"
     },
+    "groups": {
+      "title": "Groups list",
+      "subtitle": "Research in the list of groups"
+    },
     "academies": {
       "title": "French academies list",
       "subtitle": "Visit your academy's page"
@@ -62,6 +67,10 @@
       "authors_subtitle": "Visit their page",
       "noauthors_title": "You have no authors in your favorites",
       "noauthors_subtitle": "noauthors_subtitle",
+      "groups_title": "List of your groups",
+      "groups_subtitle": "Visit their page",
+      "nogroups_title": "You have no groups in your favorites",
+      "nogroups_subtitle": "nogroups_subtitle",
       "noarticles_title": "You have no articles in your favorites",
       "noarticles_subtitle": "noarticles_subtitle",
       "research_title": "Your researches",
@@ -73,7 +82,9 @@
   "components": {
     "SingleArticleBlock": {
       "link": "Read the article",
-      "written_by": "Written by"
+      "written_by": "Written by",
+      "groups": "Groups",
+      "tags": "Tags"
     },
     "SmallArticleBlock": {
       "link": "Read",
