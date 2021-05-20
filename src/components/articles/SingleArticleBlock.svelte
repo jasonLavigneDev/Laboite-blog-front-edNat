@@ -24,7 +24,7 @@
     <div class="subtitle is-6">
       {new Date(article.createdAt).toLocaleString()}
     </div>
-    {#if article.groups}
+    {#if article.groups && article.groups.length}
       <h4>{$_("components.SingleArticleBlock.groups")}</h4>
       <div class="tags">
         {#each article.groups as tag}

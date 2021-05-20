@@ -18,7 +18,7 @@
       count: true,
       countOnly: true,
       apiurl: "articles",
-      where: { "groups._id": { eq: group.slug } },
+      where: { "groups._id": { eq: group._id } },
     });
     total = results.total;
   });
