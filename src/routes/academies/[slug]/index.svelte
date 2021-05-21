@@ -21,7 +21,7 @@
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { structure: academy.value },
+      where: { structure: academy.value, draft: { neq: true } },
       include: [
         {
           relation: "user",
@@ -71,15 +71,8 @@
   });
 </script>
 
-<style>
-  .favorites {
-    display: flex;
-    justify-content: flex-end;
-  }
-</style>
-
 <svelte:head>
-  <title>{$_('title')} | {academy.label}</title>
+  <title>{$_("title")} | {academy.label}</title>
 </svelte:head>
 
 <PageTransition>
@@ -99,3 +92,10 @@
   <LastPublished {articles} {academy} />
   <Authors {authors} {academy} />
 </PageTransition>
+
+<style>
+  .favorites {
+    display: flex;
+    justify-content: flex-end;
+  }
+</style>

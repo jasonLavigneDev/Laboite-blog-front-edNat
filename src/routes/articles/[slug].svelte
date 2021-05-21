@@ -56,6 +56,79 @@
   });
 </script>
 
+<svelte:head>
+  <title>
+    {$_("title")}
+    |
+    {article ? article.title : $_("pages.article.no_article_title")}
+  </title>
+  <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
+</svelte:head>
+
+<PageTransition>
+  {#if !article}
+    <NoResults
+      title={$_("pages.article.no_article_title")}
+      subtitle={$_("pages.article.no_article_subtitle")}
+    />
+  {:else}
+    <div class="columns is-gapless is-multiline is-mobile">
+      <div class="column is-half">
+        <BackButton previousLocation="/articles" useHistory={true} />
+      </div>
+      <div class="column is-half fav-button-wrap">
+        <div class="box-transparent">
+          <FavoritesButton type="article" itemId={article._id} />
+        </div>
+      </div>
+    </div>
+    <div class="columns is-gapless is-multiline">
+      <div
+        class="column is-three-quarters-widescreen is-full-desktop is-full-tablet"
+      >
+        <section class="box-transparent">
+          <div class="title is-4">{article.title}</div>
+
+          <div class="content">
+            {#if article.markdown}
+              <svelte:component
+                this={MarkdownViewer}
+                content={article.content}
+              />
+            {:else}
+              <div class="ql-editor">
+                {@html article.content}
+              </div>
+            {/if}
+          </div>
+        </section>
+      </div>
+      <div
+        class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
+      >
+        <div class="box-transparent">
+          <AuthorIdCard {author} />
+          <div class="box">
+            <div class="title is-5">{$_("pages.article.tags")}</div>
+            <div class="tags">
+              {#each article.tags as tag}
+                <SingleTag {tag} />
+              {/each}
+            </div>
+          </div>
+          <div class="box last-box">
+            <div class="title is-5">
+              {$_("pages.article.read_times")}
+              :
+              {article.visits}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/if}
+</PageTransition>
+
 <style lang="scss">
   .content {
     text-align: justify;
@@ -89,69 +162,3 @@
     margin-bottom: var(--space-between);
   }
 </style>
-
-<svelte:head>
-  <title>
-    {$_('title')}
-    |
-    {article ? article.title : $_('pages.article.no_article_title')}
-  </title>
-</svelte:head>
-
-<PageTransition>
-  {#if !article}
-    <NoResults
-      title={$_('pages.article.no_article_title')}
-      subtitle={$_('pages.article.no_article_subtitle')} />
-  {:else}
-    <div class="columns is-gapless is-multiline is-mobile">
-      <div class="column is-half">
-        <BackButton previousLocation="/articles" useHistory={true} />
-      </div>
-      <div class="column is-half fav-button-wrap">
-        <div class="box-transparent">
-          <FavoritesButton type="article" itemId={article._id} />
-        </div>
-      </div>
-    </div>
-    <div class="columns is-gapless is-multiline">
-      <div
-        class="column is-three-quarters-widescreen is-full-desktop is-full-tablet">
-        <section class="box-transparent">
-          <div class="title is-4">{article.title}</div>
-
-          <div class="content">
-            {#if article.markdown}
-              <svelte:component
-                this={MarkdownViewer}
-                content={article.content} />
-            {:else}
-              {@html article.content}
-            {/if}
-          </div>
-        </section>
-      </div>
-      <div
-        class="column is-one-quarter-widescreen is-full-desktop is-full-tablet">
-        <div class="box-transparent">
-          <AuthorIdCard {author} />
-          <div class="box">
-            <div class="title is-5">{$_('pages.article.tags')}</div>
-            <div class="tags">
-              {#each article.tags as tag}
-                <SingleTag {tag} />
-              {/each}
-            </div>
-          </div>
-          <div class="box last-box">
-            <div class="title is-5">
-              {$_('pages.article.read_times')}
-              :
-              {article.visits}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  {/if}
-</PageTransition>

@@ -2,12 +2,14 @@
   import {
     favoritesArticles,
     favoritesAuthors,
+    favoritesGroups,
     favoritesResearches,
   } from "../../utils/functions/stores";
 
   const types = {
     article: favoritesArticles,
     author: favoritesAuthors,
+    group: favoritesGroups,
     research: favoritesResearches,
   };
 

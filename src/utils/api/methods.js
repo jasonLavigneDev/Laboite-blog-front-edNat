@@ -11,6 +11,7 @@ export async function fetchData({
   value,
   skip = 0,
   count = true,
+  countOnly = false,
   include,
 }) {
   const whereQuery = { ...where };
@@ -27,11 +28,12 @@ export async function fetchData({
     skip,
     include,
   };
-  const response = await fetcher(
+  const response = countOnly ? null : await fetcher(
     `${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`
   );
-  const items = await response.json();
+  const items = countOnly ? null : await response.json();
   let total;
+
   if (count) {
     const newTotal = await fetcher(
       `${host}/${apiurl}/count?where=${JSON.stringify(whereQuery)}`

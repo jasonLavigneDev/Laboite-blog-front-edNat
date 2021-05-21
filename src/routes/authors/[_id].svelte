@@ -1,16 +1,18 @@
 <script context="module">
-  import { fetchData, getTags } from '../../utils/api/methods';
-  import fetcher from 'isomorphic-fetch';
+  import { fetchData, getTags } from "../../utils/api/methods";
+  import fetcher from "isomorphic-fetch";
 
   export async function preload({ params, query, path }, { env }) {
-    const { page = 1, search = '', tags } = query;
+    const { page = 1, search = "", tags } = query;
 
     const limit = 10;
     const fields = { content: false, _id: false, updatedAt: false };
-    const searchFields = ['description', 'title', 'slug', 'tags'];
-    const order = 'createdAt DESC';
+    const searchFields = ["description", "title", "slug", "tags"];
+    const order = "createdAt DESC";
     const apiurl = `articles`;
-    const where = tags ? { userId: params._id, tags: { inq: [tags] } } : { userId: params._id };
+    const where = tags
+      ? { userId: params._id, tags: { inq: [tags] }, draft: { neq: true } }
+      : { userId: params._id, draft: { neq: true } };
 
     const { items, total } = await fetchData({
       host: env.API_HOST,
@@ -23,7 +25,9 @@
       where,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-    const responseAuthor = await fetcher(`${env.API_HOST}/authors/${params._id}`);
+    const responseAuthor = await fetcher(
+      `${env.API_HOST}/authors/${params._id}`
+    );
     const author = await responseAuthor.json();
     const tagsList = await getTags(env.API_HOST);
     return {
@@ -40,18 +44,18 @@
 </script>
 
 <script>
-  import { _ } from 'svelte-i18n';
-  import { stores } from '@sapper/app';
-  import Divider from '../../components/common/Divider.svelte';
-  import SingleArticleBlock from '../../components/articles/SingleArticleBlock.svelte';
-  import SearchField from '../../components/common/SearchField.svelte';
-  import Pagination from '../../components/common/Pagination.svelte';
-  import NoResults from '../../components/common/NoResults.svelte';
-  import Avatar from '../../components/authors/Avatar.svelte';
-  import BackButton from '../../components/navigation/BackButton.svelte';
-  import TagsFilter from '../../components/common/TagsFilter.svelte';
-  import FavoritesButton from '../../components/common/FavoritesButton.svelte';
-  import PageTransition from '../../components/common/PageTransition.svelte';
+  import { _ } from "svelte-i18n";
+  import { stores } from "@sapper/app";
+  import Divider from "../../components/common/Divider.svelte";
+  import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
+  import SearchField from "../../components/common/SearchField.svelte";
+  import Pagination from "../../components/common/Pagination.svelte";
+  import NoResults from "../../components/common/NoResults.svelte";
+  import Avatar from "../../components/authors/Avatar.svelte";
+  import BackButton from "../../components/navigation/BackButton.svelte";
+  import TagsFilter from "../../components/common/TagsFilter.svelte";
+  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import PageTransition from "../../components/common/PageTransition.svelte";
 
   export let articles = [];
   export let author = {};
@@ -59,13 +63,13 @@
   export let limit;
   export let page = 1;
   export let query = {};
-  export let path = '';
+  export let path = "";
   export let tagsList = [];
   const { preloading } = stores();
 </script>
 
 <svelte:head>
-  <title>{$_('title')} | {$_('articles')}</title>
+  <title>{$_("title")} | {$_("articles")}</title>
 </svelte:head>
 
 <PageTransition>
@@ -89,7 +93,7 @@
         <div class="media-content">
           <div class="content">
             <h1 class="title">{author.firstName} {author.lastName}</h1>
-            <div class="subtitle">{author.structure || 'Autres'}</div>
+            <div class="subtitle">{author.structure || "Autres"}</div>
           </div>
         </div>
       </article>

@@ -1,33 +1,23 @@
 <script context="module">
-  import { fetchData, getTags } from "../../utils/api/methods";
+  import { fetchData } from "../../utils/api/methods";
 
   export async function preload({ query, path }, { env }) {
-    const { page = 1, search = "", tags } = query;
-    const isResearchLink = !!tags || !!search;
-    const request =
-      !!tags || !!search
-        ? {
-            path,
-            query: { search, tags },
-            type: "articles",
-          }
-        : null;
-    const limit = 10;
-    const fields = { content: false, _id: false, updatedAt: false };
-    const searchFields = ["description", "title", "slug", "tags"];
-    const order = "createdAt DESC";
-    const apiurl = "articles";
-    const where = tags
+    const { page = 1, search = "" } = query;
+    const isResearchLink = !!search;
+    const request = !!search
       ? {
-          draft: { neq: true },
-          and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
+          path,
+          query: { search },
+          type: "groups",
         }
-      : { draft: { neq: true } };
-    const include = [
-      {
-        relation: "user",
-      },
-    ];
+      : null;
+
+    const limit = 9;
+    const fields = {};
+    const searchFields = ["name"];
+    const order = "createdAt DESC";
+    const apiurl = "groups";
+    const where = { articles: { eq: true } };
 
     const { items, total } = await fetchData({
       host: env.API_HOST,
@@ -37,20 +27,16 @@
       searchFields,
       apiurl,
       value: search,
-      include,
       where,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-
-    const tagsList = await getTags(env.API_HOST);
     return {
-      articles: items,
+      groups: items,
       total,
       limit,
       page: Number(page),
       query,
       path,
-      tagsList,
       isResearchLink,
       request,
     };
@@ -61,28 +47,26 @@
   import { _ } from "svelte-i18n";
   import { stores } from "@sapper/app";
   import Divider from "../../components/common/Divider.svelte";
-  import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
   import Pagination from "../../components/common/Pagination.svelte";
   import NoResults from "../../components/common/NoResults.svelte";
-  import TagsFilter from "../../components/common/TagsFilter.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
   import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import GroupCard from "../../components/groups/GroupCard.svelte";
 
-  export let articles = [];
+  export let groups = [];
   export let total = 0;
   export let limit;
   export let page = 1;
   export let query = {};
   export let path = "";
-  export let tagsList = [];
   export let isResearchLink;
   export let request;
   const { preloading } = stores();
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.articles")}</title>
+  <title>{$_("title")} | {$_("links.groups")}</title>
 </svelte:head>
 
 <PageTransition>
@@ -93,8 +77,8 @@
         class:is-full={!isResearchLink}
         class:is-half={isResearchLink}
       >
-        <h1 class="title">{$_("pages.articles.title")}: {total}</h1>
-        <h2 class="subtitle">{$_("pages.articles.subtitle")}</h2>
+        <h1 class="title">{$_("pages.groups.title")}: {total}</h1>
+        <h2 class="subtitle">{$_("pages.groups.subtitle")}</h2>
       </div>
       {#if isResearchLink}
         <div class="column is-half fav-button-wrap">
@@ -106,6 +90,7 @@
       {/if}
     </div>
     <Divider />
+
     <div class="columns is-multiline">
       <div class="column is-half is-full-mobile">
         <SearchField loading={$preloading} {query} {path} />
@@ -115,25 +100,20 @@
           <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>
-      <div class="column is-full">
-        {#if !$preloading}
-          <TagsFilter {query} {path} {tagsList} />
-        {/if}
-      </div>
     </div>
 
-    {#if articles.length}
+    {#if groups.length}
       <div class="columns is-multiline">
-        {#each articles as article, index}
-          <SingleArticleBlock {article} />
+        {#each groups as group}
+          <div class="column is-one-third is-half-tablet is-full-mobile">
+            <GroupCard {group} />
+          </div>
         {/each}
       </div>
     {:else}
       <NoResults query={!!Object.keys(query).length} />
     {/if}
-    {#if !$preloading}
-      <Pagination {total} {page} {limit} {query} {path} />
-    {/if}
+    <Pagination {total} {page} {limit} {query} {path} />
   </section>
 </PageTransition>
 

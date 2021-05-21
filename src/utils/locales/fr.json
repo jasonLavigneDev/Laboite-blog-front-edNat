@@ -9,6 +9,7 @@
     "home": "Accueil",
     "articles": "Articles",
     "academies": "Académies",
+    "groups": "Groupes",
     "authors": "Auteurs",
     "favorites": "Favoris",
     "legal": "Mentions légales",
@@ -41,6 +42,10 @@
       "title": "La liste des auteurs",
       "subtitle": "Recherchez dans la liste des auteurs"
     },
+    "groups": {
+      "title": "La liste des groupes",
+      "subtitle": "Recherchez dans la liste des groupes"
+    },
     "academies": {
       "title": "La liste des académies françaises",
       "subtitle": "Visitez la page de votre académie"
@@ -62,6 +67,10 @@
       "authors_subtitle": "Visitez leur page",
       "noauthors_title": "Vous n'avez aucun auteur dans vos favoris",
       "noauthors_subtitle": "noauthors_subtitle",
+      "groups_title": "Liste de vos groupes",
+      "groups_subtitle": "Visitez leur page",
+      "nogroups_title": "Vous n'avez aucun groupe dans vos favoris",
+      "noagroups_subtitle": "nogroups_subtitle",
       "noarticles_title": "Vous n'avez aucun article dans vos favoris",
       "noarticles_subtitle": "noarticles_subtitle",
       "research_title": "Vos recherches",
@@ -73,7 +82,9 @@
   "components": {
     "SingleArticleBlock": {
       "link": "Lire l'article entier",
-      "written_by": "Écrit par"
+      "written_by": "Écrit par",
+      "groups": "Groupes",
+      "tags": "Tags"
     },
     "SmallArticleBlock": {
       "link": "Lire",

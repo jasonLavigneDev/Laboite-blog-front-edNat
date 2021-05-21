@@ -1,33 +1,21 @@
 <script context="module">
   import { fetchData, getTags } from "../../utils/api/methods";
+  import fetcher from "isomorphic-fetch";
 
-  export async function preload({ query, path }, { env }) {
+  export async function preload({ params, query, path }, { env }) {
     const { page = 1, search = "", tags } = query;
-    const isResearchLink = !!tags || !!search;
-    const request =
-      !!tags || !!search
-        ? {
-            path,
-            query: { search, tags },
-            type: "articles",
-          }
-        : null;
+
+    const responseGroup = await fetcher(
+      `${env.API_HOST}/groups/${params.slug}`
+    );
+    const group = await responseGroup.json();
+
     const limit = 10;
     const fields = { content: false, _id: false, updatedAt: false };
     const searchFields = ["description", "title", "slug", "tags"];
     const order = "createdAt DESC";
-    const apiurl = "articles";
-    const where = tags
-      ? {
-          draft: { neq: true },
-          and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
-        }
-      : { draft: { neq: true } };
-    const include = [
-      {
-        relation: "user",
-      },
-    ];
+    const apiurl = `articles`;
+    const where = { "groups._id": { eq: group._id } };
 
     const { items, total } = await fetchData({
       host: env.API_HOST,
@@ -37,11 +25,9 @@
       searchFields,
       apiurl,
       value: search,
-      include,
       where,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-
     const tagsList = await getTags(env.API_HOST);
     return {
       articles: items,
@@ -50,9 +36,8 @@
       page: Number(page),
       query,
       path,
+      group,
       tagsList,
-      isResearchLink,
-      request,
     };
   }
 </script>
@@ -65,48 +50,54 @@
   import SearchField from "../../components/common/SearchField.svelte";
   import Pagination from "../../components/common/Pagination.svelte";
   import NoResults from "../../components/common/NoResults.svelte";
+  import BackButton from "../../components/navigation/BackButton.svelte";
   import TagsFilter from "../../components/common/TagsFilter.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
   import FavoritesButton from "../../components/common/FavoritesButton.svelte";
+  import PageTransition from "../../components/common/PageTransition.svelte";
+  import Avatar from "../../components/authors/Avatar.svelte";
 
   export let articles = [];
+  export let group = {};
   export let total = 0;
   export let limit;
   export let page = 1;
   export let query = {};
   export let path = "";
   export let tagsList = [];
-  export let isResearchLink;
-  export let request;
   const { preloading } = stores();
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.articles")}</title>
+  <title>{$_("title")} | {$_("articles")}</title>
 </svelte:head>
 
 <PageTransition>
-  <section class="box-transparent">
-    <div class="columns is-multiline is-mobile">
-      <div
-        class="column"
-        class:is-full={!isResearchLink}
-        class:is-half={isResearchLink}
-      >
-        <h1 class="title">{$_("pages.articles.title")}: {total}</h1>
-        <h2 class="subtitle">{$_("pages.articles.subtitle")}</h2>
+  <div class="columns is-gapless is-multiline is-mobile">
+    <div class="column is-half">
+      <BackButton previousLocation="/authors" useHistory={true} />
+    </div>
+    <div class="column is-half fav-button-wrap">
+      <div class="box-transparent">
+        <FavoritesButton type="group" itemId={group.slug} />
       </div>
-      {#if isResearchLink}
-        <div class="column is-half fav-button-wrap">
-          <div class="box-transparent">
-            <div>{$_("save_research")}</div>
-            <FavoritesButton type="research" itemId={JSON.stringify(request)} />
+    </div>
+  </div>
+  <section class="box-transparent">
+    <div class="container">
+      <article class="media">
+        <figure class="media-left">
+          <Avatar avatar={group.avatar} firstName={group.name} />
+        </figure>
+
+        <div class="media-content">
+          <div class="content">
+            <h1 class="title">{group.name}</h1>
           </div>
         </div>
-      {/if}
+      </article>
     </div>
     <Divider />
-    <div class="columns is-multiline">
+    <div class="columns is-gapless is-multiline">
       <div class="column is-half is-full-mobile">
         <SearchField loading={$preloading} {query} {path} />
       </div>
@@ -124,21 +115,22 @@
 
     {#if articles.length}
       <div class="columns is-multiline">
-        {#each articles as article, index}
+        {#each articles as article}
           <SingleArticleBlock {article} />
         {/each}
       </div>
     {:else}
       <NoResults query={!!Object.keys(query).length} />
     {/if}
-    {#if !$preloading}
-      <Pagination {total} {page} {limit} {query} {path} />
-    {/if}
+    <Pagination {total} {page} {limit} {query} {path} />
   </section>
 </PageTransition>
 
 <style lang="scss">
   .box-transparent {
     margin-bottom: var(--space-between);
+  }
+  .media-content .content * {
+    color: var(--texts);
   }
 </style>

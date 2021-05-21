@@ -5,6 +5,7 @@ export const loader = writable(false);
 
 export const favoritesArticles = syncable("favoritesArticles", []);
 export const favoritesAuthors = syncable("favoritesAuthors", []);
+export const favoritesGroups = syncable("favoritesGroups", []);
 export const favoritesAcademy = syncable("favoritesAcademy", null);
 export const favoritesResearches = syncable("favoritesResearches", []);
 export const articlesRead = syncable("articlesRead", []);
