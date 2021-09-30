@@ -6,6 +6,24 @@
   const { page, session } = stores();
 </script>
 
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-menu is-active">
+    <div class="navbar-start">
+      {#each footer as { path, text }}
+        <a
+          class:is-active={$page.path === path}
+          class="navbar-item"
+          target="_blank"
+          href="{$session.env.APPS_HOST}{path}"
+        >
+          {$_(`links.${text}`)}
+        </a>
+      {/each}
+    </div>
+    <div class="navbar-end" />
+  </div>
+</nav>
+
 <style lang="scss">
   .navbar {
     height: 64px;
@@ -25,20 +43,3 @@
     }
   }
 </style>
-
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-menu is-active">
-    <div class="navbar-start">
-      {#each footer as { path, text }}
-        <a
-          class:is-active={$page.path === path}
-          class="navbar-item"
-          target="_blank"
-          href="{$session.env.LABOITE_HOST}{path}">
-          {$_(`links.${text}`)}
-        </a>
-      {/each}
-    </div>
-    <div class="navbar-end" />
-  </div>
-</nav>
