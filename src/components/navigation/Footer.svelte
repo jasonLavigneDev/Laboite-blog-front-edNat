@@ -4,6 +4,10 @@
   import { footer } from "./items";
 
   const { page, session } = stores();
+  const settings = AppSettings.findOne(
+    { _id: "settings" },
+    { fields: AppSettings.links }
+  );
 </script>
 
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
@@ -14,7 +18,7 @@
           class:is-active={$page.path === path}
           class="navbar-item"
           target="_blank"
-          href="{$session.env.APPS_HOST}{path}"
+          href="{$session.env.LABOITE_HOST}{path}"
         >
           {$_(`links.${text}`)}
         </a>
