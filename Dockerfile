@@ -1,5 +1,4 @@
 FROM hub.eole.education/proxyhub/library/node:14.18.1-alpine
-ENV PORT=4000
 RUN apk add git gcc openssh-client libsass
 WORKDIR /app
 COPY --chown=node . .
@@ -16,7 +15,7 @@ COPY --chown=node . .
 
 # Install OS runtime dependencies
 RUN apk --no-cache add \
-    git \
+	git \
 	bash \
 	ca-certificates
 
@@ -24,5 +23,5 @@ RUN apk --no-cache add \
 COPY --chown=node --from=0 /app/__sapper__/build /app/__sapper__/build
 RUN yarn install --prod
 # Start app
-EXPOSE 4000
+EXPOSE ${PORT}
 CMD ["npm", "start"]
