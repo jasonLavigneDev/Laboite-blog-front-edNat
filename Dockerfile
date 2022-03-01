@@ -4,7 +4,6 @@ WORKDIR /app
 COPY --chown=node . .
 RUN yarn install
 RUN npm rebuild node-sass
-RUN yarn install --save
 RUN npm run build
 
 FROM hub.eole.education/proxyhub/library/node:14.18.1-alpine
