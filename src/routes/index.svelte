@@ -1,4 +1,4 @@
-<script context="module">
+<script context='module'>
   import { fetchData } from "../utils/api/methods";
 
   export async function preload(_, { env }) {
