@@ -1,9 +1,9 @@
 <script context='module'>
   import { fetchData } from "../utils/api/methods";
 
-  export async function preload(_, { env }) {
-    const { items: articles } = await fetchData({
-      host: env.API_HOST,
+  export async function load() {
+    const { items: articles, response } = await fetchData({
+      host: import.meta.env.VITE_API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },
@@ -25,8 +25,12 @@
     });
 
     return {
-      articles,
-    };
+      status: response.status,
+      props: {
+        articles
+      }
+    }
+
   }
 </script>
 

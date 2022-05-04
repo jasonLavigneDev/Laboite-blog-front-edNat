@@ -31,7 +31,7 @@
   ];
 </script>
 
-<style lang="scss">
+<style>
   .wrapper {
     width: 100%;
     display: flex;
@@ -44,13 +44,6 @@
   }
   .mainLoader {
     position: fixed;
-    // .loader-wrapper {
-    //   height: 300px;
-    //   width: 300px;
-    //   border-radius: 50%;
-    //   background: rgba(white, 0.5);
-    //   box-shadow: var(--box-shadow);
-    // }
   }
   .loader-wrapper {
     width: 100%;
@@ -60,9 +53,7 @@
     align-items: center;
     padding: 30px;
   }
-  .loader-svg {
-    margin: auto;
-  }
+  
   .subtitle {
     text-transform: uppercase;
   }

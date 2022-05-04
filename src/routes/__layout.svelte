@@ -2,13 +2,14 @@
   import { waitLocale, _, locale } from "svelte-i18n";
   import "../utils/theme/index.css";
 
-  export async function preload() {
-    waitLocale();
+  export async function load(args) {
+    waitLocale()
+    return args;
   }
 </script>
 
 <script>
-  import { stores } from "@sapper/app";
+  import { getStores } from "$app/stores";
   import "../utils/locales/index";
   import Nav from "../components/navigation/Nav.svelte";
   import Footer from "../components/navigation/Footer.svelte";
@@ -27,54 +28,55 @@
 
   trackLocation();
 
-  const { preloading } = stores();
+  const { navigating } = getStores();
 </script>
 
-<style global lang="scss">
+<style>
   main {
     padding-top: calc(52px + var(--space-between));
     min-height: calc(100vh - 64px);
   }
-  .hidden {
+  :global(.hidden) {
     display: none;
   }
 
-  h1,
+  :global(h1,
   h2,
   h3,
   h4,
   h5,
   h6,
-  .title {
+  .title) {
     font-family: "WorkSansBold" !important;
   }
 
-  .title,
+  :global(.title,
   .subtitle,
   p,
-  .content {
+  .content) {
     color: var(--texts);
   }
-  .box-transparent {
+  :global(.box-transparent) {
     padding: 20px;
   }
 
-  .fav-button-wrap {
+  :global(.fav-button-wrap) {
     display: flex;
     justify-content: flex-end;
   }
-  .fav-button-wrap .box-transparent {
+  :global(.fav-button-wrap .box-transparent) {
     display: flex;
     align-items: center;
-    div {
+    
+  }
+  :global(.fav-button-wrap .box-transparent div) {
       margin-right: 5px;
     }
-  }
 </style>
 
 <Nav />
 
-{#if $preloading}
+{#if !!$navigating}
   <Loader message={$_('loading')} mainLoader={true} />
 {/if}
 

@@ -1,13 +1,27 @@
 <script>
+  import { onMount } from "svelte";
   import { _ } from "svelte-i18n";
 
-  import { structureOptions } from "../../routes/academies/_academies";
   import { lastAcademies } from "../../utils/functions/stores";
   import SingleAcademy from "../academies/SingleAcademy.svelte";
   import Divider from "../common/Divider.svelte";
+import { fetchData } from "../../utils/api/methods";
+
+  let academies = []
+  onMount(async () => {
+    const where = { _id: { inq: $lastAcademies } };
+    const { items } = await fetchData({
+      host: import.meta.env.VITE_API_HOST,
+      limit: 4,
+      order: "name DESC",
+      apiurl: "structures",
+      where
+    });
+    academies = items
+  })
 </script>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
   }
@@ -21,10 +35,10 @@
   <Divider />
 
   <div class="columns is-multiline">
-    {#each $lastAcademies as academy}
+    {#each academies as academy}
       <div class="column is-full">
         <SingleAcademy
-          academy={structureOptions.find((t) => t.value === academy)} />
+          academy={academy} />
       </div>
     {/each}
   </div>

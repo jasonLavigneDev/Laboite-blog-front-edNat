@@ -1,16 +1,17 @@
 <script context="module">
   import fetcher from "isomorphic-fetch";
 
-  export async function preload({ params }, { env }) {
+  export async function load({ params = {} }) {
     const responseArticle = await fetcher(
-      `${env.API_HOST}/articles/${params.slug}`
+      `${import.meta.env.VITE_API_HOST}/articles/${params.slug}`
     );
     const article = await responseArticle.json();
 
     return {
-      article,
-      author: article && article.user,
-      env,
+      props: {
+        article,
+        author: article && article.user,
+      }
     };
   }
 </script>
@@ -29,7 +30,6 @@
 
   export let article;
   export let author;
-  export let env;
 
   onMount(async () => {
     if (article.markdown) {
@@ -43,7 +43,7 @@
       article._id &&
       !$articlesRead.find((i) => i === article._id)
     ) {
-      await fetcher(`${env.API_HOST}/articles/${article._id}/read`, {
+      await fetcher(`${import.meta.env.VITE_API_HOST}/articles/${article._id}/read`, {
         method: "PATCH",
       });
       articlesRead.update((list) => {
@@ -129,7 +129,7 @@
   {/if}
 </PageTransition>
 
-<style lang="scss">
+<style>
   .content {
     text-align: justify;
   }

@@ -1,10 +1,16 @@
 <script context="module">
+  import fetcher from "isomorphic-fetch";
   import { fetchData } from '../../../../utils/api/methods';
-  import { structureOptions } from '../../_academies';
 
-  export async function preload({ params, query, path }, { env }) {
-    const { page = 1, search = '' } = query;
-    const academy = structureOptions.find(({ slug }) => slug === params.slug);
+  export async function load({ params, url }) {
+    const path = url.pathname
+    const page = url.searchParams.get('page') || 1;
+    const search = url.searchParams.get('search');
+    const query = { page, search }
+    const responseAcademy = await fetcher(
+      `${import.meta.env.VITE_API_HOST}/structures/${params._id}`
+    );
+    const academy = await responseAcademy.json();
     const isResearchLink = !!search;
     const request = !!search
       ? {
@@ -20,10 +26,10 @@
     const searchFields = ['firstName', 'lastName', 'structure'];
     const order = 'articlesCount DESC';
     const apiurl = 'authors';
-    const where = { articlesCount: { gt: 0 }, structure: academy.value };
+    const where = { articlesCount: { gt: 0 }, structure: academy._id };
 
     const { items, total } = await fetchData({
-      host: env.API_HOST,
+      host: import.meta.env.VITE_API_HOST,
       limit,
       order,
       fields,
@@ -34,22 +40,24 @@
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
     return {
-      authors: items,
-      total,
-      limit,
-      page: Number(page),
-      query,
-      path,
-      academy,
-      isResearchLink,
-      request,
+      props: {
+        authors: items,
+        total,
+        limit,
+        page: Number(page),
+        query,
+        path,
+        academy,
+        isResearchLink,
+        request,
+      }
     };
   }
 </script>
 
 <script>
   import { _ } from 'svelte-i18n';
-  import { stores } from '@sapper/app';
+  import { getStores } from '$app/stores';
   import Divider from '../../../../components/common/Divider.svelte';
   import SearchField from '../../../../components/common/SearchField.svelte';
   import Pagination from '../../../../components/common/Pagination.svelte';
@@ -68,19 +76,19 @@
   export let academy;
   export let isResearchLink;
   export let request;
-  const { preloading } = stores();
+  const { navigating } = getStores();
 </script>
 
 <svelte:head>
-  <title>{$_('title')} | {academy.label} | {$_('links.authors')}</title>
+  <title>{$_('title')} | {academy.name} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/academies/{academy.slug}" />
+  <BackButton previousLocation="/academies/{academy._id}" />
   <div class="container box-transparent">
-    <a href="/academies/{academy.slug}" rel="prefetch"
+    <a href="/academies/{academy._id}" rel="prefetch"
       ><h1 class="title is-2">
-        {academy.label}
+        {academy.name}
       </h1></a
     >
   </div>
@@ -102,10 +110,10 @@
     <Divider />
     <div class="columns is-multiline">
       <div class="column is-half is-full-mobile">
-        <SearchField loading={$preloading} {query} {path} />
+        <SearchField loading={$navigating} {query} {path} />
       </div>
       <div class="column is-half is-full-mobile">
-        {#if !$preloading}
+        {#if !$navigating}
           <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>

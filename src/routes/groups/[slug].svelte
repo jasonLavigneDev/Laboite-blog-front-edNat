@@ -2,11 +2,14 @@
   import { fetchData, getTags } from "../../utils/api/methods";
   import fetcher from "isomorphic-fetch";
 
-  export async function preload({ params, query, path }, { env }) {
-    const { page = 1, search = "", tags } = query;
+  export async function load({ params, url }) {
+    const path = url.pathname
+    const page = url.searchParams.get('page') || 1;
+    const search = url.searchParams.get('search');
+    const query = { page, search }
 
     const responseGroup = await fetcher(
-      `${env.API_HOST}/groups/${params.slug}`
+      `${import.meta.env.VITE_API_HOST}/groups/${params.slug}`
     );
     const group = await responseGroup.json();
 
@@ -18,7 +21,7 @@
     const where = { "groups._id": { eq: group._id } };
 
     const { items, total } = await fetchData({
-      host: env.API_HOST,
+      host: import.meta.env.VITE_API_HOST,
       limit,
       order,
       fields,
@@ -28,23 +31,25 @@
       where,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-    const tagsList = await getTags(env.API_HOST);
+    const tagsList = await getTags(import.meta.env.VITE_API_HOST);
     return {
-      articles: items,
-      total,
-      limit,
-      page: Number(page),
-      query,
-      path,
-      group,
-      tagsList,
+      props: {
+        articles: items,
+        total,
+        limit,
+        page: Number(page),
+        query,
+        path,
+        group,
+        tagsList,
+      }
     };
   }
 </script>
 
 <script>
   import { _ } from "svelte-i18n";
-  import { stores } from "@sapper/app";
+  import { getStores } from "$app/stores";
   import Divider from "../../components/common/Divider.svelte";
   import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
@@ -64,7 +69,7 @@
   export let query = {};
   export let path = "";
   export let tagsList = [];
-  const { preloading } = stores();
+  const { navigating } = getStores();
 </script>
 
 <svelte:head>
@@ -99,15 +104,15 @@
     <Divider />
     <div class="columns is-gapless is-multiline">
       <div class="column is-half is-full-mobile">
-        <SearchField loading={$preloading} {query} {path} />
+        <SearchField loading={$navigating} {query} {path} />
       </div>
       <div class="column is-half is-full-mobile">
-        {#if !$preloading}
+        {#if !$navigating}
           <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>
       <div class="column is-full">
-        {#if !$preloading}
+        {#if !$navigating}
           <TagsFilter {query} {path} {tagsList} />
         {/if}
       </div>
@@ -126,7 +131,7 @@
   </section>
 </PageTransition>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
   }

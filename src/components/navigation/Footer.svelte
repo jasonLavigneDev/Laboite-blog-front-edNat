@@ -1,12 +1,12 @@
 <script>
   import { _ } from "svelte-i18n";
-  import { stores } from "@sapper/app";
+  import { getStores } from "$app/stores";
   import { footer } from "./items";
 
-  const { page, session } = stores();
+  const { page, session } = getStores();
 </script>
 
-<style lang="scss">
+<style>
   .navbar {
     height: 64px;
   }
@@ -20,9 +20,9 @@
     font-family: "WorkSansBold" !important;
     font-size: 14px;
     color: var(--tertiary);
-    &.is-active {
-      color: var(--tertiary);
-    }
+  }
+  .navbar-item.is-active {
+    color: var(--tertiary);
   }
 </style>
 
@@ -31,10 +31,10 @@
     <div class="navbar-start">
       {#each footer as { path, text }}
         <a
-          class:is-active={$page.path === path}
+          class:is-active={$page.url.pathname === path}
           class="navbar-item"
           target="_blank"
-          href="{$session.env.LABOITE_HOST}{path}">
+          href="{import.meta.env.VITE_LABOITE_HOST}{path}">
           {$_(`links.${text}`)}
         </a>
       {/each}

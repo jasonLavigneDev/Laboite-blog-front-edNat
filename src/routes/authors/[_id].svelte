@@ -2,9 +2,14 @@
   import { fetchData, getTags } from "../../utils/api/methods";
   import fetcher from "isomorphic-fetch";
 
-  export async function preload({ params, query, path }, { env }) {
-    const { page = 1, search = "", tags } = query;
-
+  export async function load({ params, url }) {
+    const path = url.pathname
+    
+    const page = url.searchParams.get('page') || 1;
+    const search = url.searchParams.get('search');
+    const tags = url.searchParams.get('tags') || "";
+    
+    const  query = { page, search, tags };
     const limit = 10;
     const fields = { content: false, _id: false, updatedAt: false };
     const searchFields = ["description", "title", "slug", "tags"];
@@ -15,7 +20,7 @@
       : { userId: params._id, draft: { neq: true } };
 
     const { items, total } = await fetchData({
-      host: env.API_HOST,
+      host: import.meta.env.VITE_API_HOST,
       limit,
       order,
       fields,
@@ -26,26 +31,33 @@
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
     const responseAuthor = await fetcher(
-      `${env.API_HOST}/authors/${params._id}`
+      `${import.meta.env.VITE_API_HOST}/authors/${params._id}`
     );
     const author = await responseAuthor.json();
-    const tagsList = await getTags(env.API_HOST);
+    const responseAcademy = await fetcher(
+      `${import.meta.env.VITE_API_HOST}/structures/${author.structure}`
+    );
+    const academy = await responseAcademy.json();
+    const tagsList = await getTags(import.meta.env.VITE_API_HOST);
     return {
-      articles: items,
-      total,
-      limit,
-      page: Number(page),
-      query,
-      path,
-      author,
-      tagsList,
+      props: {
+        articles: items,
+        total,
+        limit,
+        page: Number(page),
+        query,
+        path,
+        author,
+        academy,
+        tagsList,
+      }
     };
   }
 </script>
 
 <script>
   import { _ } from "svelte-i18n";
-  import { stores } from "@sapper/app";
+  import { getStores } from "$app/stores";
   import Divider from "../../components/common/Divider.svelte";
   import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
   import SearchField from "../../components/common/SearchField.svelte";
@@ -64,8 +76,9 @@
   export let page = 1;
   export let query = {};
   export let path = "";
+  export let academy = {};
   export let tagsList = [];
-  const { preloading } = stores();
+  const { navigating } = getStores();
 </script>
 
 <svelte:head>
@@ -93,7 +106,7 @@
         <div class="media-content">
           <div class="content">
             <h1 class="title">{author.firstName} {author.lastName}</h1>
-            <div class="subtitle">{author.structure || "Autres"}</div>
+            <div class="subtitle">{academy.name || "Autres"}</div>
           </div>
         </div>
       </article>
@@ -101,15 +114,15 @@
     <Divider />
     <div class="columns is-gapless is-multiline">
       <div class="column is-half is-full-mobile">
-        <SearchField loading={$preloading} {query} {path} />
+        <SearchField loading={$navigating} {query} {path} />
       </div>
       <div class="column is-half is-full-mobile">
-        {#if !$preloading}
+        {#if !$navigating}
           <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>
       <div class="column is-full">
-        {#if !$preloading}
+        {#if !$navigating}
           <TagsFilter {query} {path} {tagsList} />
         {/if}
       </div>
@@ -128,7 +141,7 @@
   </section>
 </PageTransition>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
   }

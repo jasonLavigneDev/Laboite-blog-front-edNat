@@ -1,12 +1,18 @@
 <script>
   import { _ } from 'svelte-i18n';
-  import { structureOptions } from '../../routes/academies/_academies';
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';
 
   export let author;
-  const academy = structureOptions.find(({ value }) => value === (author.structure || 'Autre')) || {};
+
+  let academy = {}
+  onMount(async () => {
+    const responseAcademy = await fetcher(
+      `${import.meta.env.VITE_API_HOST}/structures/${author.structure}`
+    );
+    academy = await responseAcademy.json();
+  })
 </script>
 
 <div class="column is-full ">
@@ -16,7 +22,7 @@
     </figure>
     <div class="media-content">
       <div class="title is-4">{author.firstName} {author.lastName}</div>
-      <div>{academy.value}</div>
+      <div>{academy.name}</div>
       <div class="title is-6">
         {$_('components.SmallAuthorIdCard.articles')}:
         {author.articlesCount}

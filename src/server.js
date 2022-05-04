@@ -1,21 +1,35 @@
-import sirv from "sirv";
-import polka from "polka";
-import compression from "compression";
-import * as sapper from "@sapper/server";
+import { minify } from "html-minifier";
+import { prerendering } from "$app/env";
 
-const { PORT, NODE_ENV, API_HOST, LABOITE_HOST, UML_SERVER } = process.env;
-const dev = NODE_ENV === "development";
+const minification_options = {
+  collapseBooleanAttributes: true,
+  collapseWhitespace: true,
+  conservativeCollapse: true,
+  decodeEntities: true,
+  html5: true,
+  ignoreCustomComments: [/^#/],
+  minifyCSS: true,
+  minifyJS: false,
+  removeAttributeQuotes: true,
+  removeComments: true,
+  removeOptionalTags: true,
+  removeRedundantAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  sortAttributes: true,
+  sortClassName: true,
+};
 
-polka() // You can also use Express
-  .use(
-    compression({ threshold: 0 }),
-    sirv("static", { dev }),
-    sapper.middleware({
-      session: (req) => ({
-        env: { API_HOST, LABOITE_HOST, UML_SERVER },
-      }),
-    })
-  )
-  .listen(PORT, (err) => {
-    if (err) console.log("error", err);
-  });
+/** @type {import('@sveltejs/kit').Handle} */
+export async function handle({ event, resolve }) {
+  const response = await resolve(event);
+
+  if (prerendering && response.headers.get("content-type") === "text/html") {
+    return new Response(minify(await response.text(), minification_options), {
+      status: response.status,
+      headers: response.headers,
+    });
+  }
+
+  return response;
+}

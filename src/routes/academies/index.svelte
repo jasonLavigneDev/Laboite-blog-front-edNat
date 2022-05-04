@@ -1,12 +1,37 @@
+<script context="module">
+  import { fetchData } from "../../utils/api/methods";
+
+  export async function load({ url }) {
+    const fields = {};
+    const order = "name DESC";
+    const apiurl = "structures";
+
+    const { items, total } = await fetchData({
+      host: import.meta.env.VITE_API_HOST,
+      limit: 100,
+      order,
+      fields,
+      apiurl,
+    });
+
+    return {
+      props: {
+        structures: items,
+      }
+    };
+  }
+</script>
+
 <script>
   import { _ } from "svelte-i18n";
   import Divider from "../../components/common/Divider.svelte";
-  import { structureOptions } from "./_academies";
   import SingleAcademy from "../../components/academies/SingleAcademy.svelte";
   import PageTransition from "../../components/common/PageTransition.svelte";
+
+  export let structures = []
 </script>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
   }
@@ -24,7 +49,7 @@
     </div>
     <Divider />
     <div class="columns is-multiline">
-      {#each structureOptions as academy}
+      {#each structures as academy}
         <div class="column is-half is-full-mobile">
           <SingleAcademy {academy} />
         </div>

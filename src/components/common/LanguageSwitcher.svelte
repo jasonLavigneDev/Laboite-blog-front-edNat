@@ -12,7 +12,7 @@
   };
 </script>
 
-<style lang="scss">
+<style>
   img {
     height: 30px;
     margin: auto 5px;
