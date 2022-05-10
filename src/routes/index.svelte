@@ -1,9 +1,9 @@
 <script context='module'>
   import { fetchData } from "../utils/api/methods";
 
-  export async function load() {
+  export async function load({ session }) {
     const { items: articles, response } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },
@@ -47,6 +47,7 @@
     lastAcademies,
     lastRead,
   } from "../utils/functions/stores";
+
 
   export let articles;
 </script>

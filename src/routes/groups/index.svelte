@@ -1,7 +1,7 @@
 <script context="module">
   import { fetchData } from "../../utils/api/methods";
 
-  export async function load({ url }) {
+  export async function load({ url, session }) {
     const path = url.pathname
     const page = url.searchParams.get('page') || 1;
     const search = url.searchParams.get('search');
@@ -23,7 +23,7 @@
     const where = { articles: { eq: true } };
 
     const { items, total } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit,
       order,
       fields,

@@ -3,13 +3,14 @@
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';
+  import { session } from "$app/stores"
 
   export let author;
 
   let academy = {}
   onMount(async () => {
     const responseAcademy = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/structures/${author.structure}`
+      `${$session.env.API_HOST}/structures/${author.structure}`
     );
     academy = await responseAcademy.json();
   })

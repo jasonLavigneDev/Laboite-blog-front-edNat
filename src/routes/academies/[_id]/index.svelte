@@ -2,15 +2,15 @@
   import fetcher from "isomorphic-fetch";
   import { fetchData } from "../../../utils/api/methods";
 
-  export async function load({ params }) {
+  export async function load({ params, session }) {
 
     const responseAcademy = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/structures/${params._id}`
+      `${session.env.API_HOST}/structures/${params._id}`
     );
     const academy = await responseAcademy.json();
 
     const { items: authors, response } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit: 6,
       order: "articlesCount DESC",
       fields: {},
@@ -19,7 +19,7 @@
       where: { articlesCount: { gt: 0 }, structure: academy._id },
     });
     const { items: articles } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },

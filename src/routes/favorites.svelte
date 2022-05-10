@@ -9,6 +9,7 @@
     favoritesGroups,
   } from "../utils/functions/stores";
   import { _ } from "svelte-i18n";
+  import { session } from "$app/stores"
   import FavoritesArticles from "../components/favorites/FavoritesArticles.svelte";
   import FavoritesAuthors from "../components/favorites/FavoritesAuthors.svelte";
   import PageTransition from "../components/common/PageTransition.svelte";
@@ -21,7 +22,7 @@
 
   const getFavorites = async () => {
     const resultsAuthors = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: $session.env.API_HOST,
       limit: 6,
       order: "articlesCount DESC",
       fields: {},
@@ -30,7 +31,7 @@
       where: { articlesCount: { gt: 0 }, _id: { inq: $favoritesAuthors } },
     });
     const resultsGroups = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: $session.env.API_HOST,
       limit: 6,
       order: "createdAt DESC",
       fields: {},
@@ -39,7 +40,7 @@
       where: { _id: { inq: $favoritesGroups } },
     });
     const resultsArticles = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: $session.env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },

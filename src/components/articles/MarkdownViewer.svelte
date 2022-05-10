@@ -9,6 +9,7 @@
   import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
   import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
   import { onMount } from "svelte";
+  import { session } from "$app/stores"
 
   export let content;
   onMount(async () => {
@@ -21,7 +22,7 @@
     };
       const umlOptions = {
         rendererURL:
-         import.meta.env.VITE_UML_SERVER || "https://www.plantuml.com/plantuml/png/",
+        $session.env.UML_SERVER || "https://www.plantuml.com/plantuml/png/",
       };
       umlPlugin = [uml, umlOptions];
     new Viewer({

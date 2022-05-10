@@ -6,13 +6,14 @@
   import { onMount } from "svelte";
   import { lastRead } from "../../utils/functions/stores";
   import Loader from "../common/Loader.svelte";
+  import { session } from "$app/stores"
 
   let articles = [];
   let loading = true;
 
   onMount(async () => {
     const { items } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: $session.env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },

@@ -2,13 +2,13 @@
   import fetcher from "isomorphic-fetch";
   import { fetchData } from '../../../../utils/api/methods';
 
-  export async function load({ params, url }) {
+  export async function load({ params, url, session }) {
     const path = url.pathname
     const page = url.searchParams.get('page') || 1;
     const search = url.searchParams.get('search');
     const query = { page, search }
     const responseAcademy = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/structures/${params._id}`
+      `${session.env.API_HOST}/structures/${params._id}`
     );
     const academy = await responseAcademy.json();
     const isResearchLink = !!search;
@@ -29,7 +29,7 @@
     const where = { articlesCount: { gt: 0 }, structure: academy._id };
 
     const { items, total } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit,
       order,
       fields,

@@ -1,6 +1,7 @@
 <script>
 import { onMount } from 'svelte';
   import fetcher from "isomorphic-fetch";
+  import { session } from "$app/stores"
 
   import { _ } from 'svelte-i18n';
   import BigLink from '../common/BigLink.svelte';
@@ -10,7 +11,7 @@ import { onMount } from 'svelte';
   let academy = {}
   onMount(async () => {
     const responseAcademy = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/structures/${author.structure}`
+      `${$session.env.API_HOST}/structures/${author.structure}`
     );
     academy = await responseAcademy.json();
   })

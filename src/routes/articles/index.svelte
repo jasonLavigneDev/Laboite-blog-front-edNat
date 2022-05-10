@@ -1,7 +1,7 @@
 <script context="module">
   import { fetchData, getTags } from "../../utils/api/methods";
 
-  export async function load({ url }) {
+  export async function load({ url, session }) {
     const path = url.pathname
     const page = url.searchParams.get('page') || 1;
     const search = url.searchParams.get('search');
@@ -34,7 +34,7 @@
     ];
 
     const { items, total } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit,
       order,
       fields,
@@ -46,7 +46,7 @@
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
 
-    const tagsList = await getTags(import.meta.env.VITE_API_HOST);
+    const tagsList = await getTags(session.env.API_HOST);
     return {
       props: {
         articles: items,

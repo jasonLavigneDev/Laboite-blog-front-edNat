@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import fetcher from "isomorphic-fetch";
   import { _ } from "svelte-i18n";
+  import { session } from "$app/stores"
 
   export let academy = {};
   let total;
@@ -12,7 +13,7 @@
     const where = { structure: academy._id };
 
     const response = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/articles/count?where=${JSON.stringify(where)}`
+      `${$session.env.API_HOST}/articles/count?where=${JSON.stringify(where)}`
     );
     const { count } = await response.json();
 

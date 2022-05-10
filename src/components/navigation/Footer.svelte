@@ -1,9 +1,9 @@
 <script>
   import { _ } from "svelte-i18n";
-  import { getStores } from "$app/stores";
+  import { getStores, session } from "$app/stores";
   import { footer } from "./items";
 
-  const { page, session } = getStores();
+  const { page } = getStores();
 </script>
 
 <style>
@@ -34,7 +34,7 @@
           class:is-active={$page.url.pathname === path}
           class="navbar-item"
           target="_blank"
-          href="{import.meta.env.VITE_LABOITE_HOST}{path}">
+          href="{$session.env.LABOITE_HOST}{path}">
           {$_(`links.${text}`)}
         </a>
       {/each}

@@ -6,12 +6,13 @@
   import SingleAcademy from "../academies/SingleAcademy.svelte";
   import Divider from "../common/Divider.svelte";
 import { fetchData } from "../../utils/api/methods";
+  import { session } from "$app/stores"
 
   let academies = []
   onMount(async () => {
     const where = { _id: { inq: $lastAcademies } };
     const { items } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: $session.env.API_HOST,
       limit: 4,
       order: "name DESC",
       apiurl: "structures",

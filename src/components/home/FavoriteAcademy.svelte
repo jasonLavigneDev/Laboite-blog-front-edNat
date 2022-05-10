@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import fetcher from "isomorphic-fetch";
   import { _ } from "svelte-i18n";
+  import { session } from "$app/stores"
 
   import { favoritesAcademy } from "../../utils/functions/stores";
   import SingleAcademy from "../academies/SingleAcademy.svelte";
@@ -10,7 +11,7 @@
   let academy = {}
   onMount(async () => {
     const responseAcademy = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/structures/${$favoritesAcademy}`
+      `${$session.env.API_HOST}/structures/${$favoritesAcademy}`
     );
     academy = await responseAcademy.json();
   })

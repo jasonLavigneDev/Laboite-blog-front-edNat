@@ -4,13 +4,14 @@
   import Avatar from "../authors/Avatar.svelte";
   import BigLink from "../common/BigLink.svelte";
   import { onMount } from "svelte";
+  import { session } from "$app/stores"
   export let group;
 
   let total = 0;
 
   onMount(async () => {
     const results = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: $session.env.API_HOST,
       order: "createdAt DESC",
       fields: { content: false },
       count: true,

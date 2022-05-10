@@ -1,13 +1,13 @@
 <script context="module">
   import { fetchData } from "../../utils/api/methods";
 
-  export async function load({ url }) {
+  export async function load({ session }) {
     const fields = {};
     const order = "name DESC";
     const apiurl = "structures";
 
-    const { items, total } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+    const { items } = await fetchData({
+      host: session.env.API_HOST,
       limit: 100,
       order,
       fields,

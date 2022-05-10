@@ -2,7 +2,7 @@
   import { fetchData, getTags } from "../../utils/api/methods";
   import fetcher from "isomorphic-fetch";
 
-  export async function load({ params, url }) {
+  export async function load({ params, url, session }) {
     const path = url.pathname
     
     const page = url.searchParams.get('page') || 1;
@@ -20,7 +20,7 @@
       : { userId: params._id, draft: { neq: true } };
 
     const { items, total } = await fetchData({
-      host: import.meta.env.VITE_API_HOST,
+      host: session.env.API_HOST,
       limit,
       order,
       fields,
@@ -31,14 +31,14 @@
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
     const responseAuthor = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/authors/${params._id}`
+      `${session.env.API_HOST}/authors/${params._id}`
     );
     const author = await responseAuthor.json();
     const responseAcademy = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/structures/${author.structure}`
+      `${session.env.API_HOST}/structures/${author.structure}`
     );
     const academy = await responseAcademy.json();
-    const tagsList = await getTags(import.meta.env.VITE_API_HOST);
+    const tagsList = await getTags(session.env.API_HOST);
     return {
       props: {
         articles: items,

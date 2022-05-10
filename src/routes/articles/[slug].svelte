@@ -1,14 +1,15 @@
 <script context="module">
   import fetcher from "isomorphic-fetch";
 
-  export async function load({ params = {} }) {
+  export async function load({ params = {}, session }) {
     const responseArticle = await fetcher(
-      `${import.meta.env.VITE_API_HOST}/articles/${params.slug}`
+      `${session.env.API_HOST}/articles/${params.slug}`
     );
     const article = await responseArticle.json();
 
     return {
       props: {
+        session,
         article,
         author: article && article.user,
       }
@@ -29,6 +30,7 @@
   let MarkdownViewer;
 
   export let article;
+  export let session;
   export let author;
 
   onMount(async () => {
@@ -43,7 +45,7 @@
       article._id &&
       !$articlesRead.find((i) => i === article._id)
     ) {
-      await fetcher(`${import.meta.env.VITE_API_HOST}/articles/${article._id}/read`, {
+      await fetcher(`${session.env.API_HOST}/articles/${article._id}/read`, {
         method: "PATCH",
       });
       articlesRead.update((list) => {
