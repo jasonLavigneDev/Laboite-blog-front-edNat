@@ -1,10 +1,10 @@
 # stage build
-FROM node:16-alpine
+FROM hub.eole.education/proxyhub/library/node:16-alpine
 
 # install dependencies
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci 
+COPY package.json  yarn.lock  ./
+RUN yarn install   
 
 # Copy all local files into the image.
 COPY . .
@@ -13,9 +13,8 @@ RUN npm run build
 
 ###
 # Only copy over the Node pieces we need
-# ~> Saves 35MB
 ###
-FROM node:16-alpine
+FROM hub.eole.education/proxyhub/library/node:16-alpine
 
 WORKDIR /app
 COPY --from=0 /app .
