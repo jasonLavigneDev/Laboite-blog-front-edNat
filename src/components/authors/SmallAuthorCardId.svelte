@@ -1,5 +1,7 @@
 <script>
   import { _ } from 'svelte-i18n';
+  import { onMount } from 'svelte';
+  import fetcher from "isomorphic-fetch";
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';

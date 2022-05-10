@@ -5,8 +5,6 @@
   import NoResults from '../common/NoResults.svelte';
   import SingleResearch from './SingleResearch.svelte';
 
-  $: console.log($favoritesResearches)
-
 </script>
 
 <section class="box-transparent">
