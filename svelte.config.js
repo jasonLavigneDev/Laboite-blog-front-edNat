@@ -1,6 +1,7 @@
 /** @type {import('@sveltejs/kit').Config} */
 import preprocess from "svelte-preprocess";
 import autoprefixer from "autoprefixer";
+import adapter from "@sveltejs/adapter-node";
 
 const config = {
   // options passed to svelte.compile (https://svelte.dev/docs#compile-time-svelte-compile)
@@ -24,7 +25,7 @@ const config = {
   }),
 
   kit: {
-    adapter: undefined,
+    adapter: adapter(),
     amp: false,
     appDir: "_app",
     browser: {

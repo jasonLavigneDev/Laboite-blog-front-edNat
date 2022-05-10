@@ -1020,6 +1020,13 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@sveltejs/adapter-node@^1.0.0-next.73":
+  version "1.0.0-next.73"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.73.tgz#5de0e8c088b8d74a12bd19a8b6710cf5a54452ca"
+  integrity sha512-eidd7u1dPHIaBKMjRePrxazUt+Mm/JpnaiKLzZJBdamhBiiYIb+epkPLLqfG5Oo346/0HLKwFRAM/FXn3u3BHQ==
+  dependencies:
+    tiny-glob "^0.2.9"
+
 "@sveltejs/kit@^1.0.0-next.324":
   version "1.0.0-next.324"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.324.tgz#e30e746d47462a4de79a4e02f8a39a6310ce7024"
@@ -3814,7 +3821,7 @@ tar@^6.0.2, tar@^6.1.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-tiny-glob@^0.2.6:
+tiny-glob@^0.2.6, tiny-glob@^0.2.9:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/tiny-glob/-/tiny-glob-0.2.9.tgz#2212d441ac17928033b110f8b3640683129d31e2"
   integrity sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==
