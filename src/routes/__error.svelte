@@ -20,9 +20,9 @@
   <div class="hero-body">
     <div class="container">
       <div class="title is-1">{status}</div>
-      <div class="subtitle is-3">{error.message}</div>
-      {#if dev && error.stack}
-        <pre>{error.stack}</pre>
+      <div class="subtitle is-3">{error?.message}</div>
+      {#if dev && error?.stack}
+        <pre>{error?.stack}</pre>
       {/if}
     </div>
   </div>

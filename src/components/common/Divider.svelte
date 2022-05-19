@@ -2,7 +2,7 @@
   export let transparent = false;
 </script>
 
-<style lang="scss">
+<style>
   .divider {
     height: 1px;
     background-color: var(--lightgrey);

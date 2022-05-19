@@ -1,13 +1,24 @@
 <script>
+  import { onMount } from "svelte";
+  import fetcher from "isomorphic-fetch";
   import { _ } from "svelte-i18n";
+  import { session } from "$app/stores"
 
-  import { structureOptions } from "../../routes/academies/_academies";
   import { favoritesAcademy } from "../../utils/functions/stores";
   import SingleAcademy from "../academies/SingleAcademy.svelte";
   import Divider from "../common/Divider.svelte";
+
+  let academy = {}
+  onMount(async () => {
+    const responseAcademy = await fetcher(
+      `${$session.env.API_HOST}/structures/${$favoritesAcademy}`
+    );
+    academy = await responseAcademy.json();
+  })
+
 </script>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
   }
@@ -20,6 +31,8 @@
   </div>
   <Divider />
 
-  <SingleAcademy
-    academy={structureOptions.find((t) => t.value === $favoritesAcademy)} />
+  {#if academy._id}
+    <SingleAcademy academy={academy} />
+  {/if}
+
 </section>

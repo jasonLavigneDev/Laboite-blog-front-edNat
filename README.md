@@ -1,152 +1,155 @@
-# sapper-template
+# @sveltejs/adapter-node
 
-The default template for setting up a [Sapper](https://github.com/sveltejs/sapper) project. Can use either Rollup or webpack as bundler.
+[Adapter](https://kit.svelte.dev/docs/adapters) for SvelteKit apps that generates a standalone Node server.
 
+## Usage
 
-## Getting started
-
-
-### Using `degit`
-
-To create a new Sapper project based on Rollup locally, run
-
-```bash
-npx degit "sveltejs/sapper-template#rollup" my-app
-```
-
-For a webpack-based project, instead run
-
-```bash
-npx degit "sveltejs/sapper-template#webpack" my-app
-```
-
-[`degit`](https://github.com/Rich-Harris/degit) is a scaffolding tool that lets you create a directory from a branch in a repository.
-
-Replace `my-app` with the path where you wish to create the project.
-
-
-### Using GitHub templates
-
-Alternatively, you can create the new project as a GitHub repository using GitHub's template feature.
-
-Go to either [sapper-template-rollup](https://github.com/sveltejs/sapper-template-rollup) or [sapper-template-webpack](https://github.com/sveltejs/sapper-template-webpack) and click on "Use this template" to create a new project repository initialized by the template.
-
-
-### Running the project
-
-Once you have created the project, install dependencies and run the project in development mode:
-
-```bash
-cd my-app
-npm install # or yarn
-npm run dev
-```
-
-This will start the development server on [localhost:3000](http://localhost:3000). Open it and click around.
-
-You now have a fully functional Sapper project! To get started developing, consult [sapper.svelte.dev](https://sapper.svelte.dev).
-
-### Using TypeScript
-
-By default, the template uses plain JavaScript. If you wish to use TypeScript instead, you need some changes to the project:
-
- * Add `typescript` as well as typings as dependences in `package.json`
- * Configure the bundler to use [`svelte-preprocess`](https://github.com/sveltejs/svelte-preprocess) and transpile the TypeScript code.
- * Add a `tsconfig.json` file
- * Update the project code to TypeScript
-
-The template comes with a script that will perform these changes for you by running
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-`@sapper` dependencies are resolved through `src/node_modules/@sapper`, which is created during the build. You therefore need to run or build the project once to avoid warnings about missing dependencies.
-
-The script does not support webpack at the moment.
-
-## Directory structure
-
-Sapper expects to find two directories in the root of your project —  `src` and `static`.
-
-
-### src
-
-The [src](src) directory contains the entry points for your app — `client.js`, `server.js` and (optionally) a `service-worker.js` — along with a `template.html` file and a `routes` directory.
-
-
-#### src/routes
-
-This is the heart of your Sapper app. There are two kinds of routes — *pages*, and *server routes*.
-
-**Pages** are Svelte components written in `.svelte` files. When a user first visits the application, they will be served a server-rendered version of the route in question, plus some JavaScript that 'hydrates' the page and initialises a client-side router. From that point forward, navigating to other pages is handled entirely on the client for a fast, app-like feel. (Sapper will preload and cache the code for these subsequent pages, so that navigation is instantaneous.)
-
-**Server routes** are modules written in `.js` files, that export functions corresponding to HTTP methods. Each function receives Express `request` and `response` objects as arguments, plus a `next` function. This is useful for creating a JSON API, for example.
-
-There are three simple rules for naming the files that define your routes:
-
-* A file called `src/routes/about.svelte` corresponds to the `/about` route. A file called `src/routes/blog/[slug].svelte` corresponds to the `/blog/:slug` route, in which case `params.slug` is available to the route
-* The file `src/routes/index.svelte` (or `src/routes/index.js`) corresponds to the root of your app. `src/routes/about/index.svelte` is treated the same as `src/routes/about.svelte`.
-* Files and directories with a leading underscore do *not* create routes. This allows you to colocate helper modules and components with the routes that depend on them — for example you could have a file called `src/routes/_helpers/datetime.js` and it would *not* create a `/_helpers/datetime` route.
-
-
-#### src/node_modules/images
-
-Images added to `src/node_modules/images` can be imported into your code using `import 'images/<filename>'`. They will be given a dynamically generated filename containing a hash, allowing for efficient caching and serving the images on a CDN.
-
-See [`index.svelte`](src/routes/index.svelte) for an example.
-
-
-#### src/node_modules/@sapper
-
-This directory is managed by Sapper and generated when building. It contains all the code you import from `@sapper` modules.
-
-
-### static
-
-The [static](static) directory contains static assets that should be served publicly. Files in this directory will be available directly under the root URL, e.g. an `image.jpg` will be available as `/image.jpg`.
-
-The default [service-worker.js](src/service-worker.js) will preload and cache these files, by retrieving a list of `files` from the generated manifest:
+Install with `npm i -D @sveltejs/adapter-node`, then add the adapter to your `svelte.config.js`:
 
 ```js
-import { files } from '@sapper/service-worker';
+// svelte.config.js
+import adapter from "@sveltejs/adapter-node";
+
+export default {
+  kit: {
+    adapter: adapter(),
+  },
+};
 ```
 
-If you have static files you do not want to cache, you should exclude them from this list after importing it (and before passing it to `cache.addAll`).
+## Environment variables
 
-Static files are served using [sirv](https://github.com/lukeed/sirv).
+### `PORT` and `HOST`
 
+By default, the server will accept connections on `0.0.0.0` using port 3000. These can be customised with the `PORT` and `HOST` environment variables:
 
-## Bundler configuration
+```
+HOST=127.0.0.1 PORT=4000 node build
+```
 
-Sapper uses Rollup or webpack to provide code-splitting and dynamic imports, as well as compiling your Svelte components. With webpack, it also provides hot module reloading. As long as you don't do anything daft, you can edit the configuration files to add whatever plugins you'd like.
+### `ORIGIN`, `PROTOCOL_HEADER` and `HOST_HEADER`
 
+HTTP doesn't give SvelteKit a reliable way to know the URL that is currently being requested. The simplest way to tell SvelteKit where the app is being served is to set the `ORIGIN` environment variable:
 
-## Production mode and deployment
+```
+ORIGIN=https://my.site node build
+```
 
-To start a production version of your app, run `npm run build && npm start`. This will disable live reloading, and activate the appropriate bundler plugins.
+With this, a request for the `/stuff` pathname will correctly resolve to `https://my.site/stuff`. Alternatively, you can specify headers that tell SvelteKit about the request protocol and host, from which it can construct the origin URL:
 
-You can deploy your application to any environment that supports Node 10 or above. As an example, to deploy to [Vercel Now](https://vercel.com) when using `sapper export`, run these commands:
+```
+PROTOCOL_HEADER=x-forwarded-proto HOST_HEADER=x-forwarded-host node build
+```
+
+> [`x-forwarded-proto`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto) and [`x-forwarded-host`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host) are de facto standard headers that forward the original protocol and host if you're using a reverse proxy (think load balancers and CDNs). You should only set these variables if your server is behind a trusted reverse proxy; otherwise, it'd be possible for clients to spoof these headers.
+
+### `ADDRESS_HEADER` and `XFF_DEPTH`
+
+The [RequestEvent](https://kit.svelte.dev/docs/types#additional-types-requestevent) object passed to hooks and endpoints includes an `event.clientAddress` property representing the client's IP address. By default this is the connecting `remoteAddress`. If your server is behind one or more proxies (such as a load balancer), this value will contain the innermost proxy's IP address rather than the client's, so we need to specify an `ADDRESS_HEADER` to read the address from:
+
+```
+ADDRESS_HEADER=True-Client-IP node build
+```
+
+> Headers can easily be spoofed. As with `PROTOCOL_HEADER` and `HOST_HEADER`, you should [know what you're doing](https://adam-p.ca/blog/2022/03/x-forwarded-for/) before setting these.
+
+If the `ADDRESS_HEADER` is `X-Forwarded-For`, the header value will contain a comma-separated list of IP addresses. The `XFF_DEPTH` environment variable should specify how many trusted proxies sit in front of your server. E.g. if there are three trusted proxies, proxy 3 will forward the addresses of the original connection and the first two proxies:
+
+```
+<client address>, <proxy 1 address>, <proxy 2 address>
+```
+
+Some guides will tell you to read the left-most address, but this leaves you [vulnerable to spoofing](https://adam-p.ca/blog/2022/03/x-forwarded-for/):
+
+```
+<spoofed address>, <client address>, <proxy 1 address>, <proxy 2 address>
+```
+
+Instead, we read from the _right_, accounting for the number of trusted proxies. In this case, we would use `XFF_DEPTH=3`.
+
+> If you need to read the left-most address instead (and don't care about spoofing) — for example, to offer a geolocation service, where it's more important for the IP address to be _real_ than _trusted_, you can do so by inspecting the `x-forwarded-for` header within your app.
+
+## Options
+
+The adapter can be configured with various options:
+
+```js
+// svelte.config.js
+import adapter from "@sveltejs/adapter-node";
+
+export default {
+  kit: {
+    adapter: adapter({
+      // default options are shown
+      out: "build",
+      precompress: false,
+      envPrefix: "",
+    }),
+  },
+};
+```
+
+### out
+
+The directory to build the server to. It defaults to `build` — i.e. `node build` would start the server locally after it has been created.
+
+### precompress
+
+Enables precompressing using gzip and brotli for assets and prerendered pages. It defaults to `false`.
+
+### envPrefix
+
+If you need to change the name of the environment variables used to configure the deployment (for example, to deconflict with environment variables you don't control), you can specify a prefix:
+
+```js
+envPrefix: "MY_CUSTOM_";
+```
+
+```
+MY_CUSTOM_HOST=127.0.0.1 \
+MY_CUSTOM_PORT=4000 \
+MY_CUSTOM_ORIGIN=https://my.site \
+node build
+```
+
+## Custom server
+
+The adapter creates two files in your build directory — `index.js` and `handler.js`. Running `index.js` — e.g. `node build`, if you use the default build directory — will start a server on the configured port.
+
+Alternatively, you can import the `handler.js` file, which exports a handler suitable for use with [Express](https://github.com/expressjs/expressjs.com), [Connect](https://github.com/senchalabs/connect) or [Polka](https://github.com/lukeed/polka) (or even just the built-in [`http.createServer`](https://nodejs.org/dist/latest/docs/api/http.html#httpcreateserveroptions-requestlistener)) and set up your own server:
+
+```js
+// my-server.js
+import { handler } from "./build/handler.js";
+import express from "express";
+
+const app = express();
+
+// add a route that lives separately from the SvelteKit app
+app.get("/healthcheck", (req, res) => {
+  res.end("ok");
+});
+
+// let SvelteKit handle everything else, including serving prerendered pages and static assets
+app.use(handler);
+
+app.listen(3000, () => {
+  console.log("listening on port 3000");
+});
+```
+
+## Deploying
+
+You will need the output directory (`build` by default), the project's `package.json`, and the production dependencies in `node_modules` to run the application. Production dependencies can be generated with `npm ci --prod`, you can also skip this step if your app doesn't have any dependencies. You can then start your app with
 
 ```bash
-npm install -g vercel
-vercel
+node build
 ```
 
-If your app can't be exported to a static site, you can use the [now-sapper](https://github.com/thgh/now-sapper) builder. You can find instructions on how to do so in its [README](https://github.com/thgh/now-sapper#basic-usage).
+## Changelog
 
+[The Changelog for this package is available on GitHub](https://github.com/sveltejs/kit/blob/master/packages/adapter-node/CHANGELOG.md).
 
-## Using external components
+## License
 
-When using Svelte components installed from npm, such as [@sveltejs/svelte-virtual-list](https://github.com/sveltejs/svelte-virtual-list), Svelte needs the original component source (rather than any precompiled JavaScript that ships with the component). This allows the component to be rendered server-side, and also keeps your client-side app smaller.
-
-Because of that, it's essential that the bundler doesn't treat the package as an *external dependency*. You can either modify the `external` option under `server` in [rollup.config.js](rollup.config.js) or the `externals` option in [webpack.config.js](webpack.config.js), or simply install the package to `devDependencies` rather than `dependencies`, which will cause it to get bundled (and therefore compiled) with your app:
-
-```bash
-npm install -D @sveltejs/svelte-virtual-list
-```
-
-
-## Bugs and feedback
-
-Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).
+[MIT](LICENSE)

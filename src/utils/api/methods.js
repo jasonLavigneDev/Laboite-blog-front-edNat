@@ -28,9 +28,9 @@ export async function fetchData({
     skip,
     include,
   };
-  const response = countOnly ? null : await fetcher(
-    `${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`
-  );
+  const response = countOnly
+    ? null
+    : await fetcher(`${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`);
   const items = countOnly ? null : await response.json();
   let total;
 
@@ -41,7 +41,7 @@ export async function fetchData({
     const result = await newTotal.json();
     total = result.count;
   }
-  return { items, total };
+  return { items, total, response };
 }
 
 export async function getTags(host) {

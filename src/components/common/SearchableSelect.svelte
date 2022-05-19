@@ -14,10 +14,16 @@
   const close = () => (opened = false);
 </script>
 
-<style lang="scss">
+<style>
   .dropdown-menu,
   .dropdown {
     z-index: 20;
+  }
+  .dropdown-item {
+    cursor: pointer;
+  }
+  .dropdown-item:hover {
+    background-color: lightgray;
   }
 </style>
 
@@ -30,11 +36,11 @@
       <div class="dropdown-content">
         {#each optionsFiltered as item, i}
           {#if i < 5}
-            <a
+            <div
               class="dropdown-item"
               on:click={() => {
                 onChange(item.value);
-              }}>{item.label}</a>
+              }}>{item.label}</div>
           {/if}
         {/each}
       </div>

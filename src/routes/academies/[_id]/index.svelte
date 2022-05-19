@@ -1,27 +1,31 @@
 <script context="module">
+  import fetcher from "isomorphic-fetch";
   import { fetchData } from "../../../utils/api/methods";
-  import { structureOptions } from "../_academies";
 
-  export async function preload({ params }, { env }) {
-    const academy = structureOptions.find(({ slug }) => slug === params.slug);
+  export async function load({ params, session }) {
 
-    const { items: authors } = await fetchData({
-      host: env.API_HOST,
+    const responseAcademy = await fetcher(
+      `${session.env.API_HOST}/structures/${params._id}`
+    );
+    const academy = await responseAcademy.json();
+
+    const { items: authors, response } = await fetchData({
+      host: session.env.API_HOST,
       limit: 6,
       order: "articlesCount DESC",
       fields: {},
       count: false,
       apiurl: "authors",
-      where: { articlesCount: { gt: 0 }, structure: academy.value },
+      where: { articlesCount: { gt: 0 }, structure: academy._id },
     });
     const { items: articles } = await fetchData({
-      host: env.API_HOST,
+      host: session.env.API_HOST,
       limit: 4,
       order: "createdAt DESC",
       fields: { content: false },
       count: false,
       apiurl: "articles",
-      where: { structure: academy.value, draft: { neq: true } },
+      where: { structure: academy._id, draft: { neq: true } },
       include: [
         {
           relation: "user",
@@ -37,10 +41,14 @@
     });
 
     return {
-      authors,
-      articles,
-      academy,
-    };
+      status: response.status,
+      props: {
+        authors,
+        articles,
+        academy,
+        params
+      }
+    }
   }
 </script>
 
@@ -57,11 +65,12 @@
   export let academy;
   export let articles;
   export let authors;
+  export let params;
 
   onMount(() => {
     lastAcademies.update((list) => {
-      if (!list.find((i) => i === academy.value)) {
-        list.unshift(academy.value);
+      if (!list.find((i) => i === params._id)) {
+        list.unshift(params._id);
       }
       if (list.length > 4) {
         list.length = 4;
@@ -72,7 +81,7 @@
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {academy.label}</title>
+  <title>{$_("title")} | {academy.name}</title>
 </svelte:head>
 
 <PageTransition>
@@ -82,12 +91,12 @@
     </div>
     <div class="column is-half favorites">
       <div class="box-transparent">
-        <SingleFavoriteButton type="academy" itemId={academy.value} />
+        <SingleFavoriteButton type="academy" itemId={academy._id} />
       </div>
     </div>
   </div>
   <div class="container box-transparent">
-    <h1 class="title is-2">{academy.label}</h1>
+    <h1 class="title is-2">{academy.name}</h1>
   </div>
   <LastPublished {articles} {academy} />
   <Authors {authors} {academy} />

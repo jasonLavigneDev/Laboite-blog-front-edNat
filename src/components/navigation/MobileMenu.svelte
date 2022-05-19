@@ -7,7 +7,7 @@
   export let toggle, pathname;
 </script>
 
-<style lang="scss">
+<style>
   .modal-card {
     height: 100vh;
     max-height: 100vh;
@@ -15,21 +15,21 @@
   .modal-card-head {
     border-radius: 0;
     background-color: var(--primary);
-    .modal-card-title {
-      color: var(--tertiary);
-    }
+  }
+  .modal-card-title {
+    color: var(--tertiary);
   }
   .menu {
     height: 100%;
-    ul {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      min-height: 50%;
-      text-transform: uppercase;
-      font-size: 20px;
-    }
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 50%;
+    text-transform: uppercase;
+    font-size: 20px;
   }
 </style>
 

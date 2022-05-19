@@ -26,7 +26,7 @@
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
     min-height: 450px;

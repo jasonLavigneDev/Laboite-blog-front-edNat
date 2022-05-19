@@ -2,14 +2,16 @@
   import { _ } from "svelte-i18n";
   import { toQuery } from "../../utils/functions/queryStringMaker";
 
+
   export let page;
   export let total = 1;
   export let limit = 10;
   export let query;
-  export let path;
+  export let path
   let array = [];
   $: array.length = Math.ceil(total / limit);
   $: array.fill(0);
+
 
   const urlMaker = (page) =>
     `${path}?${toQuery({
@@ -27,7 +29,6 @@
 {#if total > limit}
   <nav
     class="pagination is-primary is-right"
-    role="navigation"
     aria-label="pagination">
     <ul class="pagination-list">
       {#if page !== 1}

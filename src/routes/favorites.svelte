@@ -9,13 +9,12 @@
     favoritesGroups,
   } from "../utils/functions/stores";
   import { _ } from "svelte-i18n";
+  import { session } from "$app/stores"
   import FavoritesArticles from "../components/favorites/FavoritesArticles.svelte";
   import FavoritesAuthors from "../components/favorites/FavoritesAuthors.svelte";
   import PageTransition from "../components/common/PageTransition.svelte";
   import FavoritesResearch from "../components/favorites/FavoritesResearch.svelte";
-  import { stores } from "@sapper/app";
   import FavoritesGroups from "../components/favorites/FavoritesGroups.svelte";
-  const { session } = stores();
 
   let articles = [];
   let authors = [];

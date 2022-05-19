@@ -3,9 +3,8 @@
   import { fetchData } from "../../utils/api/methods";
   import Avatar from "../authors/Avatar.svelte";
   import BigLink from "../common/BigLink.svelte";
-  import { stores } from "@sapper/app";
   import { onMount } from "svelte";
-  const { session } = stores();
+  import { session } from "$app/stores"
   export let group;
 
   let total = 0;
@@ -47,23 +46,16 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .card {
     margin-bottom: var(--space-between);
-    // height: 100%;
   }
-  .media-content {
-    .title,
-    .subtitle {
-      color: var(--primary);
-    }
-    .subtitle {
-      margin-bottom: 0;
-    }
+  .title {
+    color: var(--primary);
   }
   .content {
     background-color: var(--primary_fade);
     padding: 1.5rem;
-    // height: 100%;
+    
   }
 </style>

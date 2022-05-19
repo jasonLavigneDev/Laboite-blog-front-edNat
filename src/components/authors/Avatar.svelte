@@ -21,6 +21,6 @@
   {#if !!avatar}
     <img alt="avatar for {firstName}" class="is-rounded" src={avatar} />
   {:else}
-    <div class="letter is-rounded">{firstName.substring(0, 1)}</div>
+    <div class="letter is-rounded">{firstName?.substring(0, 1)}</div>
   {/if}
 </figure>

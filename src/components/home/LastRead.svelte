@@ -6,8 +6,7 @@
   import { onMount } from "svelte";
   import { lastRead } from "../../utils/functions/stores";
   import Loader from "../common/Loader.svelte";
-  import { stores } from "@sapper/app";
-  const { session } = stores();
+  import { session } from "$app/stores"
 
   let articles = [];
   let loading = true;
@@ -56,7 +55,7 @@
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
     min-height: 450px;

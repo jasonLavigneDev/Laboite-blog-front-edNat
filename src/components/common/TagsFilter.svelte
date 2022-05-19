@@ -1,18 +1,22 @@
 <script>
   import { _ } from "svelte-i18n";
-  import { slide } from "svelte/transition";
-  import { goto } from "@sapper/app";
+  import { goto } from "$app/navigation";
+  import { getStores } from "$app/stores";
   import { toQuery } from "../../utils/functions/queryStringMaker";
   import SingleTag from "./SingleTag.svelte";
   import SearchableSelect from "./SearchableSelect.svelte";
+  const { page } = getStores();
 
   export let query = {};
   export let path;
-  export let tagsList = [];
-  let queryTags;
+  export let tagsList;
+  let queryTags
+  $: if($page.url.searchParams.get('tags')){
+    queryTags = $page.url.searchParams.get('tags').split(",")
+  } else {
+    queryTags = []
+  }
   let opened = false;
-
-  $: queryTags = query.tags ? query.tags.split(",") : [];
 
   const resetUrl = () =>
     `${path}?${toQuery({
@@ -73,7 +77,7 @@
     <span
       class="toggle"
       on:click={toggleOpened}>{$_('components.TagsFilters.close')}</span>
-    {#if query.tags}
+    {#if $page.url.searchParams.get('tags')}
       {' - '}
       <a rel="prefetch" href={resetUrl()}>
         {$_('components.TagsFilters.reset')}
