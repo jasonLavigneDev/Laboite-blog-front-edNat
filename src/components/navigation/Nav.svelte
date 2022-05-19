@@ -53,7 +53,7 @@
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-logo" href="/" rel="prefetch">
-      <img src="./Leblog.png" alt="LaBoite - Blog" />
+      <img src="/Leblog.png" alt="LaBoite - Blog" />
     </a>
 
     <div
