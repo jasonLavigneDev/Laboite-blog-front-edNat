@@ -1,5 +1,5 @@
 <script>
-import { onMount } from 'svelte';
+import { afterUpdate, onMount } from 'svelte';
   import fetcher from "isomorphic-fetch";
   import { session } from "$app/stores"
 
@@ -9,12 +9,15 @@ import { onMount } from 'svelte';
   export let author;
 
   let academy = {}
-  onMount(async () => {
+
+  const fetchAcademy = async () => {
     const responseAcademy = await fetcher(
       `${$session.env.API_HOST}/structures/${author.structure}`
     );
     academy = await responseAcademy.json();
-  })
+  }
+  onMount(fetchAcademy)
+  afterUpdate(fetchAcademy);
 </script>
 
 <div class="card">
