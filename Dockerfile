@@ -1,26 +1,24 @@
-FROM hub.eole.education/proxyhub/library/node:14.18.1-alpine
-RUN apk add git gcc openssh-client libsass
+# stage build
+FROM hub.eole.education/proxyhub/library/node:16-alpine
+
+# install dependencies
 WORKDIR /app
-COPY --chown=node . .
-RUN yarn install
-RUN npm rebuild node-sass
+COPY package.json  yarn.lock  ./
+RUN yarn install   
+
+# Copy all local files into the image.
+COPY . .
+
 RUN npm run build
 
-FROM hub.eole.education/proxyhub/library/node:14.18.1-alpine
-ENV PORT=4000
-ENV NODE_ENV=production
+###
+# Only copy over the Node pieces we need
+###
+FROM hub.eole.education/proxyhub/library/node:16-alpine
+
 WORKDIR /app
-COPY --chown=node . .
+COPY --from=0 /app .
+COPY . .
 
-# Install OS runtime dependencies
-RUN apk --no-cache add \
-	git \
-	bash \
-	ca-certificates
-
-# Copy in app bundle with the built and installed dependencies from the previous image
-COPY --chown=node --from=0 /app/__sapper__/build /app/__sapper__/build
-RUN yarn install --prod
-# Start app
-EXPOSE ${PORT}
-CMD ["npm", "start"]
+EXPOSE 3000
+CMD ["node", "./build"]
