@@ -63,7 +63,8 @@ build-docker:
 
 
 ###############################################################################
-# `release` stage: `new release`, `testing prerelease`, `tag *`
+# `release` stage: `new release`, `testing prerelease`,
+#                  `merge-to-dev`, `tag *`
 ###############################################################################
 new release:
   extends:
@@ -74,6 +75,9 @@ testing prerelease:
   extends:
     - .semantic-release:testing
     - .on-testing
+
+# Avoid regression and update `version` of package*.json in `$DEV_BRANCH`
+merge-to-dev: {extends: '.git:merge-to', variables: {GIT_MERGE_TARGET: $DEV_BRANCH}}
 
 ## tag contribution branches with a more stable name than `git-${CI_COMMIT_SHORT_SHA}`
 tag contrib branch:
