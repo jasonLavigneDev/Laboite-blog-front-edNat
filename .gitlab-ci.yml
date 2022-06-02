@@ -22,6 +22,7 @@ variables:
   # `ci-tools` default branch is `stable`
   STABLE_BRANCH: master
   IMAGE_NAME: laboite-blog_front
+  RELEASE_TAG_PREFIX: 'release/'
 
 stages:
   - initial-checks
@@ -62,7 +63,7 @@ build-docker:
 
 
 ###############################################################################
-# `release` stage: `new release`, `testing prerelease`
+# `release` stage: `new release`, `testing prerelease`, `tag *`
 ###############################################################################
 new release:
   extends:
@@ -73,3 +74,60 @@ testing prerelease:
   extends:
     - .semantic-release:testing
     - .on-testing
+
+## tag contribution branches with a more stable name than `git-${CI_COMMIT_SHORT_SHA}`
+tag contrib branch:
+  extends:
+    - .docker:image:tag
+    - .on-branches
+  variables:
+    # `feature/foo-bar_quux` → `feature-foo-bar-quux`
+    IMAGE_TAG: $CI_COMMIT_REF_SLUG
+
+## dev images
+tag dev:
+  extends:
+    - .docker:image:tag
+    - .on-dev
+  variables:
+    IMAGE_TAG: dev
+
+## testing images
+tag testing prerelease:
+  extends:
+    - .docker:image:tag
+    - .on-testing-tag
+
+tag testing:
+  extends:
+    - .docker:image:tag
+    - .on-testing-tag
+  variables:
+    IMAGE_TAG: testing
+
+## stable images
+tag release:
+  extends: .docker:image:tag
+
+tag major:
+  extends: .docker:image:tag
+  before_script:
+    - export RELEASE=${CI_COMMIT_TAG#${RELEASE_TAG_PREFIX}}
+    - export IMAGE_TAG=${RELEASE%%.*}
+
+tag minor:
+  extends:
+    - .docker:image:tag
+  before_script:
+    - export RELEASE=${CI_COMMIT_TAG#${RELEASE_TAG_PREFIX}}
+    - export IMAGE_TAG=${RELEASE%.${RELEASE##*.}}
+
+tag stable:
+  extends: .docker:image:tag
+  variables:
+    IMAGE_TAG: stable
+
+tag latest:
+  extends: .docker:image:tag
+  variables:
+    IMAGE_TAG: latest
