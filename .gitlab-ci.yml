@@ -1,0 +1,178 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+include:
+  - project: EOLE/infra/ci-tools
+    ref: stable
+    file: /templates/Rules.yaml
+  - project: EOLE/infra/ci-tools
+    ref: stable
+    file: /templates/Runners/apps.education-docker.yaml
+  - project: EOLE/infra/ci-tools
+    ref: stable
+    file: /templates/Git.yaml
+  - project: EOLE/infra/ci-tools
+    ref: stable
+    file: /templates/Semantic-release.yaml
+  - project: EOLE/infra/ci-tools
+    ref: stable
+    file: /templates/Docker.yaml
+
+variables:
+  # `ci-tools` default branch is `stable`
+  STABLE_BRANCH: master
+  IMAGE_NAME: laboite-blog_front
+  RELEASE_TAG_PREFIX: 'release/'
+
+stages:
+  - initial-checks
+  - test
+  - build
+  - release
+
+# Common setup for all meteor based jobs
+.nodejs:
+  extends: .not-on-stable
+  image: hub.eole.education/proxyhub/library/node:16-alpine
+  cache:
+    key:
+      files:
+        # Generate new cache when one of the file changes
+        - package.json
+        - yarn.lock
+    paths:
+      - build/
+      - node_modules/
+      - .svelte-kit/
+    # Only use the cache created by `yarn:install` and `yarn:build` jobs
+    policy: pull
+
+
+###############################################################################
+# `initial-checks` stage: `commitlint`, `yarn:build`
+###############################################################################
+commitlint:
+  stage: initial-checks
+  extends: .git:commitlint
+
+# Verify that the dependencies can be installed and cache dependencies
+yarn:build:
+  stage: initial-checks
+  extends: .nodejs
+  cache:
+    policy: pull-push
+  script:
+    - apk add git
+    - yarn install
+    - yarn run build
+
+
+###############################################################################
+# `test` stage: `yarn:validate`
+###############################################################################
+yarn:validate:
+  stage: test
+  extends: .nodejs
+  allow_failure: true
+  script:
+    - yarn run validate
+
+
+###############################################################################
+# `build` stage: `build-docker`
+###############################################################################
+# Build on release tag and every branches except for `$STABLE_BRANCH`
+# used only to create the release tag.
+#
+# The ordering is important:
+# 1. exclude schedules and drafts
+# 2. include `on-release-tag` which must match before `not-on-semantic-release-commit`
+# 3. we exclude stable which just produce the release tag
+# 4. we exclude `semantic-release` commits like when merging `release` on `dev`
+# 5. run on every branches
+build-docker:
+  extends: .docker:image:build
+  rules:
+    - !reference [.rules-map, not-on-schedule]
+    - !reference [.rules-map, not-on-draft]
+    - !reference [.rules-map, on-release-tag]
+    - !reference [.rules-map, on-testing-tag]
+    - !reference [.rules-map, not-on-stable]
+    - !reference [.rules-map, not-on-testing]
+    - !reference [.rules-map, not-on-semantic-release-commit]
+    - !reference [.rules-map, on-branch]
+
+
+###############################################################################
+# `release` stage: `new release`, `testing prerelease`,
+#                  `merge-to-dev`, `tag *`
+###############################################################################
+new release:
+  extends:
+    - .semantic-release:stable
+    - .on-stable
+
+testing prerelease:
+  extends:
+    - .semantic-release:testing
+    - .on-testing
+
+# Avoid regression and update `version` of package*.json in `$DEV_BRANCH`
+merge-to-dev: {extends: '.git:merge-to', variables: {GIT_MERGE_TARGET: $DEV_BRANCH}}
+
+## tag contribution branches with a more stable name than `git-${CI_COMMIT_SHORT_SHA}`
+tag contrib branch:
+  extends:
+    - .docker:image:tag
+    - .on-branches
+  variables:
+    # `feature/foo-bar_quux` → `feature-foo-bar-quux`
+    IMAGE_TAG: $CI_COMMIT_REF_SLUG
+
+## dev images
+tag dev:
+  extends:
+    - .docker:image:tag
+    - .on-dev
+  variables:
+    IMAGE_TAG: dev
+
+## testing images
+tag testing prerelease:
+  extends:
+    - .docker:image:tag
+    - .on-testing-tag
+
+tag testing:
+  extends:
+    - .docker:image:tag
+    - .on-testing-tag
+  variables:
+    IMAGE_TAG: testing
+
+## stable images
+tag release:
+  extends: .docker:image:tag
+
+tag major:
+  extends: .docker:image:tag
+  before_script:
+    - export RELEASE=${CI_COMMIT_TAG#${RELEASE_TAG_PREFIX}}
+    - export IMAGE_TAG=${RELEASE%%.*}
+
+tag minor:
+  extends:
+    - .docker:image:tag
+  before_script:
+    - export RELEASE=${CI_COMMIT_TAG#${RELEASE_TAG_PREFIX}}
+    - export IMAGE_TAG=${RELEASE%.${RELEASE##*.}}
+
+tag stable:
+  extends: .docker:image:tag
+  variables:
+    IMAGE_TAG: stable
+
+tag latest:
+  extends: .docker:image:tag
+  variables:
+    IMAGE_TAG: latest
