@@ -8,7 +8,7 @@
   }
 </script>
 
-<script>
+<script defer src="./fonts/js/all.min.js">
   import { getStores } from "$app/stores";
   import "../utils/locales/index";
   import Nav from "../components/navigation/Nav.svelte";
