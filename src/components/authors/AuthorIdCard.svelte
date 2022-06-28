@@ -1,23 +1,21 @@
 <script>
-import { afterUpdate, onMount } from 'svelte';
-  import fetcher from "isomorphic-fetch";
-  import { session } from "$app/stores"
+  import fetcher from 'isomorphic-fetch';
+  import { session } from '$app/stores';
 
   import { _ } from 'svelte-i18n';
   import BigLink from '../common/BigLink.svelte';
   import Avatar from './Avatar.svelte';
   export let author;
 
-  let academy = {}
+  let academy = {};
+  $: fetchAcademy(author);
 
-  const fetchAcademy = async () => {
-    const responseAcademy = await fetcher(
-      `${$session.env.API_HOST}/structures/${author.structure}`
-    );
-    academy = await responseAcademy.json();
-  }
-  onMount(fetchAcademy)
-  afterUpdate(fetchAcademy);
+  const fetchAcademy = async (currentAuthor) => {
+    if (currentAuthor?.structure) {
+      const responseAcademy = await fetcher(`${$session.env.API_HOST}/structures/${currentAuthor.structure}`);
+      academy = await responseAcademy.json();
+    }
+  };
 </script>
 
 <div class="card">
@@ -28,7 +26,7 @@ import { afterUpdate, onMount } from 'svelte';
       </div>
       <div class="media-content">
         <p class="title is-4">{author.firstName} {author.lastName}</p>
-        <p class="subtitle is-6">{academy.name}</p>
+        <p class="subtitle is-6">{academy.name || ''}</p>
       </div>
     </div>
   </div>
@@ -55,6 +53,5 @@ import { afterUpdate, onMount } from 'svelte';
   .content {
     background-color: var(--primary_fade);
     padding: 1.5rem;
-    
   }
 </style>
