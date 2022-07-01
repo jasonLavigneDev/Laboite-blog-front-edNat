@@ -89,11 +89,11 @@
     <div class="column is-half">
       <BackButton previousLocation="/academies" useHistory={true} />
     </div>
-    <div class="column is-half favorites">
+    <!-- <div class="column is-half favorites">
       <div class="box-transparent">
         <SingleFavoriteButton type="academy" itemId={academy._id} />
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="container box-transparent">
     <h1 class="title is-2">{academy.name}</h1>
