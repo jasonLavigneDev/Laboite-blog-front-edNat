@@ -37,7 +37,7 @@
       fields: {},
       count: false,
       apiurl: "groups",
-      where: { _id: { inq: $favoritesGroups } },
+      where: { slug: { inq: $favoritesGroups } },
     });
     const resultsArticles = await fetchData({
       host: $session.env.API_HOST,
@@ -64,7 +64,6 @@
     articles = resultsArticles.items;
     groups = resultsGroups.items;
   };
-
   onMount(getFavorites);
   favoritesArticles.subscribe(getFavorites);
   favoritesAuthors.subscribe(getFavorites);
