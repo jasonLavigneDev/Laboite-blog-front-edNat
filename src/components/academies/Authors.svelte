@@ -8,7 +8,7 @@
   export let academy;
 </script>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
     min-height: 450px;
@@ -28,7 +28,7 @@
       <h2 class="subtitle">{$_('pages.academy.authors_subtitle')}</h2>
     </div>
     <BigLink
-      link="/academies/{academy.slug}/authors"
+      link="/academies/{academy._id}/authors"
       text={$_('pages.academy.all_authors')} />
   </div>
   <Divider />

@@ -1,13 +1,13 @@
 <script>
   import { _ } from "svelte-i18n";
-  import { stores } from "@sapper/app";
+  import { getStores } from "$app/stores";
   import BigLink from "../common/BigLink.svelte";
   import SingleTag from "../common/SingleTag.svelte";
-  const { page } = stores();
+  const { page } = getStores();
+  const tags = $page.url.searchParams.get('tags') || ""
 
   export let article;
-  let queryTags = [];
-  $: queryTags = $page.query.tags ? $page.query.tags.split(",") : [];
+  let queryTags = tags ? tags.split(",") : [];
 </script>
 
 <div class="column is-half is-full-mobile ">
@@ -56,7 +56,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .box {
     height: 100%;
     display: flex;
@@ -66,7 +66,6 @@
   .tag {
     text-decoration: none;
     transition: all 0.2s ease-in-out;
-    // cursor: pointer;
     background-color: var(--primary);
     color: var(--tertiary);
     border-radius: 20px;

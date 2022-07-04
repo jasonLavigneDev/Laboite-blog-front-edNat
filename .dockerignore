@@ -1,0 +1,7 @@
+node_modules/
+yarn-error.log
+__sapper__/
+.env
+npm-debug.log
+# Cache used by TypeScript's incremental build
+*.tsbuildinfo

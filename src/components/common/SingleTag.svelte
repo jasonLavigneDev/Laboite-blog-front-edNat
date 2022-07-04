@@ -4,20 +4,19 @@
   export let onDelete = null;
 </script>
 
-<style lang="scss">
+<style>
   .tag {
     text-decoration: none;
     transition: all 0.2s ease-in-out;
-    // cursor: pointer;
     background-color: var(--secondary);
     color: var(--tertiary);
     border-radius: 20px;
   }
   .tag.disabled {
     opacity: 0.5;
-    &:hover {
-      opacity: 1;
-    }
+  }
+  .tag.disabled:hover {
+    opacity: 1;
   }
 </style>
 

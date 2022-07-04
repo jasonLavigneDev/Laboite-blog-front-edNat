@@ -1,12 +1,21 @@
 <script>
   import { _ } from 'svelte-i18n';
-  import { structureOptions } from '../../routes/academies/_academies';
+  import { onMount } from 'svelte';
+  import fetcher from "isomorphic-fetch";
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';
+  import { session } from "$app/stores"
 
   export let author;
-  const academy = structureOptions.find(({ value }) => value === (author.structure || 'Autre')) || {};
+
+  let academy = {}
+  onMount(async () => {
+    const responseAcademy = await fetcher(
+      `${$session.env.API_HOST}/structures/${author.structure}`
+    );
+    academy = await responseAcademy.json();
+  })
 </script>
 
 <div class="column is-full ">
@@ -16,7 +25,7 @@
     </figure>
     <div class="media-content">
       <div class="title is-4">{author.firstName} {author.lastName}</div>
-      <div>{academy.value}</div>
+      <div>{academy.name}</div>
       <div class="title is-6">
         {$_('components.SmallAuthorIdCard.articles')}:
         {author.articlesCount}

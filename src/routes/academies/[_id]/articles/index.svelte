@@ -1,9 +1,17 @@
 <script context="module">
+  import fetcher from "isomorphic-fetch";
   import { fetchData, getTags } from "../../../../utils/api/methods";
 
-  export async function preload({ params, query, path }, { env }) {
-    const { page = 1, search = "", tags } = query;
-    const academy = structureOptions.find(({ slug }) => slug === params.slug);
+  export async function load({ params, url, session }) {
+    const path = url.pathname
+    const page = url.searchParams.get('page') || 1;
+    const search = url.searchParams.get('search');
+    const tags = url.searchParams.get('tags') || "";
+    const query = { page, search, tags }
+    const responseAcademy = await fetcher(
+      `${session.env.API_HOST}/structures/${params._id}`
+    );
+    const academy = await responseAcademy.json();
     const isResearchLink = !!tags || !!search;
     const request =
       !!tags || !!search
@@ -23,10 +31,10 @@
     const where = tags
       ? {
           and: tags.split(",").map((t) => ({ tags: { inq: [t] } })),
-          structure: academy.value,
+          structure: academy._id,
           draft: { neq: true },
         }
-      : { structure: academy.value, draft: { neq: true } };
+      : { structure: academy._id, draft: { neq: true } };
     const include = [
       {
         relation: "user",
@@ -34,7 +42,7 @@
     ];
 
     const { items, total } = await fetchData({
-      host: env.API_HOST,
+      host: session.env.API_HOST,
       limit,
       order,
       fields,
@@ -45,31 +53,32 @@
       include,
       skip: page === 1 ? 0 : (Number(page) - 1) * limit,
     });
-    const tagsList = await getTags(env.API_HOST);
+    const tagsList = await getTags(session.env.API_HOST);
     return {
-      articles: items,
-      total,
-      limit,
-      page: Number(page),
-      query,
-      path,
-      academy,
-      tagsList,
-      isResearchLink,
-      request,
+      props: {
+        articles: items,
+        total,
+        limit,
+        page: Number(page),
+        query,
+        path,
+        academy,
+        tagsList,
+        isResearchLink,
+        request,
+      }
     };
   }
 </script>
 
 <script>
   import { _ } from "svelte-i18n";
-  import { stores } from "@sapper/app";
+  import { getStores } from "$app/stores";
   import Divider from "../../../../components/common/Divider.svelte";
   import SingleArticleBlock from "../../../../components/articles/SingleArticleBlock.svelte";
   import SearchField from "../../../../components/common/SearchField.svelte";
   import Pagination from "../../../../components/common/Pagination.svelte";
   import NoResults from "../../../../components/common/NoResults.svelte";
-  import { structureOptions } from "../../_academies";
   import BackButton from "../../../../components/navigation/BackButton.svelte";
   import TagsFilter from "../../../../components/common/TagsFilter.svelte";
   import PageTransition from "../../../../components/common/PageTransition.svelte";
@@ -85,19 +94,19 @@
   export let academy;
   export let isResearchLink;
   export let request;
-  const { preloading } = stores();
+  const { navigating } = getStores();
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {academy.label} | {$_("links.articles")}</title>
+  <title>{$_("title")} | {academy.name} | {$_("links.articles")}</title>
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/academies/{academy.slug}" />
+  <BackButton previousLocation="/academies/{academy._id}" />
   <div class="container box-transparent">
-    <a href="/academies/{academy.slug}" rel="prefetch"
+    <a href="/academies/{academy._id}" rel="prefetch"
       ><h1 class="title is-2">
-        {academy.label}
+        {academy.name}
       </h1></a
     >
   </div>
@@ -123,15 +132,15 @@
     <Divider />
     <div class="columns is-multiline">
       <div class="column is-half is-full-mobile">
-        <SearchField loading={$preloading} {query} {path} />
+        <SearchField loading={$navigating} {query} {path} />
       </div>
       <div class="column is-half is-full-mobile">
-        {#if !$preloading}
+        {#if !$navigating}
           <Pagination {total} {page} {limit} {query} {path} />
         {/if}
       </div>
       <div class="column is-full">
-        {#if !$preloading}
+        {#if !$navigating}
           <TagsFilter {query} {path} {tagsList} />
         {/if}
       </div>

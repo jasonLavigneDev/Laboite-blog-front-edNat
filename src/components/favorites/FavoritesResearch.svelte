@@ -4,6 +4,7 @@
   import Divider from '../common/Divider.svelte';
   import NoResults from '../common/NoResults.svelte';
   import SingleResearch from './SingleResearch.svelte';
+
 </script>
 
 <section class="box-transparent">
@@ -25,7 +26,7 @@
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .box-transparent {
     margin-bottom: var(--space-between);
     min-height: 450px;

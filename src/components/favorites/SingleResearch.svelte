@@ -5,13 +5,15 @@
   import FavoritesButton from "../common/FavoritesButton.svelte";
   import SingleTag from "../common/SingleTag.svelte";
 
+
   export let research;
+
   const requestObject = JSON.parse(research);
 
-  const { query, path, type, academy } = requestObject;
-  const { search = "", tags } = query;
+  const { path, type, academy, query } = requestObject;
+  const { search, tags } = query
 
-  const url = `${path}?${toQuery({ search, tags })}`;
+  const url = `${path}?${toQuery(query)}`;
 </script>
 
 <style>
@@ -25,7 +27,7 @@
         {$_(`links.${type}`)}
       </div>
       {#if academy}
-        <div class="subtitle is-5">{academy.label}</div>
+        <div class="subtitle is-5">{academy.name}</div>
       {/if}
       {#if search}
         <div>{$_('components.SingleResearch.search')}: {search}</div>

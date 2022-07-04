@@ -1,19 +1,20 @@
 <script>
   import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-  import { stores } from "@sapper/app";
-
+  import '@toast-ui/chart/dist/toastui-chart.css';
+  import chart from '@toast-ui/editor-plugin-chart';
   import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
 
-  import chart from "./chartPlugin";
+  // import chart from "./chartPlugin";
   import uml from "@toast-ui/editor-plugin-uml";
   import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
-  import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
   import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
   import { onMount } from "svelte";
-  const { session } = stores();
+  import { session } from "$app/stores"
+
+  import { modifiedColorSyntax } from "../../utils/functions/modifiedPlugin"
 
   export let content;
-  onMount(async () => {
+  onMount(() => {
     let umlPlugin = uml;
     const chartOptions = {
       minWidth: 100,
@@ -23,7 +24,7 @@
     };
       const umlOptions = {
         rendererURL:
-          $session.env.UML_SERVER || "https://www.plantuml.com/plantuml/png/",
+        $session.env.UML_SERVER || "https://www.plantuml.com/plantuml/png/",
       };
       umlPlugin = [uml, umlOptions];
     new Viewer({
@@ -33,7 +34,7 @@
       plugins: [
         [chart, chartOptions],
         codeSyntaxHighlight,
-        colorSyntax,
+        modifiedColorSyntax,
         tableMergedCell,
         umlPlugin,
       ],

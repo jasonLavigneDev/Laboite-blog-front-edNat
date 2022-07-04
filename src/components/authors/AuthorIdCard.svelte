@@ -1,10 +1,21 @@
 <script>
+  import fetcher from 'isomorphic-fetch';
+  import { session } from '$app/stores';
+
   import { _ } from 'svelte-i18n';
-  import { structureOptions } from '../../routes/academies/_academies';
   import BigLink from '../common/BigLink.svelte';
   import Avatar from './Avatar.svelte';
   export let author;
-  const academy = structureOptions.find(({ value }) => value === (author.structure || 'Autre')) || {};
+
+  let academy = {};
+  $: fetchAcademy(author);
+
+  const fetchAcademy = async (currentAuthor) => {
+    if (currentAuthor?.structure) {
+      const responseAcademy = await fetcher(`${$session.env.API_HOST}/structures/${currentAuthor.structure}`);
+      academy = await responseAcademy.json();
+    }
+  };
 </script>
 
 <div class="card">
@@ -15,7 +26,7 @@
       </div>
       <div class="media-content">
         <p class="title is-4">{author.firstName} {author.lastName}</p>
-        <p class="subtitle is-6">{academy.value}</p>
+        <p class="subtitle is-6">{academy.name || ''}</p>
       </div>
     </div>
   </div>
@@ -28,23 +39,19 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .card {
     margin-bottom: var(--space-between);
-    // height: 100%;
   }
-  .media-content {
-    .title,
-    .subtitle {
-      color: var(--primary);
-    }
-    .subtitle {
-      margin-bottom: 0;
-    }
+  .title,
+  .subtitle {
+    color: var(--primary);
+  }
+  .subtitle {
+    margin-bottom: 0;
   }
   .content {
     background-color: var(--primary_fade);
     padding: 1.5rem;
-    // height: 100%;
   }
 </style>

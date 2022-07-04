@@ -1,6 +1,6 @@
 <script>
   import { _ } from "svelte-i18n";
-  import { goto } from "@sapper/app";
+  import { goto } from "$app/navigation";
   import { toQuery } from "../../utils/functions/queryStringMaker";
 
   export let query = {};
