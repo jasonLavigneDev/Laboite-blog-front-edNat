@@ -19,7 +19,20 @@
         {article.user.firstName}
         {article.user.lastName}
       </div>
-    {/if}
+      {/if}
+      <div class="subtitle is-6">
+      {#if article.licence}
+      <p>Licence: </p>
+        {article.licence}
+        <br />
+        {$_(`licence.${article.licence}`)}
+      {:else}
+        <p>Licence: </p>
+        {"CC BY"}
+        <br />
+        {$_('licence.CC BY')}
+      {/if}
+      </div>
     <div class="content">{article.description}</div>
     <div class="subtitle is-6">
       {new Date(article.createdAt).toLocaleString()}
