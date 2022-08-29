@@ -17,7 +17,8 @@
     "gcu": "Conditions générales d'utilisation",
     "personalData": "Données personnelles"
   },
-  "licence": {
+  "license": {
+    "license": "Licence",
     "CC BY": "Attribution",
     "CC BY-SA": "Attribution Partage dans les mêmes conditions",
     "CC BY-ND": "Attribution Pas de modification",

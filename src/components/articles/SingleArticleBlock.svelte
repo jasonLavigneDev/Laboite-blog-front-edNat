@@ -22,12 +22,12 @@
       {/if}
       <div class="subtitle is-6">
       {#if article.licence}
-      <p>Licence: </p>
+      <p>{$_('license.license')}: </p>
         {article.licence}
         <br />
         {$_(`licence.${article.licence}`)}
       {:else}
-        <p>Licence: </p>
+        <p>{$_('licence.license')}: </p>
         {"CC BY"}
         <br />
         {$_('licence.CC BY')}

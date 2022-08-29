@@ -111,7 +111,7 @@
         <div class="box-transparent">
           <AuthorIdCard {author} />
           <div class="box">
-            <div class="title is-5">Licence</div>
+            <div class="title is-5">{$_('license.license')}</div>
             <div>
               {#if article.licence}
                 <div class="columns is-centered has-text-centered" >
