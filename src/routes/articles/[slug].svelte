@@ -120,6 +120,26 @@
         <div class="box-transparent">
           <AuthorIdCard {author} />
           <div class="box">
+            <div class="title is-5">{$_('license.license')}</div>
+            <div>
+              {#if article.licence}
+                <div class="columns is-centered has-text-centered" >
+                  {$_(`licence.${article.licence}`)}
+                </div>
+                <div class="columns is-centered mt-1" >
+                  <img src="/logoCC/{article.licence}.svg" alt="licence {article.licence}"/>
+                </div>
+              {:else}
+                <div class="columns is-centered has-text-centered" >
+                  {$_('licence.CC BY')}
+                </div>
+                <div class="columns is-centered mt-1" >
+                  <img src="/logoCC/CC BY.svg" alt="licence CC BY"/>
+                </div>
+              {/if}
+            </div>
+          </div>
+          <div class="box">
             <div class="title is-5">{$_("pages.article.tags")}</div>
             <div class="tags">
               {#each article.tags as tag}
