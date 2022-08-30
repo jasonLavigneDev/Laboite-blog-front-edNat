@@ -32,6 +32,7 @@
   export let article;
   export let session;
   export let author;
+  $: fullScreen = false;
 
   onMount(async () => {
     if (article.markdown) {
@@ -56,6 +57,10 @@
       });
     }
   });
+
+  function handleFullscreen () {
+    fullScreen = !fullScreen
+  };
 </script>
 
 <svelte:head>
@@ -80,18 +85,21 @@
       </div>
       <div class="column is-half fav-button-wrap">
         <div class="box-transparent">
+          <button class="button is-round" title={$_("details_article")} on:click={handleFullscreen}>
+              <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
+          </button>
           <FavoritesButton type="article" itemId={article._id} />
         </div>
       </div>
     </div>
     <div class="columns is-gapless is-multiline">
       <div
-        class="column is-three-quarters-widescreen is-full-desktop is-full-tablet"
+        class="column is-full-desktop is-full-tablet {fullScreen ? '' :  "is-three-quarters-widescreen"}"
       >
         <section class="box-transparent">
           <div class="title is-4">{article.title}</div>
 
-          <div class="content">
+          <div class="column is-full-desktop table-container is-full-tablet">
             {#if article.markdown}
               <svelte:component
                 this={MarkdownViewer}
@@ -105,6 +113,7 @@
           </div>
         </section>
       </div>
+      {#if !fullScreen}
       <div
         class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
       >
@@ -127,6 +136,7 @@
           </div>
         </div>
       </div>
+      {/if}
     </div>
   {/if}
 </PageTransition>
