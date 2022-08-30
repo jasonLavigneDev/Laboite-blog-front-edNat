@@ -25,12 +25,12 @@
       <p>{$_('license.license')}: </p>
         {article.licence}
         <br />
-        {$_(`licence.${article.licence}`)}
+        {$_(`license.${article.licence}`)}
       {:else}
-        <p>{$_('licence.license')}: </p>
+        <p>{$_('license.license')}: </p>
         {"CC BY"}
         <br />
-        {$_('licence.CC BY')}
+        {$_('license.CC BY')}
       {/if}
       </div>
     <div class="content">{article.description}</div>
