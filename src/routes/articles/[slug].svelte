@@ -124,17 +124,17 @@
             <div>
               {#if article.licence}
                 <div class="columns is-centered has-text-centered" >
-                  {$_(`licence.${article.licence}`)}
+                  {$_(`license.${article.licence}`)}
                 </div>
                 <div class="columns is-centered mt-1" >
                   <img src="/logoCC/{article.licence}.svg" alt="licence {article.licence}"/>
                 </div>
               {:else}
                 <div class="columns is-centered has-text-centered" >
-                  {$_('licence.CC BY')}
+                  {$_('license.CC BY')}
                 </div>
                 <div class="columns is-centered mt-1" >
-                  <img src="/logoCC/CC BY.svg" alt="licence CC BY"/>
+                  <img src="/logoCC/CC BY.svg" alt="license CC BY"/>
                 </div>
               {/if}
             </div>
