@@ -85,7 +85,7 @@
       </div>
       <div class="column is-half fav-button-wrap">
         <div class="box-transparent">
-          <button class="button is-round" title="Information de l'article" on:click={handleFullscreen}>
+          <button class="button is-round" title={$_("details_article")} on:click={handleFullscreen}>
               <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
           </button>
           <FavoritesButton type="article" itemId={article._id} />
