@@ -5,6 +5,7 @@
   "back": "Retour",
   "menu": "Menu",
   "save_research": "Enregistrer la recherche",
+  "details_article": "Détails de l'article",
   "links": {
     "home": "Accueil",
     "articles": "Articles",
@@ -16,6 +17,15 @@
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
     "personalData": "Données personnelles"
+  },
+  "license": {
+    "license": "Licence",
+    "CC BY": "Attribution",
+    "CC BY-SA": "Attribution Partage dans les mêmes conditions",
+    "CC BY-ND": "Attribution Pas de modification",
+    "CC BY-NC": "Attribution Pas d'utilisation commerciale",
+    "CC BY-NC-SA": "Attribution Pas d'utilisation commerciale Partage dans les mêmes conditions",
+    "CC BY-NC-ND": "Attribution Pas d'utilisation commerciale Pas de modification"
   },
   "pages": {
     "home": {
