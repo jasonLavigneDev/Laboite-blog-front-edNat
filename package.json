@@ -15,8 +15,7 @@
     "start": "node build",
     "validate": "svelte-check",
     "css-build": "node-sass --omit-source-map-url src/utils/theme/index.scss src/utils/theme/index.css",
-    "css-watch": "yarn css-build --watch",
-    "prettier": "yarn prettier --write"
+    "css-watch": "yarn css-build --watch"
   },
   "dependencies": {
     "@toast-ui/editor": "^3.1.5",

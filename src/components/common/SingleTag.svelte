@@ -4,6 +4,12 @@
   export let onDelete = null;
 </script>
 
+<span class="tag is-medium" class:disabled
+  >{tag}{#if onDelete}
+    <button class="delete is-medium" on:click={onDelete} />
+  {/if}</span
+>
+
 <style>
   .tag {
     text-decoration: none;
@@ -19,7 +25,3 @@
     opacity: 1;
   }
 </style>
-
-<span class="tag is-medium" class:disabled>{tag}{#if onDelete}
-    <button class="delete is-medium" on:click={onDelete} />
-  {/if}</span>

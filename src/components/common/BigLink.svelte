@@ -2,6 +2,8 @@
   export let link, text;
 </script>
 
+<a class="button is-primary" rel="prefetch" href={link}> {text}</a>
+
 <style>
   a {
     font-size: 16px;
@@ -11,9 +13,7 @@
     border-radius: 8px;
   }
   a:hover {
-      color: var(--primary) !important;
-      background-color: var(--tertiary) !important;
-    }
+    color: var(--primary) !important;
+    background-color: var(--tertiary) !important;
+  }
 </style>
-
-<a class="button is-primary" rel="prefetch" href={link}> {text}</a>

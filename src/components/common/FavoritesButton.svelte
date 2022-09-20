@@ -4,7 +4,7 @@
     favoritesAuthors,
     favoritesGroups,
     favoritesResearches,
-  } from "../../utils/functions/stores";
+  } from '../../utils/functions/stores';
 
   const types = {
     article: favoritesArticles,
@@ -19,16 +19,16 @@
   let active = false;
   let store = types[type];
 
-  $: store.subscribe((v) => {
-    active = !!v.find((i) => i === itemId);
+  $: store.subscribe(v => {
+    active = !!v.find(i => i === itemId);
   });
 
   const toggleFavorites = () => {
     let currentItems = $store || [];
-    if (!currentItems.find((i) => i === itemId)) {
+    if (!currentItems.find(i => i === itemId)) {
       currentItems.push(itemId);
     } else {
-      currentItems = currentItems.filter((i) => i !== itemId);
+      currentItems = currentItems.filter(i => i !== itemId);
     }
     $store = currentItems;
   };

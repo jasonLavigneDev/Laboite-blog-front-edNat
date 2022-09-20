@@ -1,16 +1,42 @@
 <script>
-  import { fly } from "svelte/transition";
-  import { locales, locale } from "svelte-i18n";
-  import { language } from "../../utils/functions/stores";
+  import {fly} from 'svelte/transition';
+  import {locales, locale} from 'svelte-i18n';
+  import {language} from '../../utils/functions/stores';
   export let mobile = false;
   let opened = false;
   const toggle = () => (opened = !opened);
-  const selectLocale = (l) => {
+  const selectLocale = l => {
     locale.set(l);
     language.set(l);
     toggle();
   };
 </script>
+
+{#if mobile}
+  {#each $locales as l}
+    <img
+      class:active={$locale.split('-')[0] === l}
+      alt={l}
+      src="/i18n/{l}.png"
+      on:click={() => selectLocale(l)}
+    />
+  {/each}
+{:else}
+  <img
+    class="current"
+    alt={$locale}
+    src="/i18n/{$locale.split('-')[0]}.png"
+    on:click={toggle}
+  />
+
+  {#if opened}
+    <div class="box" transition:fly={{x: 200}}>
+      {#each $locales as l}
+        <img src="/i18n/{l}.png" alt={l} on:click={() => selectLocale(l)} />
+      {/each}
+    </div>
+  {/if}
+{/if}
 
 <style>
   img {
@@ -31,27 +57,3 @@
     align-items: center;
   }
 </style>
-
-{#if mobile}
-  {#each $locales as l}
-    <img
-      class:active={$locale.split('-')[0] === l}
-      alt={l}
-      src="/i18n/{l}.png"
-      on:click={() => selectLocale(l)} />
-  {/each}
-{:else}
-  <img
-    class="current"
-    alt={$locale}
-    src="/i18n/{$locale.split('-')[0]}.png"
-    on:click={toggle} />
-
-  {#if opened}
-    <div class="box" transition:fly={{ x: 200 }}>
-      {#each $locales as l}
-        <img src="/i18n/{l}.png" alt={l} on:click={() => selectLocale(l)} />
-      {/each}
-    </div>
-  {/if}
-{/if}
