@@ -12,7 +12,7 @@
         session,
         article,
         author: article && article.user,
-      }
+      },
     };
   }
 </script>
@@ -58,9 +58,9 @@
     }
   });
 
-  function handleFullscreen () {
-    fullScreen = !fullScreen
-  };
+  function handleFullscreen() {
+    fullScreen = !fullScreen;
+  }
 </script>
 
 <svelte:head>
@@ -85,8 +85,12 @@
       </div>
       <div class="column is-half fav-button-wrap">
         <div class="box-transparent">
-          <button class="button is-round" title={$_("details_article")} on:click={handleFullscreen}>
-              <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
+          <button
+            class="button is-round"
+            title={$_("details_article")}
+            on:click={handleFullscreen}
+          >
+            <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
           </button>
           <FavoritesButton type="article" itemId={article._id} />
         </div>
@@ -94,7 +98,9 @@
     </div>
     <div class="columns is-gapless is-multiline">
       <div
-        class="column is-full-desktop is-full-tablet {fullScreen ? '' :  "is-three-quarters-widescreen"}"
+        class="column is-full-desktop is-full-tablet {fullScreen
+          ? ''
+          : 'is-three-quarters-widescreen'}"
       >
         <section class="box-transparent">
           <div class="title is-4">{article.title}</div>
@@ -114,48 +120,53 @@
         </section>
       </div>
       {#if !fullScreen}
-      <div
-        class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
-      >
-        <div class="box-transparent">
-          <AuthorIdCard {author} />
-          <div class="box">
-            <div class="title is-5">{$_('license.license')}</div>
-            <div>
-              {#if article.licence}
-                <div class="columns is-centered has-text-centered" >
-                  {$_(`license.${article.licence}`)}
-                </div>
-                <div class="columns is-centered mt-1" >
-                  <img src="/logoCC/{article.licence}.svg" alt="licence {article.licence}"/>
-                </div>
-              {:else}
-                <div class="columns is-centered has-text-centered" >
-                  {$_('license.CC BY')}
-                </div>
-                <div class="columns is-centered mt-1" >
-                  <img src="/logoCC/CC BY.svg" alt="license CC BY"/>
-                </div>
-              {/if}
+        <div
+          class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
+        >
+          <div class="box-transparent">
+            <AuthorIdCard {author} />
+            <div class="box">
+              <div class="title is-5">{$_("license.license")}</div>
+              <div>
+                {#if article.licence}
+                  <div class="columns is-centered has-text-centered">
+                    {$_(`license.${article.licence}`)}
+                  </div>
+                  <div class="columns is-centered mt-1">
+                    <img
+                      src="/logoCC/{article.licence}.svg"
+                      alt="licence {article.licence}"
+                    />
+                  </div>
+                {:else}
+                  <div class="columns is-centered has-text-centered">
+                    {$_("license.CC BY")}
+                  </div>
+                  <div class="columns is-centered mt-1">
+                    <img src="/logoCC/CC BY.svg" alt="license CC BY" />
+                  </div>
+                {/if}
+              </div>
             </div>
-          </div>
-          <div class="box">
-            <div class="title is-5">{$_("pages.article.tags")}</div>
-            <div class="tags">
-              {#each article.tags as tag}
-                <SingleTag {tag} />
-              {/each}
-            </div>
-          </div>
-          <div class="box last-box">
-            <div class="title is-5">
-              {$_("pages.article.read_times")}
-              :
-              {article.visits}
+            {#if article.tags && article.tags.length}
+              <div class="box">
+                <div class="title is-5">{$_("pages.article.tags")}</div>
+                <div class="tags">
+                  {#each article.tags as tag}
+                    <SingleTag {tag} />
+                  {/each}
+                </div>
+              </div>
+            {/if}
+            <div class="box last-box">
+              <div class="title is-5">
+                {$_("pages.article.read_times")}
+                :
+                {article.visits}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       {/if}
     </div>
   {/if}
