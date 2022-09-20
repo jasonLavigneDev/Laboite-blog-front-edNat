@@ -17,7 +17,9 @@
   <Divider />
   <div class="columns is-multiline">
     {#each groups as group}
-      <GroupCard {group} />
+      <div class="column is-one-third is-half-tablet is-full-mobile">
+        <GroupCard {group} />
+      </div>
     {:else}
       <div class="column is-full">
         <NoResults title={$_("pages.favorites.nogroups_title")} />
