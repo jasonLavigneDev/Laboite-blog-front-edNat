@@ -1,8 +1,8 @@
 <script>
   import fetcher from 'isomorphic-fetch';
-  import { session } from '$app/stores';
+  import {session} from '$app/stores';
 
-  import { _ } from 'svelte-i18n';
+  import {_} from 'svelte-i18n';
   import BigLink from '../common/BigLink.svelte';
   import Avatar from './Avatar.svelte';
   export let author;
@@ -10,9 +10,11 @@
   let academy = {};
   $: fetchAcademy(author);
 
-  const fetchAcademy = async (currentAuthor) => {
+  const fetchAcademy = async currentAuthor => {
     if (currentAuthor?.structure) {
-      const responseAcademy = await fetcher(`${$session.env.API_HOST}/structures/${currentAuthor.structure}`);
+      const responseAcademy = await fetcher(
+        `${$session.env.API_HOST}/structures/${currentAuthor.structure}`,
+      );
       academy = await responseAcademy.json();
     }
   };
@@ -35,7 +37,10 @@
       {$_('components.AuthorIdCard.articles')}:
       {author.articlesCount}
     </p>
-    <BigLink link="/authors/{author._id}" text={$_('components.AuthorIdCard.all_articles')} />
+    <BigLink
+      link="/authors/{author._id}"
+      text={$_('components.AuthorIdCard.all_articles')}
+    />
   </div>
 </div>
 

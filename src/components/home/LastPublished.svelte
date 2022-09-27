@@ -1,17 +1,10 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import Divider from "../common/Divider.svelte";
-  import SingleArticleBlock from "../articles/SingleArticleBlock.svelte";
+  import {_} from 'svelte-i18n';
+  import Divider from '../common/Divider.svelte';
+  import SingleArticleBlock from '../articles/SingleArticleBlock.svelte';
 
   export let articles = [];
 </script>
-
-<style>
-  .box-transparent {
-    margin-bottom: var(--space-between);
-    min-height: 450px;
-  }
-</style>
 
 <section class="box-transparent">
   <div class="container">
@@ -25,3 +18,10 @@
     {/each}
   </div>
 </section>
+
+<style>
+  .box-transparent {
+    margin-bottom: var(--space-between);
+    min-height: 450px;
+  }
+</style>

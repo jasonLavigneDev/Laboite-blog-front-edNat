@@ -2,15 +2,8 @@
   export let status;
   export let error;
 
-  const dev = process.env.NODE_ENV === "development";
+  const dev = process.env.NODE_ENV === 'development';
 </script>
-
-<style>
-  .title,
-  .subtitle {
-    text-align: center;
-  }
-</style>
 
 <svelte:head>
   <title>{status}</title>
@@ -27,3 +20,10 @@
     </div>
   </div>
 </section>
+
+<style>
+  .title,
+  .subtitle {
+    text-align: center;
+  }
+</style>

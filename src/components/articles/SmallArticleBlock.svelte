@@ -1,7 +1,7 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import BigLink from "../common/BigLink.svelte";
-  import FavoritesButton from "../common/FavoritesButton.svelte";
+  import {_} from 'svelte-i18n';
+  import BigLink from '../common/BigLink.svelte';
+  import FavoritesButton from '../common/FavoritesButton.svelte';
 
   export let article;
 </script>
@@ -23,7 +23,8 @@
     <div class="media-right">
       <BigLink
         link="/articles/{article.slug}"
-        text={$_('components.SmallArticleBlock.link')} />
+        text={$_('components.SmallArticleBlock.link')}
+      />
       <FavoritesButton type="article" itemId={article._id} />
     </div>
   </article>

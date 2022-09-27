@@ -1,31 +1,18 @@
 <script>
-  import { slide } from "svelte/transition";
+  import {slide} from 'svelte/transition';
   export let options = [];
   export let onChange;
-  let search = "";
+  let search = '';
   let opened = false;
   let optionsFiltered = options;
-  let regexp = new RegExp(search, "g");
+  let regexp = new RegExp(search, 'g');
 
-  $: regexp = new RegExp(search, "g");
-  $: optionsFiltered = options.filter(({ value }) => regexp.test(value));
+  $: regexp = new RegExp(search, 'g');
+  $: optionsFiltered = options.filter(({value}) => regexp.test(value));
 
   const open = () => (opened = true);
   const close = () => (opened = false);
 </script>
-
-<style>
-  .dropdown-menu,
-  .dropdown {
-    z-index: 20;
-  }
-  .dropdown-item {
-    cursor: pointer;
-  }
-  .dropdown-item:hover {
-    background-color: lightgray;
-  }
-</style>
 
 <div class="dropdown is-active" on:mouseleave={close} on:mouseenter={open}>
   <div class="dropdown-trigger">
@@ -40,10 +27,26 @@
               class="dropdown-item"
               on:click={() => {
                 onChange(item.value);
-              }}>{item.label}</div>
+              }}
+            >
+              {item.label}
+            </div>
           {/if}
         {/each}
       </div>
     </div>
   {/if}
 </div>
+
+<style>
+  .dropdown-menu,
+  .dropdown {
+    z-index: 20;
+  }
+  .dropdown-item {
+    cursor: pointer;
+  }
+  .dropdown-item:hover {
+    background-color: lightgray;
+  }
+</style>

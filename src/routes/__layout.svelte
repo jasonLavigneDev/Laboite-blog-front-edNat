@@ -1,26 +1,26 @@
 <script context="module">
-  import { waitLocale, _, locale } from "svelte-i18n";
-  import "../utils/theme/index.css";
+  import {waitLocale, _, locale} from 'svelte-i18n';
+  import '../utils/theme/index.css';
 
   export async function load(args) {
-    waitLocale()
+    waitLocale();
     return args;
   }
 </script>
 
 <script defer src="./fonts/js/all.min.js">
-  import { getStores } from "$app/stores";
-  import "../utils/locales/index";
-  import Nav from "../components/navigation/Nav.svelte";
-  import Footer from "../components/navigation/Footer.svelte";
-  import { trackLocation } from "../utils/functions/locationTracker";
-  import Loader from "../components/common/Loader.svelte";
-  import { onMount } from "svelte";
-  import { language } from "../utils/functions/stores";
+  import {getStores} from '$app/stores';
+  import '../utils/locales/index';
+  import Nav from '../components/navigation/Nav.svelte';
+  import Footer from '../components/navigation/Footer.svelte';
+  import {trackLocation} from '../utils/functions/locationTracker';
+  import Loader from '../components/common/Loader.svelte';
+  import {onMount} from 'svelte';
+  import {language} from '../utils/functions/stores';
 
   onMount(() => {
     if (!$language) {
-      language.set($locale.split("-")[0]);
+      language.set($locale.split('-')[0]);
     } else {
       locale.set($language);
     }
@@ -28,8 +28,20 @@
 
   trackLocation();
 
-  const { navigating } = getStores();
+  const {navigating} = getStores();
 </script>
+
+<Nav />
+
+{#if !!$navigating}
+  <Loader message={$_('loading')} mainLoader={true} />
+{/if}
+
+<main class="container">
+  <slot />
+</main>
+
+<Footer />
 
 <style>
   main {
@@ -40,20 +52,11 @@
     display: none;
   }
 
-  :global(h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  .title) {
-    font-family: "WorkSansBold" !important;
+  :global(h1, h2, h3, h4, h5, h6, .title) {
+    font-family: 'WorkSansBold' !important;
   }
 
-  :global(.title,
-  .subtitle,
-  p,
-  .content) {
+  :global(.title, .subtitle, p, .content) {
     color: var(--texts);
   }
   :global(.box-transparent) {
@@ -67,21 +70,8 @@
   :global(.fav-button-wrap .box-transparent) {
     display: flex;
     align-items: center;
-    
   }
   :global(.fav-button-wrap .box-transparent div) {
-      margin-right: 5px;
-    }
+    margin-right: 5px;
+  }
 </style>
-
-<Nav />
-
-{#if !!$navigating}
-  <Loader message={$_('loading')} mainLoader={true} />
-{/if}
-
-<main class="container">
-  <slot />
-</main>
-
-<Footer />

@@ -1,21 +1,21 @@
 <script>
-  import { _ } from 'svelte-i18n';
-  import { onMount } from 'svelte';
-  import fetcher from "isomorphic-fetch";
+  import {_} from 'svelte-i18n';
+  import {onMount} from 'svelte';
+  import fetcher from 'isomorphic-fetch';
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';
-  import { session } from "$app/stores"
+  import {session} from '$app/stores';
 
   export let author;
 
-  let academy = {}
+  let academy = {};
   onMount(async () => {
     const responseAcademy = await fetcher(
-      `${$session.env.API_HOST}/structures/${author.structure}`
+      `${$session.env.API_HOST}/structures/${author.structure}`,
     );
     academy = await responseAcademy.json();
-  })
+  });
 </script>
 
 <div class="column is-full ">
@@ -32,7 +32,10 @@
       </div>
     </div>
     <div class="media-right">
-      <BigLink link="/authors/{author._id}" text={$_('components.SmallAuthorIdCard.all_articles')} />
+      <BigLink
+        link="/authors/{author._id}"
+        text={$_('components.SmallAuthorIdCard.all_articles')}
+      />
       <FavoritesButton type="author" itemId={author._id} />
     </div>
   </div>

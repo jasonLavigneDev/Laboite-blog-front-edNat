@@ -1,13 +1,13 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import { getStores } from "$app/stores";
-  import BigLink from "../common/BigLink.svelte";
-  import SingleTag from "../common/SingleTag.svelte";
-  const { page } = getStores();
-  const tags = $page.url.searchParams.get('tags') || ""
+  import {_} from 'svelte-i18n';
+  import {getStores} from '$app/stores';
+  import BigLink from '../common/BigLink.svelte';
+  import SingleTag from '../common/SingleTag.svelte';
+  const {page} = getStores();
+  const tags = $page.url.searchParams.get('tags') || '';
 
   export let article;
-  let queryTags = tags ? tags.split(",") : [];
+  let queryTags = tags ? tags.split(',') : [];
 </script>
 
 <div class="column is-half is-full-mobile ">
@@ -15,30 +15,30 @@
     <div class="title is-4">{article.title}</div>
     {#if article.user}
       <div class="subtitle is-6">
-        {$_("components.SingleArticleBlock.written_by")}
+        {$_('components.SingleArticleBlock.written_by')}
         {article.user.firstName}
         {article.user.lastName}
       </div>
-      {/if}
-      <div class="subtitle is-6">
+    {/if}
+    <div class="subtitle is-6">
       {#if article.licence}
-      <p>{$_('license.license')}: </p>
+        <p>{$_('license.license')}:</p>
         {article.licence}
         <br />
         {$_(`license.${article.licence}`)}
       {:else}
-        <p>{$_('license.license')}: </p>
-        {"CC BY"}
+        <p>{$_('license.license')}:</p>
+        {'CC BY'}
         <br />
         {$_('license.CC BY')}
       {/if}
-      </div>
+    </div>
     <div class="content">{article.description}</div>
     <div class="subtitle is-6">
       {new Date(article.createdAt).toLocaleString()}
     </div>
     {#if article.groups && article.groups.length}
-      <h4>{$_("components.SingleArticleBlock.groups")}</h4>
+      <h4>{$_('components.SingleArticleBlock.groups')}</h4>
       <div class="tags">
         {#each article.groups as tag}
           <span class="tag is-medium">
@@ -48,13 +48,13 @@
       </div>
     {/if}
     {#if article.tags && article.tags.length}
-      <h4>{$_("components.SingleArticleBlock.tags")}</h4>
+      <h4>{$_('components.SingleArticleBlock.tags')}</h4>
       <div class="tags">
         {#each article.tags as tag}
           <SingleTag
             {tag}
             disabled={!!queryTags.length &&
-              queryTags.filter((t) => t !== tag).length === queryTags.length}
+              queryTags.filter(t => t !== tag).length === queryTags.length}
           />
         {/each}
       </div>
@@ -63,7 +63,7 @@
     <div class="blank">
       <BigLink
         link="/articles/{article.slug}"
-        text={$_("components.SingleArticleBlock.link")}
+        text={$_('components.SingleArticleBlock.link')}
       />
     </div>
   </div>

@@ -1,5 +1,5 @@
 <script>
-  import { favoritesAcademy } from "../../utils/functions/stores";
+  import {favoritesAcademy} from '../../utils/functions/stores';
 
   const types = {
     academy: favoritesAcademy,
@@ -11,7 +11,7 @@
   let active = false;
   let store = types[type];
 
-  $: store.subscribe((v) => {
+  $: store.subscribe(v => {
     active = v === itemId;
   });
 
