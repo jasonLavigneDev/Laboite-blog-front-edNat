@@ -107,7 +107,9 @@
     "AuthorIdCard": {
       "academy": "Academy",
       "articles": "Number of articles",
-      "all_articles": "See all articles"
+      "all_articles": "See all articles",
+      "unknownFirstname": "Unknown",
+      "unknownLastname": "User"
     },
     "SmallAuthorIdCard": {
       "academy": "Academy",
