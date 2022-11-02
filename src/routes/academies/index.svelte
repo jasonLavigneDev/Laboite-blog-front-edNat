@@ -1,12 +1,12 @@
 <script context="module">
-  import { fetchData } from "../../utils/api/methods";
+  import {fetchData} from '../../utils/api/methods';
 
-  export async function load({ session }) {
+  export async function load({session}) {
     const fields = {};
-    const order = "name DESC";
-    const apiurl = "structures";
+    const order = 'name ASC';
+    const apiurl = 'structures';
 
-    const { items } = await fetchData({
+    const {items} = await fetchData({
       host: session.env.API_HOST,
       limit: 100,
       order,
@@ -17,25 +17,19 @@
     return {
       props: {
         structures: items,
-      }
+      },
     };
   }
 </script>
 
 <script>
-  import { _ } from "svelte-i18n";
-  import Divider from "../../components/common/Divider.svelte";
-  import SingleAcademy from "../../components/academies/SingleAcademy.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
+  import {_} from 'svelte-i18n';
+  import Divider from '../../components/common/Divider.svelte';
+  import SingleAcademy from '../../components/academies/SingleAcademy.svelte';
+  import PageTransition from '../../components/common/PageTransition.svelte';
 
-  export let structures = []
+  export let structures = [];
 </script>
-
-<style>
-  .box-transparent {
-    margin-bottom: var(--space-between);
-  }
-</style>
 
 <svelte:head>
   <title>{$_('title')} | {$_('links.academies')}</title>
@@ -57,3 +51,9 @@
     </div>
   </section>
 </PageTransition>
+
+<style>
+  .box-transparent {
+    margin-bottom: var(--space-between);
+  }
+</style>
