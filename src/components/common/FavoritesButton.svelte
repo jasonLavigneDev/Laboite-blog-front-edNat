@@ -5,6 +5,7 @@
     favoritesGroups,
     favoritesResearches,
   } from '../../utils/functions/stores';
+  import {_} from 'svelte-i18n';
 
   const types = {
     article: favoritesArticles,
@@ -34,7 +35,11 @@
   };
 </script>
 
-<button class="button is-round" on:click={toggleFavorites}>
+<button
+  class="button is-round"
+  title={$_('links.favorites')}
+  on:click={toggleFavorites}
+>
   {#if active}
     <span class="icon is-small"> <i class="fas fa-bookmark" /> </span>
   {:else}<span class="icon is-small"> <i class="far fa-bookmark" /> </span>{/if}
