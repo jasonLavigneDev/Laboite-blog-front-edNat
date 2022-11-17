@@ -1,22 +1,72 @@
 <script>
   import {_} from 'svelte-i18n';
+  import {onMount} from 'svelte';
   import {getStores, session} from '$app/stores';
-  import {footer} from './items';
+  import fetcher from "isomorphic-fetch";
+  import Loader from '../common/Loader.svelte';
 
   const {page} = getStores();
+
+  let settings = {
+      maintenance: null,
+      textMaintenance: '',
+      legal: { external: false, link: '', content: '' },
+      accessibility: { external: false, link: '', content: '' },
+      gcu: { external: false, link: '', content: '' },
+      personalData: { external: false, link: '', content: '' },
+    };
+  let loading = true;
+
+  onMount(async () => {
+    const appsettings = await fetcher(`${$session.env.API_HOST}/appsettings`)
+    settings = await appsettings.json()
+    loading = false;
+  });
+
+  $: footer = [
+    {
+      text: $_('links.legal'),
+      path: settings.legal.external
+        ? settings.legal.link
+        : `${$session.env.LABOITE_HOST}/legal/legalnotice`,
+    },
+    {
+      text: $_('links.accessibility'),
+      path: settings.accessibility.external
+        ? settings.accessibility.link
+        : `${$session.env.LABOITE_HOST}/legal/accessibility`,
+    },
+    {
+      text: $_('links.gcu'),
+      path: settings.gcu.external
+        ? settings.gcu.link
+        : `${$session.env.LABOITE_HOST}/legal/conditions`,
+    },
+    {
+      text: $_('links.personalData'),
+      path: settings.personalData.external
+        ? settings.personalData.link
+        : `${$session.env.LABOITE_HOST}/legal/personal-data`,
+    },
+  ];
 </script>
 
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+<nav class="navbar is-primary" aria-label="main navigation">
   <div class="navbar-menu is-active">
+
+    {#if loading}
+      <Loader message={$_('loading')} />
+    {/if}
+
     <div class="navbar-start">
       {#each footer as { path, text }}
         <a
           class:is-active={$page.url.pathname === path}
           class="navbar-item"
           target="_blank"
-          href="{$session.env.LABOITE_HOST}{path}"
+          href="{path}"
         >
-          {$_(`links.${text}`)}
+          {$_(text)}
         </a>
       {/each}
     </div>
