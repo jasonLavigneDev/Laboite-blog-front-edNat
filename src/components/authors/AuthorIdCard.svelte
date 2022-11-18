@@ -10,7 +10,7 @@
   let academy = {};
   $: fetchAcademy(author);
 
-  const fetchAcademy = async (currentAuthor) => {
+  const fetchAcademy = async currentAuthor => {
     if (currentAuthor?.structure) {
       const responseAcademy = await fetcher(
         `${$session.env.API_HOST}/structures/${currentAuthor.structure}`

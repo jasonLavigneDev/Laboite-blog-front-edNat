@@ -1,21 +1,21 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import { goto } from "$app/navigation";
-  import { toQuery } from "../../utils/functions/queryStringMaker";
+  import {_} from 'svelte-i18n';
+  import {goto} from '$app/navigation';
+  import {toQuery} from '../../utils/functions/queryStringMaker';
 
   export let query = {};
   export let path;
   export let loading;
-  let search = query.search || "";
+  let search = query.search || '';
 
-  const urlMaker = (search) =>
+  const urlMaker = search =>
     `${path}?${toQuery({
       ...query,
       page: 1,
       search,
     })}`;
 
-  const submit = (event) => {
+  const submit = event => {
     if (event.preventDefault) {
       event.preventDefault();
     }
@@ -23,15 +23,9 @@
   };
 
   const resetSearch = () => {
-    search = "";
+    search = '';
   };
 </script>
-
-<style>
-  .button.is-secondary {
-    background-color: var(--secondary);
-  }
-</style>
 
 <form on:submit={submit}>
   <div class="field has-addons">
@@ -41,7 +35,8 @@
         class="input is-rounded"
         type="text"
         disabled={loading}
-        placeholder={$_('components.SearchField.placeholder')} />
+        placeholder={$_('components.SearchField.placeholder')}
+      />
     </p>
     <div class="control">
       <a class="button is-primary" rel="prefetch" href={urlMaker(search)}>
@@ -55,7 +50,8 @@
           class="button is-secondary"
           rel="prefetch"
           on:click={resetSearch}
-          href={urlMaker()}>
+          href={urlMaker()}
+        >
           <i class="fa fa-times" />
         </a>
       </div>
@@ -63,3 +59,9 @@
   </div>
   <button class="hidden" type="submit" />
 </form>
+
+<style>
+  .button.is-secondary {
+    background-color: var(--secondary);
+  }
+</style>

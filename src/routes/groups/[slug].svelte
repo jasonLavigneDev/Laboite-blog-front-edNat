@@ -1,26 +1,26 @@
 <script context="module">
-  import { fetchData, getTags } from "../../utils/api/methods";
-  import fetcher from "isomorphic-fetch";
+  import {fetchData, getTags} from '../../utils/api/methods';
+  import fetcher from 'isomorphic-fetch';
 
-  export async function load({ params, url, session }) {
-    const path = url.pathname
+  export async function load({params, url, session}) {
+    const path = url.pathname;
     const page = url.searchParams.get('page') || 1;
     const search = url.searchParams.get('search');
-    const query = { page, search }
+    const query = {page, search};
 
     const responseGroup = await fetcher(
-      `${session.env.API_HOST}/groups/${params.slug}`
+      `${session.env.API_HOST}/groups/${params.slug}`,
     );
     const group = await responseGroup.json();
 
     const limit = 10;
-    const fields = { content: false, _id: false, updatedAt: false };
-    const searchFields = ["description", "title", "slug", "tags"];
-    const order = "createdAt DESC";
+    const fields = {content: false, _id: false, updatedAt: false};
+    const searchFields = ['description', 'title', 'slug', 'tags'];
+    const order = 'createdAt DESC';
     const apiurl = `articles`;
-    const where = { "groups._id": { eq: group._id } };
+    const where = {'groups._id': {eq: group._id}};
 
-    const { items, total } = await fetchData({
+    const {items, total} = await fetchData({
       host: session.env.API_HOST,
       limit,
       order,
@@ -42,24 +42,24 @@
         path,
         group,
         tagsList,
-      }
+      },
     };
   }
 </script>
 
 <script>
-  import { _ } from "svelte-i18n";
-  import { getStores } from "$app/stores";
-  import Divider from "../../components/common/Divider.svelte";
-  import SingleArticleBlock from "../../components/articles/SingleArticleBlock.svelte";
-  import SearchField from "../../components/common/SearchField.svelte";
-  import Pagination from "../../components/common/Pagination.svelte";
-  import NoResults from "../../components/common/NoResults.svelte";
-  import BackButton from "../../components/navigation/BackButton.svelte";
-  import TagsFilter from "../../components/common/TagsFilter.svelte";
-  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
-  import Avatar from "../../components/authors/Avatar.svelte";
+  import {_} from 'svelte-i18n';
+  import {getStores} from '$app/stores';
+  import Divider from '../../components/common/Divider.svelte';
+  import SingleArticleBlock from '../../components/articles/SingleArticleBlock.svelte';
+  import SearchField from '../../components/common/SearchField.svelte';
+  import Pagination from '../../components/common/Pagination.svelte';
+  import NoResults from '../../components/common/NoResults.svelte';
+  import BackButton from '../../components/navigation/BackButton.svelte';
+  import TagsFilter from '../../components/common/TagsFilter.svelte';
+  import FavoritesButton from '../../components/common/FavoritesButton.svelte';
+  import PageTransition from '../../components/common/PageTransition.svelte';
+  import Avatar from '../../components/authors/Avatar.svelte';
 
   export let articles = [];
   export let group = {};
@@ -67,13 +67,13 @@
   export let limit;
   export let page = 1;
   export let query = {};
-  export let path = "";
+  export let path = '';
   export let tagsList = [];
-  const { navigating } = getStores();
+  const {navigating} = getStores();
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("articles")}</title>
+  <title>{$_('title')} | {$_('articles')}</title>
 </svelte:head>
 
 <PageTransition>

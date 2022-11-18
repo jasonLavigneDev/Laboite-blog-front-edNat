@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.3.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.2.0...release/1.3.0) (2022-09-20)
+
+
+### Features
+
+* **article:** add licence to articles ([97ef8cc](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/97ef8cc3c03c5f8cc38ac822467d898fdd4c46d7))
+* **image:** add alt attribute on licence image ([a493148](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/a4931489cc9dfdc8232e1ddd34dcff61039ecd87))
+
+
+### Bug Fixes
+
+* **article:** fix large article display and add hide option button ([0f3ed8b](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/0f3ed8b6e074f18a4fc0ad4897b201fc2dabeeb7))
+* **i18n:** add i18n for license field ([5276e23](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/5276e2391d6221cfaf31bc7150550500103cd364))
+* **ui:** add tooltip translations ([11c98dd](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/11c98dd9941a01109518306367b76448980f329b))
+* **ui:** fix i18n for licenses ([3de56fd](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/3de56fdfbe8cc95aacff8fae56e96552da222242))
+
+
+### Documentation
+
+* **readme:** add translation for readme and licence in source code ([fdd6f40](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/fdd6f40978c76b0a837f134e2a950ae5378027aa))
+
 ## [1.2.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.1.1...release/1.2.0) (2022-07-04)
 
 

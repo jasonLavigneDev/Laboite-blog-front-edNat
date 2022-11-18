@@ -4,7 +4,8 @@
     favoritesAuthors,
     favoritesGroups,
     favoritesResearches,
-  } from "../../utils/functions/stores";
+  } from '../../utils/functions/stores';
+  import {_} from 'svelte-i18n';
 
   const types = {
     article: favoritesArticles,
@@ -19,22 +20,26 @@
   let active = false;
   let store = types[type];
 
-  $: store.subscribe((v) => {
-    active = !!v.find((i) => i === itemId);
+  $: store.subscribe(v => {
+    active = !!v.find(i => i === itemId);
   });
 
   const toggleFavorites = () => {
     let currentItems = $store || [];
-    if (!currentItems.find((i) => i === itemId)) {
+    if (!currentItems.find(i => i === itemId)) {
       currentItems.push(itemId);
     } else {
-      currentItems = currentItems.filter((i) => i !== itemId);
+      currentItems = currentItems.filter(i => i !== itemId);
     }
     $store = currentItems;
   };
 </script>
 
-<button class="button is-round" on:click={toggleFavorites}>
+<button
+  class="button is-round"
+  title={$_('links.favorites')}
+  on:click={toggleFavorites}
+>
   {#if active}
     <span class="icon is-small"> <i class="fas fa-bookmark" /> </span>
   {:else}<span class="icon is-small"> <i class="far fa-bookmark" /> </span>{/if}
