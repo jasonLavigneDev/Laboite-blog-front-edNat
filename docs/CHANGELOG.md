@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.4.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.3.0...release/1.4.0) (2022-11-22)
+
+
+### Features
+
+* **articles:** hide tags card if article hasn't tags ([414514f](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/414514f649fd416dcd13d7189f051214810e5c32))
+* **button:** add tooltip on all favorites button ([56b1953](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/56b1953b84985d2949093b3bdd4df4491ad36e6e))
+* **config:** add prettier in project ([355a01a](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/355a01ab44b52f6ca85184a06099af1915c2e9d7))
+* **config:** add svelte plugin for prettier ([ee73449](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/ee73449ed1a2a6cd958ba1adc4eda8ddcaaddf04))
+
+
+### Bug Fixes
+
+* **academies:** change sort order in academies page ([cdaf6cc](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/cdaf6cc3a72974066534397b9f7625388357eb03))
+* **authorcard:** add unknown author case ([7f591d1](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/7f591d1087c954531efbcd22218922c4261985e4))
+* **favoritesGroup:** add container for spacing each card ([471030d](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/471030d4e3e319e6ce3091822f9779cb367d1d6a))
+* **footer:** get appsettings from laboite to generate footer links ([8fb7970](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/8fb7970b93f1137e512668aacabf91daa9a6d85e))
+* **prettier:** format all svelte file with prettier new config ([a4ae51c](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/a4ae51ca6aa970f0a5572cc5ba34af8b110432ea))
+
+
+### Code Refactoring
+
+* **title:** change page title from la boite le blog to la boite ([e6c95e0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/e6c95e079f71c09a8e396152019d3c2b5c841e67))
+
 ## [1.3.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.2.0...release/1.3.0) (2022-09-20)
 
 
