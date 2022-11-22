@@ -2,6 +2,8 @@
   export let transparent = false;
 </script>
 
+<div class="divider" class:transparent />
+
 <style>
   .divider {
     height: 1px;
@@ -14,5 +16,3 @@
     background-color: transparent;
   }
 </style>
-
-<div class="divider" class:transparent />

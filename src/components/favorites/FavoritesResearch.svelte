@@ -1,10 +1,9 @@
 <script>
-  import { _ } from 'svelte-i18n';
-  import { favoritesResearches } from '../../utils/functions/stores';
+  import {_} from 'svelte-i18n';
+  import {favoritesResearches} from '../../utils/functions/stores';
   import Divider from '../common/Divider.svelte';
   import NoResults from '../common/NoResults.svelte';
   import SingleResearch from './SingleResearch.svelte';
-
 </script>
 
 <section class="box-transparent">

@@ -1,9 +1,9 @@
 <script context="module">
-  import fetcher from "isomorphic-fetch";
+  import fetcher from 'isomorphic-fetch';
 
-  export async function load({ params = {}, session }) {
+  export async function load({params = {}, session}) {
     const responseArticle = await fetcher(
-      `${session.env.API_HOST}/articles/${params.slug}`
+      `${session.env.API_HOST}/articles/${params.slug}`,
     );
     const article = await responseArticle.json();
 
@@ -12,21 +12,21 @@
         session,
         article,
         author: article && article.user,
-      }
+      },
     };
   }
 </script>
 
 <script>
-  import { _ } from "svelte-i18n";
-  import { onMount } from "svelte";
-  import AuthorIdCard from "../../components/authors/AuthorIdCard.svelte";
-  import PageTransition from "../../components/common/PageTransition.svelte";
-  import BackButton from "../../components/navigation/BackButton.svelte";
-  import SingleTag from "../../components/common/SingleTag.svelte";
-  import FavoritesButton from "../../components/common/FavoritesButton.svelte";
-  import { articlesRead } from "../../utils/functions/stores";
-  import NoResults from "../../components/common/NoResults.svelte";
+  import {_} from 'svelte-i18n';
+  import {onMount} from 'svelte';
+  import AuthorIdCard from '../../components/authors/AuthorIdCard.svelte';
+  import PageTransition from '../../components/common/PageTransition.svelte';
+  import BackButton from '../../components/navigation/BackButton.svelte';
+  import SingleTag from '../../components/common/SingleTag.svelte';
+  import FavoritesButton from '../../components/common/FavoritesButton.svelte';
+  import {articlesRead} from '../../utils/functions/stores';
+  import NoResults from '../../components/common/NoResults.svelte';
   let MarkdownViewer;
 
   export let article;
@@ -37,20 +37,16 @@
   onMount(async () => {
     if (article.markdown) {
       const module = await import(
-        "../../components/articles/MarkdownViewer.svelte"
+        '../../components/articles/MarkdownViewer.svelte'
       );
       MarkdownViewer = module.default;
     }
-    if (
-      article &&
-      article._id &&
-      !$articlesRead.find((i) => i === article._id)
-    ) {
+    if (article && article._id && !$articlesRead.find(i => i === article._id)) {
       await fetcher(`${session.env.API_HOST}/articles/${article._id}/read`, {
-        method: "PATCH",
+        method: 'PATCH',
       });
-      articlesRead.update((list) => {
-        if (!list.find((i) => i === article._id)) {
+      articlesRead.update(list => {
+        if (!list.find(i => i === article._id)) {
           list.unshift(article._id);
         }
         return list;
@@ -58,16 +54,16 @@
     }
   });
 
-  function handleFullscreen () {
-    fullScreen = !fullScreen
-  };
+  function handleFullscreen() {
+    fullScreen = !fullScreen;
+  }
 </script>
 
 <svelte:head>
   <title>
-    {$_("title")}
+    {$_('title')}
     |
-    {article ? article.title : $_("pages.article.no_article_title")}
+    {article ? article.title : $_('pages.article.no_article_title')}
   </title>
   <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 </svelte:head>
@@ -75,8 +71,8 @@
 <PageTransition>
   {#if !article}
     <NoResults
-      title={$_("pages.article.no_article_title")}
-      subtitle={$_("pages.article.no_article_subtitle")}
+      title={$_('pages.article.no_article_title')}
+      subtitle={$_('pages.article.no_article_subtitle')}
     />
   {:else}
     <div class="columns is-gapless is-multiline is-mobile">
@@ -85,8 +81,12 @@
       </div>
       <div class="column is-half fav-button-wrap">
         <div class="box-transparent">
-          <button class="button is-round" title={$_("details_article")} on:click={handleFullscreen}>
-              <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
+          <button
+            class="button is-round"
+            title={$_('details_article')}
+            on:click={handleFullscreen}
+          >
+            <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
           </button>
           <FavoritesButton type="article" itemId={article._id} />
         </div>
@@ -94,7 +94,9 @@
     </div>
     <div class="columns is-gapless is-multiline">
       <div
-        class="column is-full-desktop is-full-tablet {fullScreen ? '' :  "is-three-quarters-widescreen"}"
+        class="column is-full-desktop is-full-tablet {fullScreen
+          ? ''
+          : 'is-three-quarters-widescreen'}"
       >
         <section class="box-transparent">
           <div class="title is-4">{article.title}</div>
@@ -114,48 +116,53 @@
         </section>
       </div>
       {#if !fullScreen}
-      <div
-        class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
-      >
-        <div class="box-transparent">
-          <AuthorIdCard {author} />
-          <div class="box">
-            <div class="title is-5">{$_('license.license')}</div>
-            <div>
-              {#if article.licence}
-                <div class="columns is-centered has-text-centered" >
-                  {$_(`license.${article.licence}`)}
-                </div>
-                <div class="columns is-centered mt-1" >
-                  <img src="/logoCC/{article.licence}.svg" alt="licence {article.licence}"/>
-                </div>
-              {:else}
-                <div class="columns is-centered has-text-centered" >
-                  {$_('license.CC BY')}
-                </div>
-                <div class="columns is-centered mt-1" >
-                  <img src="/logoCC/CC BY.svg" alt="license CC BY"/>
-                </div>
-              {/if}
+        <div
+          class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
+        >
+          <div class="box-transparent">
+            <AuthorIdCard {author} />
+            <div class="box">
+              <div class="title is-5">{$_('license.license')}</div>
+              <div>
+                {#if article.licence}
+                  <div class="columns is-centered has-text-centered">
+                    {$_(`license.${article.licence}`)}
+                  </div>
+                  <div class="columns is-centered mt-1">
+                    <img
+                      src="/logoCC/{article.licence}.svg"
+                      alt="licence {article.licence}"
+                    />
+                  </div>
+                {:else}
+                  <div class="columns is-centered has-text-centered">
+                    {$_('license.CC BY')}
+                  </div>
+                  <div class="columns is-centered mt-1">
+                    <img src="/logoCC/CC BY.svg" alt="license CC BY" />
+                  </div>
+                {/if}
+              </div>
             </div>
-          </div>
-          <div class="box">
-            <div class="title is-5">{$_("pages.article.tags")}</div>
-            <div class="tags">
-              {#each article.tags as tag}
-                <SingleTag {tag} />
-              {/each}
-            </div>
-          </div>
-          <div class="box last-box">
-            <div class="title is-5">
-              {$_("pages.article.read_times")}
-              :
-              {article.visits}
+            {#if article.tags && article.tags.length}
+              <div class="box">
+                <div class="title is-5">{$_('pages.article.tags')}</div>
+                <div class="tags">
+                  {#each article.tags as tag}
+                    <SingleTag {tag} />
+                  {/each}
+                </div>
+              </div>
+            {/if}
+            <div class="box last-box">
+              <div class="title is-5">
+                {$_('pages.article.read_times')}
+                :
+                {article.visits}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       {/if}
     </div>
   {/if}

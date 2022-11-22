@@ -1,12 +1,31 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import Divider from "../common/Divider.svelte";
-  import SingleArticleBlock from "../articles/SingleArticleBlock.svelte";
-  import BigLink from "../common/BigLink.svelte";
+  import {_} from 'svelte-i18n';
+  import Divider from '../common/Divider.svelte';
+  import SingleArticleBlock from '../articles/SingleArticleBlock.svelte';
+  import BigLink from '../common/BigLink.svelte';
 
   export let articles = [];
   export let academy;
 </script>
+
+<section class="box-transparent">
+  <div class="container">
+    <div>
+      <h1 class="title">{$_('pages.academy.last_title')}</h1>
+      <h2 class="subtitle">{$_('pages.academy.last_subtitle')}</h2>
+    </div>
+    <BigLink
+      link="/academies/{academy._id}/articles"
+      text={$_('pages.academy.all_articles')}
+    />
+  </div>
+  <Divider />
+  <div class="columns is-multiline">
+    {#each articles as article}
+      <SingleArticleBlock {article} />
+    {/each}
+  </div>
+</section>
 
 <style>
   .box-transparent {
@@ -20,21 +39,3 @@
     flex-wrap: wrap;
   }
 </style>
-
-<section class="box-transparent">
-  <div class="container">
-    <div>
-      <h1 class="title">{$_('pages.academy.last_title')}</h1>
-      <h2 class="subtitle">{$_('pages.academy.last_subtitle')}</h2>
-    </div>
-    <BigLink
-      link="/academies/{academy._id}/articles"
-      text={$_('pages.academy.all_articles')} />
-  </div>
-  <Divider />
-  <div class="columns is-multiline">
-    {#each articles as article}
-      <SingleArticleBlock {article} />
-    {/each}
-  </div>
-</section>

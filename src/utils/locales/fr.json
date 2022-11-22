@@ -1,5 +1,5 @@
 {
-  "title": "LaBoite - Le Blog",
+  "title": "Le Blog",
   "loading": "Chargement",
   "articles": "Articles",
   "back": "Retour",
@@ -107,7 +107,9 @@
     "AuthorIdCard": {
       "academy": "Académie",
       "articles": "Nombre d'articles",
-      "all_articles": "Voir tous les articles"
+      "all_articles": "Voir tous les articles",
+      "unknownFirstname": "Utilisateur",
+      "unknownLastname": "Inconnu"
     },
     "SmallAuthorIdCard": {
       "academy": "Académie",

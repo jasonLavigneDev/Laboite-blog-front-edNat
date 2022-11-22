@@ -1,20 +1,20 @@
 <script>
-  import { onMount } from "svelte";
+  import {onMount} from 'svelte';
 
-  import { fetchData } from "../utils/api/methods";
+  import {fetchData} from '../utils/api/methods';
 
   import {
     favoritesArticles,
     favoritesAuthors,
     favoritesGroups,
-  } from "../utils/functions/stores";
-  import { _ } from "svelte-i18n";
-  import { session } from "$app/stores"
-  import FavoritesArticles from "../components/favorites/FavoritesArticles.svelte";
-  import FavoritesAuthors from "../components/favorites/FavoritesAuthors.svelte";
-  import PageTransition from "../components/common/PageTransition.svelte";
-  import FavoritesResearch from "../components/favorites/FavoritesResearch.svelte";
-  import FavoritesGroups from "../components/favorites/FavoritesGroups.svelte";
+  } from '../utils/functions/stores';
+  import {_} from 'svelte-i18n';
+  import {session} from '$app/stores';
+  import FavoritesArticles from '../components/favorites/FavoritesArticles.svelte';
+  import FavoritesAuthors from '../components/favorites/FavoritesAuthors.svelte';
+  import PageTransition from '../components/common/PageTransition.svelte';
+  import FavoritesResearch from '../components/favorites/FavoritesResearch.svelte';
+  import FavoritesGroups from '../components/favorites/FavoritesGroups.svelte';
 
   let articles = [];
   let authors = [];
@@ -24,32 +24,32 @@
     const resultsAuthors = await fetchData({
       host: $session.env.API_HOST,
       limit: 6,
-      order: "articlesCount DESC",
+      order: 'articlesCount DESC',
       fields: {},
       count: false,
-      apiurl: "authors",
-      where: { articlesCount: { gt: 0 }, _id: { inq: $favoritesAuthors } },
+      apiurl: 'authors',
+      where: {articlesCount: {gt: 0}, _id: {inq: $favoritesAuthors}},
     });
     const resultsGroups = await fetchData({
       host: $session.env.API_HOST,
       limit: 6,
-      order: "createdAt DESC",
+      order: 'createdAt DESC',
       fields: {},
       count: false,
-      apiurl: "groups",
-      where: { slug: { inq: $favoritesGroups } },
+      apiurl: 'groups',
+      where: {slug: {inq: $favoritesGroups}},
     });
     const resultsArticles = await fetchData({
       host: $session.env.API_HOST,
       limit: 4,
-      order: "createdAt DESC",
-      fields: { content: false },
+      order: 'createdAt DESC',
+      fields: {content: false},
       count: false,
-      apiurl: "articles",
-      where: { _id: { inq: $favoritesArticles }, draft: { neq: true } },
+      apiurl: 'articles',
+      where: {_id: {inq: $favoritesArticles}, draft: {neq: true}},
       include: [
         {
-          relation: "user",
+          relation: 'user',
           scope: {
             fields: {
               username: false,
@@ -71,13 +71,13 @@
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.favorites")}</title>
+  <title>{$_('title')} | {$_('links.favorites')}</title>
 </svelte:head>
 
 <PageTransition>
   <section class="box-transparent">
     <div class="container">
-      <h1 class="title is-2">{$_("pages.favorites.title")}</h1>
+      <h1 class="title is-2">{$_('pages.favorites.title')}</h1>
     </div>
   </section>
   <FavoritesArticles {articles} />

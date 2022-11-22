@@ -1,7 +1,7 @@
 <script>
-  import { location } from "../../utils/functions/locationTracker";
-  import { goto } from "$app/navigation";
-  import { _ } from "svelte-i18n";
+  import {location} from '../../utils/functions/locationTracker';
+  import {goto} from '$app/navigation';
+  import {_} from 'svelte-i18n';
 
   export let previousLocation;
   export let useHistory = false;

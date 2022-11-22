@@ -1,18 +1,18 @@
-<script context='module'>
-  import { fetchData } from "../utils/api/methods";
+<script context="module">
+  import {fetchData} from '../utils/api/methods';
 
-  export async function load({ session }) {
-    const { items: articles, response } = await fetchData({
+  export async function load({session}) {
+    const {items: articles, response} = await fetchData({
       host: session.env.API_HOST,
       limit: 4,
-      order: "createdAt DESC",
-      fields: { content: false },
+      order: 'createdAt DESC',
+      fields: {content: false},
       count: false,
-      apiurl: "articles",
-      where: { draft: { neq: true } },
+      apiurl: 'articles',
+      where: {draft: {neq: true}},
       include: [
         {
-          relation: "user",
+          relation: 'user',
           scope: {
             fields: {
               username: false,
@@ -27,33 +27,31 @@
     return {
       status: response.status,
       props: {
-        articles
-      }
-    }
-
+        articles,
+      },
+    };
   }
 </script>
 
 <script>
-  import { _ } from "svelte-i18n";
-  import PageTransition from "../components/common/PageTransition.svelte";
-  import FavoriteAcademy from "../components/home/FavoriteAcademy.svelte";
+  import {_} from 'svelte-i18n';
+  import PageTransition from '../components/common/PageTransition.svelte';
+  import FavoriteAcademy from '../components/home/FavoriteAcademy.svelte';
 
-  import LastPublished from "../components/home/LastPublished.svelte";
-  import LastRead from "../components/home/LastRead.svelte";
-  import LastAcademies from "../components/home/LastAcademies.svelte";
+  import LastPublished from '../components/home/LastPublished.svelte';
+  import LastRead from '../components/home/LastRead.svelte';
+  import LastAcademies from '../components/home/LastAcademies.svelte';
   import {
     favoritesAcademy,
     lastAcademies,
     lastRead,
-  } from "../utils/functions/stores";
-
+  } from '../utils/functions/stores';
 
   export let articles;
 </script>
 
 <svelte:head>
-  <title>{$_("title")}</title>
+  <title>{$_('title')}</title>
 </svelte:head>
 
 <PageTransition>

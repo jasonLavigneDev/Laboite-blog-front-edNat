@@ -1,5 +1,5 @@
 <script>
-  import { _ } from 'svelte-i18n';
+  import {_} from 'svelte-i18n';
   import Divider from '../common/Divider.svelte';
   import SmallArticleBlock from '../articles/SmallArticleBlock.svelte';
   import NoResults from '../common/NoResults.svelte';

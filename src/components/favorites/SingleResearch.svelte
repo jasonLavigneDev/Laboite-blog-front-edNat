@@ -1,23 +1,19 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import { toQuery } from "../../utils/functions/queryStringMaker";
-  import BigLink from "../common/BigLink.svelte";
-  import FavoritesButton from "../common/FavoritesButton.svelte";
-  import SingleTag from "../common/SingleTag.svelte";
-
+  import {_} from 'svelte-i18n';
+  import {toQuery} from '../../utils/functions/queryStringMaker';
+  import BigLink from '../common/BigLink.svelte';
+  import FavoritesButton from '../common/FavoritesButton.svelte';
+  import SingleTag from '../common/SingleTag.svelte';
 
   export let research;
 
   const requestObject = JSON.parse(research);
 
-  const { path, type, academy, query } = requestObject;
-  const { search, tags } = query
+  const {path, type, academy, query} = requestObject;
+  const {search, tags} = query;
 
   const url = `${path}?${toQuery(query)}`;
 </script>
-
-<style>
-</style>
 
 <div class="column is-full ">
   <div class="media box">
@@ -47,3 +43,6 @@
     </div>
   </div>
 </div>
+
+<style>
+</style>
