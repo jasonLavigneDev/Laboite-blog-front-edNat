@@ -55,6 +55,8 @@
             {tag}
             disabled={!!queryTags.length &&
               queryTags.filter(t => t !== tag).length === queryTags.length}
+            tagSearch={$page.url.pathname === '/articles'}
+            on:getTag
           />
         {/each}
       </div>

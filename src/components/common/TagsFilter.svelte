@@ -10,13 +10,15 @@
   export let query = {};
   export let path;
   export let tagsList;
+
   let queryTags;
+  let opened = false;
+
   $: if ($page.url.searchParams.get('tags')) {
     queryTags = $page.url.searchParams.get('tags').split(',');
   } else {
     queryTags = [];
   }
-  let opened = false;
 
   const resetUrl = () =>
     `${path}?${toQuery({
@@ -41,6 +43,7 @@
       goto(url);
     }
   };
+
   const addTag = tag => {
     const tagsArray = [...queryTags];
     tagsArray.push(tag);
