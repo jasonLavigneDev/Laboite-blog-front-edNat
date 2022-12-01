@@ -89,16 +89,17 @@
   const {navigating, page} = getStores();
 
   let tagSearch = '';
-  function handleGetTag(event) {
-    let queryTags;
-    tagSearch = event.detail.tag;
-    if ($page.url.searchParams.get('tags')) {
-      queryTags = $page.url.searchParams.get('tags').split(',');
-    } else {
-      queryTags = [];
-    }
+  let queryTags;
+
+  $: if ($page.url.searchParams.get('tags')) {
+    queryTags = $page.url.searchParams.get('tags').split(',');
+  } else {
+    queryTags = [];
+  }
+
+  function addTag(event) {
     const tagsArray = [...queryTags];
-    tagsArray.push(tagSearch);
+    tagsArray.push(event.detail.tag);
     const tagsString = tagsArray.join(',');
     const url = `${path}?${toQuery({
       ...query,
@@ -147,7 +148,13 @@
       </div>
       <div class="column is-full">
         {#if !$navigating}
-          <TagsFilter {query} {path} {tagsList} />
+          <TagsFilter
+            {query}
+            {path}
+            {tagsList}
+            on:addTag={addTag}
+            {queryTags}
+          />
         {/if}
       </div>
     </div>
@@ -155,7 +162,7 @@
     {#if articles.length}
       <div class="columns is-multiline">
         {#each articles as article, index}
-          <SingleArticleBlock {article} on:getTag={handleGetTag} />
+          <SingleArticleBlock {article} on:getTag={addTag} />
         {/each}
       </div>
     {:else}

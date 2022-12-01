@@ -41,10 +41,8 @@
     padding: 5px;
   }
   .buttonSearch:hover {
-    background-color: var(--tertiary);
-    opacity: 0.5;
     cursor: pointer;
-    color: var(--secondary);
+    border: 1px solid white;
     border-radius: 20px;
   }
 
