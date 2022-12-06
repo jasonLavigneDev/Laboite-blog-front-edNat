@@ -1,6 +1,7 @@
 <script>
   import {_} from 'svelte-i18n';
   import {fetchData} from '../../utils/api/methods';
+  import {getGroupName, getGroupAvatar} from '../../utils/functions/groups';
   import Avatar from '../authors/Avatar.svelte';
   import BigLink from '../common/BigLink.svelte';
   import {onMount} from 'svelte';
@@ -27,10 +28,10 @@
   <div class="card-content">
     <div class="media">
       <div class="media-left">
-        <Avatar firstName={group.name} avatar={group.avatar} />
+        <Avatar firstName={getGroupAvatar(group)} avatar={group.avatar} />
       </div>
       <div class="media-content">
-        <p class="title is-4">{group.name}</p>
+        <p class="title is-4">{getGroupName(group)}</p>
       </div>
     </div>
   </div>
