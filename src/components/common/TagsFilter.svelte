@@ -1,5 +1,6 @@
 <script>
   import {_} from 'svelte-i18n';
+  import {createEventDispatcher} from 'svelte';
   import {goto} from '$app/navigation';
   import {getStores} from '$app/stores';
   import {toQuery} from '../../utils/functions/queryStringMaker';
@@ -10,13 +11,19 @@
   export let query = {};
   export let path;
   export let tagsList;
-  let queryTags;
-  $: if ($page.url.searchParams.get('tags')) {
-    queryTags = $page.url.searchParams.get('tags').split(',');
-  } else {
-    queryTags = [];
+  export let queryTags;
+
+  const dispatch = createEventDispatcher();
+
+  function addTag(tag) {
+    dispatch('addTag', {
+      tag: tag,
+    });
   }
+
   let opened = false;
+
+  const toggleOpened = () => (opened = !opened);
 
   const resetUrl = () =>
     `${path}?${toQuery({
@@ -24,8 +31,6 @@
       page: 1,
       tags: '',
     })}`;
-
-  const toggleOpened = () => (opened = !opened);
 
   const deleteTag = tag => {
     if (queryTags.length === 1) {
@@ -40,17 +45,6 @@
       })}`;
       goto(url);
     }
-  };
-  const addTag = tag => {
-    const tagsArray = [...queryTags];
-    tagsArray.push(tag);
-    const tagsString = tagsArray.join(',');
-    const url = `${path}?${toQuery({
-      ...query,
-      page: 1,
-      tags: tagsString,
-    })}`;
-    goto(url);
   };
 </script>
 

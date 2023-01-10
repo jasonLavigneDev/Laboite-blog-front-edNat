@@ -74,17 +74,42 @@
   import TagsFilter from '../../components/common/TagsFilter.svelte';
   import PageTransition from '../../components/common/PageTransition.svelte';
   import FavoritesButton from '../../components/common/FavoritesButton.svelte';
+  import {toQuery} from '../../utils/functions/queryStringMaker';
+  import {goto} from '$app/navigation';
 
   export let articles = [];
   export let total = 0;
   export let limit;
-  export let page = 1;
+  export let currentPage = 1;
   export let query = {};
   export let path = '';
   export let tagsList = [];
   export let isResearchLink;
   export let request;
-  const {navigating} = getStores();
+  const {navigating, page} = getStores();
+
+  let tagSearch = '';
+  let queryTags;
+
+  $: if ($page.url.searchParams.get('tags')) {
+    queryTags = $page.url.searchParams.get('tags').split(',');
+  } else {
+    queryTags = [];
+  }
+
+  function addTag(event) {
+    const tagsArray = [...queryTags];
+    tagsArray.push(event.detail.tag);
+    const tagsString = tagsArray.join(',');
+    const url = `${path}?${toQuery({
+      ...query,
+      page: 1,
+      tags: tagsString,
+    })}`;
+    goto(url);
+  }
+
+  $: tagSearch = tagSearch;
 </script>
 
 <svelte:head>
@@ -118,12 +143,18 @@
       </div>
       <div class="column is-half is-full-mobile">
         {#if !$navigating}
-          <Pagination {total} {page} {limit} {query} {path} />
+          <Pagination {total} {currentPage} {limit} {query} {path} />
         {/if}
       </div>
       <div class="column is-full">
         {#if !$navigating}
-          <TagsFilter {query} {path} {tagsList} />
+          <TagsFilter
+            {query}
+            {path}
+            {tagsList}
+            on:addTag={addTag}
+            {queryTags}
+          />
         {/if}
       </div>
     </div>
@@ -131,14 +162,14 @@
     {#if articles.length}
       <div class="columns is-multiline">
         {#each articles as article, index}
-          <SingleArticleBlock {article} />
+          <SingleArticleBlock {article} on:getTag={addTag} />
         {/each}
       </div>
     {:else}
       <NoResults query={!!Object.keys(query).length} />
     {/if}
     {#if !$navigating}
-      <Pagination {total} {page} {limit} {query} {path} />
+      <Pagination {total} {currentPage} {limit} {query} {path} />
     {/if}
   </section>
 </PageTransition>
