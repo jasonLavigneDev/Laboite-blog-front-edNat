@@ -3,6 +3,7 @@
   import {getStores} from '$app/stores';
   import BigLink from '../common/BigLink.svelte';
   import SingleTag from '../common/SingleTag.svelte';
+  import { getGroupName } from '../../utils/functions/groups';
   const {page} = getStores();
   const tags = $page.url.searchParams.get('tags') || '';
 
@@ -42,7 +43,7 @@
       <div class="tags">
         {#each article.groups as tag}
           <span class="tag is-medium">
-            {tag.name}
+            {getGroupName(tag)}
           </span>
         {/each}
       </div>
@@ -55,6 +56,8 @@
             {tag}
             disabled={!!queryTags.length &&
               queryTags.filter(t => t !== tag).length === queryTags.length}
+            tagSearch={$page.url.pathname === '/articles'}
+            on:getTag
           />
         {/each}
       </div>

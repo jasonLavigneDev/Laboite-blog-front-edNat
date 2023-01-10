@@ -60,6 +60,7 @@
   import FavoritesButton from '../../components/common/FavoritesButton.svelte';
   import PageTransition from '../../components/common/PageTransition.svelte';
   import Avatar from '../../components/authors/Avatar.svelte';
+  import { getGroupName, getGroupAvatar } from '../../utils/functions/groups';
 
   export let articles = [];
   export let group = {};
@@ -91,12 +92,12 @@
     <div class="container">
       <article class="media">
         <figure class="media-left">
-          <Avatar avatar={group.avatar} firstName={group.name} />
+          <Avatar avatar={group.avatar} firstName={getGroupAvatar(group)} />
         </figure>
 
         <div class="media-content">
           <div class="content">
-            <h1 class="title">{group.name}</h1>
+            <h1 class="title">{getGroupName(group)}</h1>
           </div>
         </div>
       </article>
