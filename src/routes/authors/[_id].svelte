@@ -65,7 +65,6 @@
   import NoResults from '../../components/common/NoResults.svelte';
   import Avatar from '../../components/authors/Avatar.svelte';
   import BackButton from '../../components/navigation/BackButton.svelte';
-  import TagsFilter from '../../components/common/TagsFilter.svelte';
   import FavoritesButton from '../../components/common/FavoritesButton.svelte';
   import PageTransition from '../../components/common/PageTransition.svelte';
 
@@ -119,11 +118,6 @@
       <div class="column is-half is-full-mobile">
         {#if !$navigating}
           <Pagination {total} {page} {limit} {query} {path} />
-        {/if}
-      </div>
-      <div class="column is-full">
-        {#if !$navigating}
-          <TagsFilter {query} {path} {tagsList} />
         {/if}
       </div>
     </div>
