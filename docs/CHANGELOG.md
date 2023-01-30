@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.4.0...release/1.5.0) (2023-01-30)
+
+
+### Features
+
+* **groups:** display structure groups correctly ([07b0960](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/07b0960cabc9017698ec8385cb18f78d783ab19f))
+* **tag:** factorise add tags management ([84cb2a5](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/84cb2a5377450cebf235ee99e099e5c60b7f2770))
+* **tags:** allow click for searching on article tags ([b2c4c3d](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/b2c4c3d1c561038882269bb865c3974bdb2e7a4c))
+
+
+### Bug Fixes
+
+* **stylesheet:** delete import from quilljs cdn ([fb9255e](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/fb9255ee48d1b16113f15825e13b45730b6c14ff))
+* **tags:** delete tagfilter in useless pages ([af6fc31](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/af6fc31b6a9e08e19a9735fdeece33cd5c9788a5))
+
 ## [1.4.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.3.0...release/1.4.0) (2022-11-22)
 
 
