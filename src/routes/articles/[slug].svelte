@@ -65,7 +65,6 @@
     |
     {article ? article.title : $_('pages.article.no_article_title')}
   </title>
-  <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 </svelte:head>
 
 <PageTransition>
@@ -108,7 +107,7 @@
                 content={article.content}
               />
             {:else}
-              <div class="ql-editor">
+              <div class="quill-editor">
                 {@html article.content}
               </div>
             {/if}
@@ -169,6 +168,20 @@
 </PageTransition>
 
 <style>
+  .quill-editor {
+    box-sizing: border-box;
+    cursor: text;
+    line-height: 1.42;
+    height: 100%;
+    outline: none;
+    overflow-y: auto;
+    padding: 12px 15px;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
   .content {
     text-align: justify;
   }
