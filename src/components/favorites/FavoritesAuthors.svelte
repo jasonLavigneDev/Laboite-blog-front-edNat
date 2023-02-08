@@ -5,32 +5,42 @@
   import NoResults from '../common/NoResults.svelte';
 
   export let authors = [];
+  let isOpen = false;
+
+  const handleClick = () => {
+    isOpen = !isOpen;
+  };
 </script>
 
-<section class="box-transparent">
+<section>
   <div class="container">
     <div>
-      <h1 class="title">{$_('pages.favorites.authors_title')}</h1>
+      <h1 class="title">
+        {$_('pages.favorites.authors_title')}
+        <button class="button is-round" on:click={() => handleClick()}>
+          <span class="icon is-small">
+            <i class="fa fa-chevron-down" />
+          </span>
+        </button>
+      </h1>
       <h2 class="subtitle">{$_('pages.favorites.authors_subtitle')}</h2>
     </div>
   </div>
   <Divider />
-  <div class="columns is-multiline">
-    {#each authors as author}
-      <SmallAuthorCardId {author} />
-    {:else}
-      <div class="column is-full">
-        <NoResults title={$_('pages.favorites.noauthors_title')} />
-      </div>
-    {/each}
-  </div>
+  {#if isOpen === true}
+    <div class="columns is-multiline">
+      {#each authors as author}
+        <SmallAuthorCardId {author} />
+      {:else}
+        <div class="column is-full">
+          <NoResults title={$_('pages.favorites.noauthors_title')} />
+        </div>
+      {/each}
+    </div>
+  {/if}
 </section>
 
 <style>
-  .box-transparent {
-    margin-bottom: var(--space-between);
-    min-height: 450px;
-  }
   .container {
     display: flex;
     justify-content: space-between;

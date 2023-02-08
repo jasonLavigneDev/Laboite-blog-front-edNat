@@ -4,32 +4,43 @@
   import Divider from '../common/Divider.svelte';
   import NoResults from '../common/NoResults.svelte';
   import SingleResearch from './SingleResearch.svelte';
+
+  let isOpen = false;
+
+  const handleClick = () => {
+    isOpen = !isOpen;
+  };
 </script>
 
-<section class="box-transparent">
+<section>
   <div class="container">
     <div>
-      <h1 class="title">{$_('pages.favorites.research_title')}</h1>
+      <h1 class="title">
+        {$_('pages.favorites.research_title')}
+        <button class="button is-round" on:click={() => handleClick()}>
+          <span class="icon is-small">
+            <i class="fa fa-chevron-down" />
+          </span>
+        </button>
+      </h1>
       <h2 class="subtitle">{$_('pages.favorites.research_subtitle')}</h2>
     </div>
   </div>
   <Divider />
-  <div class="columns is-multiline">
-    {#each $favoritesResearches as research}
-      <SingleResearch {research} />
-    {:else}
-      <div class="column is-full">
-        <NoResults title={$_('pages.favorites.noresearch_title')} />
-      </div>
-    {/each}
-  </div>
+  {#if isOpen === true}
+    <div class="columns is-multiline">
+      {#each $favoritesResearches as research}
+        <SingleResearch {research} />
+      {:else}
+        <div class="column is-full">
+          <NoResults title={$_('pages.favorites.noresearch_title')} />
+        </div>
+      {/each}
+    </div>
+  {/if}
 </section>
 
 <style>
-  .box-transparent {
-    margin-bottom: var(--space-between);
-    min-height: 450px;
-  }
   .container {
     display: flex;
     justify-content: space-between;
