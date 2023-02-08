@@ -17,6 +17,7 @@
     <div>
       <h1 class="title">
         {$_('pages.favorites.groups_title')}
+        ({groups.length})
         <button class="button is-round" on:click={() => handleClick()}>
           <span class="icon is-small">
             <i class="fa fa-chevron-down" />

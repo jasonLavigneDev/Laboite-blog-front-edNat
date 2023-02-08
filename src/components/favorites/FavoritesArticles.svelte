@@ -19,7 +19,7 @@
     <div>
       <h1 class="title">
         {$_('pages.favorites.articles_title')}
-
+        ({articles.length})
         <button class="button is-round" on:click={() => handleClick()}>
           <span class="icon is-small">
             <i class="fa fa-chevron-down" />
