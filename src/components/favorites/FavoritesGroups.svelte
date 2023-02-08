@@ -18,7 +18,7 @@
   <div class="columns is-multiline">
     {#each groups as group}
       <div class="column is-one-third is-half-tablet is-full-mobile">
-        <GroupCard {group} />
+        <GroupCard {group} isFavorite />
       </div>
     {:else}
       <div class="column is-full">
