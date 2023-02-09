@@ -29,9 +29,8 @@
       <h2 class="subtitle">{$_('pages.favorites.groups_subtitle')}</h2>
     </div>
   </div>
-  <Divider />
   {#if isOpen === true}
-    <div transition:slide={{duration: 400}} class="columns is-multiline mb-4">
+    <div transition:slide={{duration: 400}} class="columns is-multiline my-4">
       {#each groups as group}
         <div class="column is-one-third is-half-tablet is-full-mobile">
           <GroupCard {group} isFavorite />
@@ -43,6 +42,7 @@
       {/each}
     </div>
   {/if}
+  <Divider />
 </section>
 
 <style>

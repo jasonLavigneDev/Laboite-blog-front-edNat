@@ -29,9 +29,8 @@
       <h2 class="subtitle">{$_('pages.favorites.research_subtitle')}</h2>
     </div>
   </div>
-  <Divider />
   {#if isOpen === true}
-    <div transition:slide={{duration: 400}} class="columns is-multiline mb-4">
+    <div transition:slide={{duration: 400}} class="columns is-multiline my-4">
       {#each $favoritesResearches as research}
         <SingleResearch {research} />
       {:else}
@@ -41,6 +40,7 @@
       {/each}
     </div>
   {/if}
+  <Divider />
 </section>
 
 <style>
