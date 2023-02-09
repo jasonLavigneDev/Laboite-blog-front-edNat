@@ -20,10 +20,20 @@
       <h1 class="title">
         {$_('pages.favorites.groups_title')}
         ({groups.length})
-        <button class="button is-round" on:click={() => handleClick()}>
-          <span class="icon is-small">
-            <i class="fa fa-chevron-down" />
-          </span>
+        <button
+          class="button is-round"
+          style="border: none; background: transparent"
+          on:click={() => handleClick()}
+        >
+          {#if isOpen === true}
+            <span class="icon is-small">
+              <i class="fa fa-chevron-down is-open" />
+            </span>
+          {:else}
+            <span class="icon is-small">
+              <i class="fa fa-chevron-down" />
+            </span>
+          {/if}
         </button>
       </h1>
       <h2 class="subtitle">{$_('pages.favorites.groups_subtitle')}</h2>
@@ -51,5 +61,13 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+  }
+
+  .is-open {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
   }
 </style>
