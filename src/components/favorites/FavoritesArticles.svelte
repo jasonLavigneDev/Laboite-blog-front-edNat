@@ -31,7 +31,7 @@
   </div>
   <Divider />
   {#if isOpen === true}
-    <div transition:slide={{duration: 400}} class="columns is-multiline">
+    <div transition:slide={{duration: 400}} class="columns is-multiline mb-4">
       {#each articles as article}
         <SmallArticleBlock {article} />
       {:else}

@@ -1,5 +1,7 @@
 <script>
   import {_} from 'svelte-i18n';
+  import {slide} from 'svelte/transition';
+
   import {favoritesResearches} from '../../utils/functions/stores';
   import Divider from '../common/Divider.svelte';
   import NoResults from '../common/NoResults.svelte';
@@ -29,7 +31,7 @@
   </div>
   <Divider />
   {#if isOpen === true}
-    <div class="columns is-multiline">
+    <div transition:slide={{duration: 400}} class="columns is-multiline mb-4">
       {#each $favoritesResearches as research}
         <SingleResearch {research} />
       {:else}
