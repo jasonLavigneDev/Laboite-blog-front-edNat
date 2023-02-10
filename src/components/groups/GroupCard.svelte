@@ -6,7 +6,9 @@
   import BigLink from '../common/BigLink.svelte';
   import {onMount} from 'svelte';
   import {session} from '$app/stores';
+  import FavoritesButton from '../common/FavoritesButton.svelte';
   export let group;
+  export let isFavorite;
 
   let total = 0;
 
@@ -44,6 +46,9 @@
       link="/groups/{group.slug}"
       text={$_('components.AuthorIdCard.all_articles')}
     />
+    {#if isFavorite}
+      <FavoritesButton type="group" itemId={group.slug} />
+    {/if}
   </div>
 </div>
 
