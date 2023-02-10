@@ -4,41 +4,20 @@
   import Divider from '../common/Divider.svelte';
   import SmallArticleBlock from '../articles/SmallArticleBlock.svelte';
   import NoResults from '../common/NoResults.svelte';
+  import FavoritesTitle from './FavoritesTitle.svelte';
 
   export let articles = [];
 
   let isOpen = false;
-
-  const handleClick = () => {
-    isOpen = !isOpen;
-  };
+  console.log(isOpen);
 </script>
 
 <section>
-  <div class="container">
-    <div>
-      <h1 class="title">
-        {$_('pages.favorites.articles_title')}
-        ({articles.length})
-        <button
-          class="button is-round"
-          style="border: none; background: transparent"
-          on:click={() => handleClick()}
-        >
-          {#if isOpen === true}
-            <span class="icon is-small">
-              <i class="fa fa-chevron-down is-open" />
-            </span>
-          {:else}
-            <span class="icon is-small">
-              <i class="fa fa-chevron-down" />
-            </span>
-          {/if}
-        </button>
-      </h1>
-      <h2 class="subtitle">{$_('pages.favorites.articles_subtitle')}</h2>
-    </div>
-  </div>
+  <FavoritesTitle
+    component="articles"
+    componentCount={articles.length}
+    bind:isOpen
+  />
   {#if isOpen === true}
     <div transition:slide={{duration: 400}} class="columns is-multiline my-4">
       {#each articles as article}
@@ -52,24 +31,3 @@
   {/if}
   <Divider />
 </section>
-
-<style>
-  /* .box-transparent {
-    margin-bottom: var(--space-between);
-    min-height: 450px;
-  } */
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .is-open {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-</style>
