@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.5.0...release/1.6.0) (2023-02-24)
+
+
+### Features
+
+* **favorite:** add delte button for favorite group ([5075653](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/507565369240e56f77a2ea14ac005a7ff7acb4ec))
+
+
+### Bug Fixes
+
+* **articles:** fix pagination ([b110c03](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/b110c031e3c7d3a4c88ca8b6631ce13bed9e159a))
+
 ## [1.5.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.4.0...release/1.5.0) (2023-01-30)
 
 
