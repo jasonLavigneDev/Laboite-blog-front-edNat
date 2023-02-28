@@ -20,6 +20,7 @@
 <script>
   import {_} from 'svelte-i18n';
   import {onMount} from 'svelte';
+  import sanitizeHtml from 'sanitize-html';
   import AuthorIdCard from '../../components/authors/AuthorIdCard.svelte';
   import PageTransition from '../../components/common/PageTransition.svelte';
   import BackButton from '../../components/navigation/BackButton.svelte';
@@ -108,7 +109,7 @@
               />
             {:else}
               <div class="quill-editor">
-                {@html article.content}
+                {@html sanitizeHtml(article.content)}
               </div>
             {/if}
           </div>
