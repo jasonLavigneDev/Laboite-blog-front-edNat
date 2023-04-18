@@ -75,7 +75,7 @@
 </svelte:head>
 
 <PageTransition>
-  <section class="box-transparent">
+  <section class="box-transparent mb-4">
     <div class="container">
       <h1 class="title is-2">{$_('pages.favorites.title')}</h1>
     </div>

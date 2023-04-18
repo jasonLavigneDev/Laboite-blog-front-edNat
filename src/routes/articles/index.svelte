@@ -3,10 +3,10 @@
 
   export async function load({url, session}) {
     const path = url.pathname;
-    const page = url.searchParams.get('page') || 1;
+    const currentPage = url.searchParams.get('page') || 1;
     const search = url.searchParams.get('search');
     const tags = url.searchParams.get('tags') || '';
-    const query = {page, search, tags};
+    const query = {currentPage, search, tags};
     const isResearchLink = !!tags || !!search;
     const request =
       !!tags || !!search
@@ -43,7 +43,7 @@
       value: search,
       include,
       where,
-      skip: page === 1 ? 0 : (Number(page) - 1) * limit,
+      skip: currentPage === 1 ? 0 : (Number(currentPage) - 1) * limit,
     });
 
     const tagsList = await getTags(session.env.API_HOST);
@@ -52,7 +52,7 @@
         articles: items,
         total,
         limit,
-        page: Number(page),
+        currentPage: Number(currentPage),
         query,
         path,
         tagsList,
@@ -143,7 +143,7 @@
       </div>
       <div class="column is-half is-full-mobile">
         {#if !$navigating}
-          <Pagination {total} {currentPage} {limit} {query} {path} />
+          <Pagination {total} page={currentPage} {limit} {query} {path} />
         {/if}
       </div>
       <div class="column is-full">
@@ -169,7 +169,7 @@
       <NoResults query={!!Object.keys(query).length} />
     {/if}
     {#if !$navigating}
-      <Pagination {total} {currentPage} {limit} {query} {path} />
+      <Pagination {total} page={currentPage} {limit} {query} {path} />
     {/if}
   </section>
 </PageTransition>
