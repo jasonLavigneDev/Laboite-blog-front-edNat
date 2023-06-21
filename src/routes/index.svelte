@@ -33,6 +33,7 @@
   }
 </script>
 
+<!-- svelte-ignore missing-declaration -->
 <script>
   import {_} from 'svelte-i18n';
   import PageTransition from '../components/common/PageTransition.svelte';
@@ -46,12 +47,11 @@
     lastAcademies,
     lastRead,
   } from '../utils/functions/stores';
-
   export let articles;
 </script>
 
 <svelte:head>
-  <title>{$_('title')}</title>
+  <title>{$_('title')} - {__APP_VERSION__}</title>
 </svelte:head>
 
 <PageTransition>
