@@ -1,23 +1,29 @@
 /** @type {import('@sveltejs/kit').Config} */
-import preprocess from "svelte-preprocess";
-import autoprefixer from "autoprefixer";
-import adapter from "@sveltejs/adapter-node";
+import preprocess from 'svelte-preprocess';
+import autoprefixer from 'autoprefixer';
+import adapter from '@sveltejs/adapter-node';
 
+import {readFileSync} from 'fs';
+import {fileURLToPath} from 'url';
+
+const file = fileURLToPath(new URL('package.json', import.meta.url));
+const json = readFileSync(file, 'utf8');
+const pkg = JSON.parse(json);
 const config = {
   // options passed to svelte.compile (https://svelte.dev/docs#compile-time-svelte-compile)
   compilerOptions: {},
 
   // an array of file extensions that should be treated as Svelte components
-  extensions: [".svelte"],
+  extensions: ['.svelte'],
   preprocess: preprocess({
     transformers: {
       scss: {
-        includePaths: ["node_modules", "src"],
+        includePaths: ['node_modules', 'src'],
       },
       postcss: {
         plugins: [
           autoprefixer({
-            overrideBrowserslist: "last 2 versions",
+            overrideBrowserslist: 'last 2 versions',
           }),
         ],
       },
@@ -27,66 +33,70 @@ const config = {
   kit: {
     adapter: adapter(),
     amp: false,
-    appDir: "_app",
+    appDir: '_app',
     browser: {
       hydrate: true,
       router: true,
     },
     csp: {
-      mode: "auto",
+      mode: 'auto',
       directives: {
-        "default-src": undefined,
+        'default-src': undefined,
         // ...
       },
     },
-    endpointExtensions: [".js", ".ts"],
+    endpointExtensions: ['.js', '.ts'],
     files: {
-      assets: "static",
-      hooks: "src/hooks",
-      lib: "src/lib",
-      params: "src/params",
-      routes: "src/routes",
-      serviceWorker: "src/service-worker",
-      template: "src/app.html",
+      assets: 'static',
+      hooks: 'src/hooks',
+      lib: 'src/lib',
+      params: 'src/params',
+      routes: 'src/routes',
+      serviceWorker: 'src/service-worker',
+      template: 'src/app.html',
     },
     floc: false,
     inlineStyleThreshold: 0,
     methodOverride: {
-      parameter: "_method",
+      parameter: '_method',
       allowed: [],
     },
-    outDir: ".svelte-kit",
+    outDir: '.svelte-kit',
     package: {
-      dir: "package",
+      dir: 'package',
       emitTypes: true,
       // excludes all .d.ts and files starting with _ as the name
-      exports: (filepath) => !/^_|\/_|\.d\.ts$/.test(filepath),
+      exports: filepath => !/^_|\/_|\.d\.ts$/.test(filepath),
       files: () => true,
     },
     paths: {
-      assets: "",
-      base: "",
+      assets: '',
+      base: '',
     },
     prerender: {
       concurrency: 1,
       crawl: true,
       default: false,
       enabled: true,
-      entries: ["*"],
-      onError: "fail",
+      entries: ['*'],
+      onError: 'fail',
     },
-    routes: (filepath) =>
+    routes: filepath =>
       !/(?:(?:^_|\/_)|(?:^\.|\/\.)(?!well-known))/.test(filepath),
     serviceWorker: {
       register: true,
-      files: (filepath) => !/\.DS_Store/.test(filepath),
+      files: filepath => !/\.DS_Store/.test(filepath),
     },
-    trailingSlash: "never",
+    trailingSlash: 'never',
     version: {
       name: Date.now().toString(),
       pollInterval: 0,
     },
-    vite: () => ({}),
+    vite: () => ({
+      define: {
+        __APP_VERSION__: JSON.stringify(pkg.version),
+      },
+    }),
   },
 
   // SvelteKit uses vite-plugin-svelte. Its options can be provided directly here.
