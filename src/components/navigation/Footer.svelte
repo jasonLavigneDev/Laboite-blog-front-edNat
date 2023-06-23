@@ -1,25 +1,23 @@
 <script>
   import {_} from 'svelte-i18n';
   import {onMount} from 'svelte';
-  import {getStores, session} from '$app/stores';
-  import fetcher from "isomorphic-fetch";
+  import {page} from '$app/stores';
+  import fetcher from 'isomorphic-fetch';
   import Loader from '../common/Loader.svelte';
 
-  const {page} = getStores();
-
   let settings = {
-      maintenance: null,
-      textMaintenance: '',
-      legal: { external: false, link: '', content: '' },
-      accessibility: { external: false, link: '', content: '' },
-      gcu: { external: false, link: '', content: '' },
-      personalData: { external: false, link: '', content: '' },
-    };
+    maintenance: null,
+    textMaintenance: '',
+    legal: {external: false, link: '', content: ''},
+    accessibility: {external: false, link: '', content: ''},
+    gcu: {external: false, link: '', content: ''},
+    personalData: {external: false, link: '', content: ''},
+  };
   let loading = true;
 
   onMount(async () => {
-    const appsettings = await fetcher(`${$session.env.API_HOST}/appsettings`)
-    settings = await appsettings.json()
+    const appsettings = await fetcher(`${$page.data.env.API_HOST}/appsettings`);
+    settings = await appsettings.json();
     loading = false;
   });
 
@@ -28,32 +26,31 @@
       text: $_('links.legal'),
       path: settings.legal.external
         ? settings.legal.link
-        : `${$session.env.LABOITE_HOST}/legal/legalnotice`,
+        : `${$page.data.env.LABOITE_HOST}/legal/legalnotice`,
     },
     {
       text: $_('links.accessibility'),
       path: settings.accessibility.external
         ? settings.accessibility.link
-        : `${$session.env.LABOITE_HOST}/legal/accessibility`,
+        : `${$page.data.env.LABOITE_HOST}/legal/accessibility`,
     },
     {
       text: $_('links.gcu'),
       path: settings.gcu.external
         ? settings.gcu.link
-        : `${$session.env.LABOITE_HOST}/legal/conditions`,
+        : `${$page.data.env.LABOITE_HOST}/legal/conditions`,
     },
     {
       text: $_('links.personalData'),
       path: settings.personalData.external
         ? settings.personalData.link
-        : `${$session.env.LABOITE_HOST}/legal/personal-data`,
+        : `${$page.data.env.LABOITE_HOST}/legal/personal-data`,
     },
   ];
 </script>
 
 <nav class="navbar is-primary" aria-label="main navigation">
   <div class="navbar-menu is-active">
-
     {#if loading}
       <Loader message={$_('loading')} />
     {/if}
@@ -64,7 +61,7 @@
           class:is-active={$page.url.pathname === path}
           class="navbar-item"
           target="_blank"
-          href="{path}"
+          href={path}
         >
           {$_(text)}
         </a>
