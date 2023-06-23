@@ -1,34 +1,10 @@
-<script context="module">
-  import {fetchData} from '../../utils/api/methods';
-
-  export async function load({session}) {
-    const fields = {};
-    const order = 'name ASC';
-    const apiurl = 'structures';
-
-    const {items} = await fetchData({
-      host: session.env.API_HOST,
-      limit: 100,
-      order,
-      fields,
-      apiurl,
-    });
-
-    return {
-      props: {
-        structures: items,
-      },
-    };
-  }
-</script>
-
 <script>
   import {_} from 'svelte-i18n';
   import Divider from '../../components/common/Divider.svelte';
   import SingleAcademy from '../../components/academies/SingleAcademy.svelte';
   import PageTransition from '../../components/common/PageTransition.svelte';
 
-  export let structures = [];
+  export let data;
 </script>
 
 <svelte:head>
@@ -43,7 +19,7 @@
     </div>
     <Divider />
     <div class="columns is-multiline">
-      {#each structures as academy}
+      {#each data.structures as academy}
         <div class="column is-half is-full-mobile">
           <SingleAcademy {academy} />
         </div>

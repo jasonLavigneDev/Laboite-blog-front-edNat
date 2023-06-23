@@ -1,10 +1,10 @@
 <script>
-  import fetcher from "isomorphic-fetch";
-  import { session } from "$app/stores";
+  import fetcher from 'isomorphic-fetch';
+  import {page} from '$app/stores';
 
-  import { _ } from "svelte-i18n";
-  import BigLink from "../common/BigLink.svelte";
-  import Avatar from "./Avatar.svelte";
+  import {_} from 'svelte-i18n';
+  import BigLink from '../common/BigLink.svelte';
+  import Avatar from './Avatar.svelte';
   export let author;
 
   let academy = {};
@@ -13,7 +13,7 @@
   const fetchAcademy = async currentAuthor => {
     if (currentAuthor?.structure) {
       const responseAcademy = await fetcher(
-        `${$session.env.API_HOST}/structures/${currentAuthor.structure}`
+        `${$page.data.env.API_HOST}/structures/${currentAuthor.structure}`,
       );
       academy = await responseAcademy.json();
     }
@@ -25,28 +25,28 @@
     <div class="media">
       <div class="media-left">
         <Avatar
-          firstName={author?.firstName || "?"}
-          avatar={author?.avatar || ""}
+          firstName={author?.firstName || '?'}
+          avatar={author?.avatar || ''}
         />
       </div>
       <div class="media-content">
         <p class="title is-4">
-          {author?.firstName || $_("components.AuthorIdCard.unknownFirstname")}
-          {author?.lastName || $_("components.AuthorIdCard.unknownLastname")}
+          {author?.firstName || $_('components.AuthorIdCard.unknownFirstname')}
+          {author?.lastName || $_('components.AuthorIdCard.unknownLastname')}
         </p>
-        <p class="subtitle is-6">{academy.name || ""}</p>
+        <p class="subtitle is-6">{academy.name || ''}</p>
       </div>
     </div>
   </div>
   {#if author}
     <div class="content">
       <p class="title is-6">
-        {$_("components.AuthorIdCard.articles")}:
+        {$_('components.AuthorIdCard.articles')}:
         {author.articlesCount}
       </p>
       <BigLink
         link="/authors/{author._id}"
-        text={$_("components.AuthorIdCard.all_articles")}
+        text={$_('components.AuthorIdCard.all_articles')}
       />
     </div>
   {/if}

@@ -1,38 +1,3 @@
-<script context="module">
-  import {fetchData} from '../utils/api/methods';
-
-  export async function load({session}) {
-    const {items: articles, response} = await fetchData({
-      host: session.env.API_HOST,
-      limit: 4,
-      order: 'createdAt DESC',
-      fields: {content: false},
-      count: false,
-      apiurl: 'articles',
-      where: {draft: {neq: true}},
-      include: [
-        {
-          relation: 'user',
-          scope: {
-            fields: {
-              username: false,
-              structure: false,
-              articlesCount: false,
-            },
-          },
-        },
-      ],
-    });
-
-    return {
-      status: response.status,
-      props: {
-        articles,
-      },
-    };
-  }
-</script>
-
 <!-- svelte-ignore missing-declaration -->
 <script>
   import {_} from 'svelte-i18n';
@@ -47,7 +12,7 @@
     lastAcademies,
     lastRead,
   } from '../utils/functions/stores';
-  export let articles;
+  export let data;
 </script>
 
 <svelte:head>
@@ -58,7 +23,7 @@
   {#if $favoritesAcademy}
     <FavoriteAcademy />
   {/if}
-  <LastPublished {articles} />
+  <LastPublished articles={data.articles} />
   {#if $lastRead.length}
     <LastRead />
   {/if}

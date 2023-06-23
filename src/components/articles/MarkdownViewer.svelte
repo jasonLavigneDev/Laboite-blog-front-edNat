@@ -9,7 +9,7 @@
   import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
   import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
   import {onMount} from 'svelte';
-  import {session} from '$app/stores';
+  import {page} from '$app/stores';
 
   import {modifiedColorSyntax} from '../../utils/functions/modifiedPlugin';
 
@@ -24,7 +24,7 @@
     };
     const umlOptions = {
       rendererURL:
-        $session.env.UML_SERVER || 'https://www.plantuml.com/plantuml/png/',
+        $page.data.env.UML_SERVER || 'https://www.plantuml.com/plantuml/png/',
     };
     umlPlugin = [uml, umlOptions];
     new Viewer({

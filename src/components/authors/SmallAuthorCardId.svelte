@@ -5,20 +5,20 @@
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';
-  import {session} from '$app/stores';
+  import {page} from '$app/stores';
 
   export let author;
 
   let academy = {};
   onMount(async () => {
     const responseAcademy = await fetcher(
-      `${$session.env.API_HOST}/structures/${author.structure}`,
+      `${$page.data.env.API_HOST}/structures/${author.structure}`,
     );
     academy = await responseAcademy.json();
   });
 </script>
 
-<div class="column is-full ">
+<div class="column is-full">
   <div class="media box">
     <figure class="media-left">
       <Avatar firstName={author.firstName} avatar={author.avatar} />

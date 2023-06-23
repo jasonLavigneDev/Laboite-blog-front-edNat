@@ -3,12 +3,6 @@ import preprocess from 'svelte-preprocess';
 import autoprefixer from 'autoprefixer';
 import adapter from '@sveltejs/adapter-node';
 
-import {readFileSync} from 'fs';
-import {fileURLToPath} from 'url';
-
-const file = fileURLToPath(new URL('package.json', import.meta.url));
-const json = readFileSync(file, 'utf8');
-const pkg = JSON.parse(json);
 const config = {
   // options passed to svelte.compile (https://svelte.dev/docs#compile-time-svelte-compile)
   compilerOptions: {},
@@ -30,14 +24,17 @@ const config = {
     },
   }),
 
+  package: {
+    dir: 'package',
+    emitTypes: true,
+    // excludes all .d.ts and files starting with _ as the name
+    exports: filepath => !/^_|\/_|\.d\.ts$/.test(filepath),
+    files: () => true,
+  },
+
   kit: {
     adapter: adapter(),
-    amp: false,
     appDir: '_app',
-    browser: {
-      hydrate: true,
-      router: true,
-    },
     csp: {
       mode: 'auto',
       directives: {
@@ -45,30 +42,18 @@ const config = {
         // ...
       },
     },
-    endpointExtensions: ['.js', '.ts'],
+    moduleExtensions: ['.js', '.ts'],
     files: {
       assets: 'static',
-      hooks: 'src/hooks',
+      hooks: {client: 'src/hooks.js', server: 'src/hooks.js'},
       lib: 'src/lib',
       params: 'src/params',
       routes: 'src/routes',
       serviceWorker: 'src/service-worker',
-      template: 'src/app.html',
+      appTemplate: 'src/app.html',
     },
-    floc: false,
     inlineStyleThreshold: 0,
-    methodOverride: {
-      parameter: '_method',
-      allowed: [],
-    },
     outDir: '.svelte-kit',
-    package: {
-      dir: 'package',
-      emitTypes: true,
-      // excludes all .d.ts and files starting with _ as the name
-      exports: filepath => !/^_|\/_|\.d\.ts$/.test(filepath),
-      files: () => true,
-    },
     paths: {
       assets: '',
       base: '',
@@ -76,27 +61,17 @@ const config = {
     prerender: {
       concurrency: 1,
       crawl: true,
-      default: false,
-      enabled: true,
       entries: ['*'],
-      onError: 'fail',
+      handleHttpError: 'fail',
     },
-    routes: filepath =>
-      !/(?:(?:^_|\/_)|(?:^\.|\/\.)(?!well-known))/.test(filepath),
     serviceWorker: {
       register: true,
       files: filepath => !/\.DS_Store/.test(filepath),
     },
-    trailingSlash: 'never',
     version: {
       name: Date.now().toString(),
       pollInterval: 0,
     },
-    vite: () => ({
-      define: {
-        __APP_VERSION__: JSON.stringify(pkg.version),
-      },
-    }),
   },
 
   // SvelteKit uses vite-plugin-svelte. Its options can be provided directly here.
