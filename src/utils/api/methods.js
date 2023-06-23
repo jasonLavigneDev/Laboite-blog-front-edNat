@@ -77,3 +77,15 @@ export async function getTags(host) {
   const tags = items.map(({name}) => name);
   return tags;
 }
+
+export async function getMaintenance(host) {
+  const response = await fetcher(`${host}/appsettings`);
+  if (response.ok) {
+    const result = await response.json();
+    return {
+      maintenance: result.maintenance,
+      textMaintenance: result.textMaintenance,
+    };
+  }
+  return {maintenance: false, textMaintenance: ''};
+}

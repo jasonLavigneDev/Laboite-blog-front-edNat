@@ -1,10 +1,12 @@
 <script context="module">
   import {waitLocale, _, locale} from 'svelte-i18n';
   import '../utils/theme/index.css';
+  import {getMaintenance} from '../utils/api/methods';
 
   export async function load(args) {
     waitLocale();
-    return args;
+    const maintenance = await getMaintenance(args.session.env.API_HOST);
+    return {...args, props: {...args.props, maintenance}};
   }
 </script>
 
@@ -17,6 +19,8 @@
   import Loader from '../components/common/Loader.svelte';
   import {onMount} from 'svelte';
   import {language} from '../utils/functions/stores';
+
+  export let maintenance = {maintenance: false, textMaintenance: ''};
 
   onMount(() => {
     if (!$language) {
@@ -38,7 +42,14 @@
 {/if}
 
 <main class="container">
-  <slot />
+  {#if !!maintenance.maintenance}
+    <div class="maintenance">
+      <h1>{$_('maintenance')}</h1>
+      <p>{maintenance.textMaintenance}</p>
+    </div>
+  {:else}
+    <slot />
+  {/if}
 </main>
 
 <Footer />
@@ -52,7 +63,14 @@
     display: none;
   }
 
-  :global(h1, h2, h3, h4, h5, h6, .title) {
+  :global(.maintenance) {
+    text-align: center;
+    border: rgba(255, 0, 0, 0.7) solid 5px;
+    padding: 3vh;
+    border-radius: 15px;
+  }
+
+  :global(h1, h2, h3, h4, h5, h6, .title, .maintenance) {
     font-family: 'WorkSansBold' !important;
   }
 
