@@ -1,10 +1,10 @@
 import {sveltekit} from '@sveltejs/kit/vite';
+import {version} from './package.json';
 
 const config = {
   plugins: [sveltekit()],
   define: {
-    // XXX FIXME: get version from package.json
-    __APP_VERSION__: JSON.stringify('1.0'),
+    __APP_VERSION__: JSON.stringify(version),
   },
 };
 
