@@ -32,7 +32,6 @@ export async function load({url, parent}) {
     },
   ];
   const {env} = await parent();
-  console.log(env);
 
   const {items, total} = await fetchData({
     host: env.API_HOST,
