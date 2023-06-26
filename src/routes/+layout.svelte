@@ -1,26 +1,18 @@
-<script context="module">
-  import {waitLocale, _, locale} from 'svelte-i18n';
-  import '../utils/theme/index.css';
-  import {getMaintenance} from '../utils/api/methods';
-
-  export async function load(args) {
-    waitLocale();
-    const maintenance = await getMaintenance(args.session.env.API_HOST);
-    return {...args, props: {...args.props, maintenance}};
-  }
-</script>
-
 <script defer src="./fonts/js/all.min.js">
+  import '../utils/theme/index.css';
+  import {_, locale} from 'svelte-i18n';
+  import {getMaintenance} from '../utils/api/methods';
   import {getStores} from '$app/stores';
   import '../utils/locales/index';
   import Nav from '../components/navigation/Nav.svelte';
   import Footer from '../components/navigation/Footer.svelte';
   import {trackLocation} from '../utils/functions/locationTracker';
   import Loader from '../components/common/Loader.svelte';
-  import {onMount} from 'svelte';
+  import {onMount, beforeUpdate} from 'svelte';
   import {language} from '../utils/functions/stores';
 
-  export let maintenance = {maintenance: false, textMaintenance: ''};
+  export let data;
+  let maintenance = {maintenance: false, textMaintenance: ''};
 
   onMount(() => {
     if (!$language) {
@@ -28,6 +20,10 @@
     } else {
       locale.set($language);
     }
+  });
+
+  beforeUpdate(async () => {
+    maintenance = await getMaintenance(data.env.API_HOST);
   });
 
   trackLocation();
