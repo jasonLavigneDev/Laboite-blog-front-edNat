@@ -1,20 +1,20 @@
 <script>
   import {onMount} from 'svelte';
 
-  import {fetchData} from '../utils/api/methods';
+  import {fetchData} from '../../utils/api/methods';
 
   import {
     favoritesArticles,
     favoritesAuthors,
     favoritesGroups,
-  } from '../utils/functions/stores';
+  } from '../../utils/functions/stores';
   import {_} from 'svelte-i18n';
   import {page} from '$app/stores';
-  import FavoritesArticles from '../components/favorites/FavoritesArticles.svelte';
-  import FavoritesAuthors from '../components/favorites/FavoritesAuthors.svelte';
-  import PageTransition from '../components/common/PageTransition.svelte';
-  import FavoritesResearch from '../components/favorites/FavoritesResearch.svelte';
-  import FavoritesGroups from '../components/favorites/FavoritesGroups.svelte';
+  import FavoritesArticles from '../../components/favorites/FavoritesArticles.svelte';
+  import FavoritesAuthors from '../../components/favorites/FavoritesAuthors.svelte';
+  import PageTransition from '../../components/common/PageTransition.svelte';
+  import FavoritesResearch from '../../components/favorites/FavoritesResearch.svelte';
+  import FavoritesGroups from '../../components/favorites/FavoritesGroups.svelte';
 
   let articles = [];
   let authors = [];
