@@ -1,6 +1,7 @@
 {
   "title": "Le blog",
   "loading": "Chargement",
+  "maintenance": "Application is in maintenance mode",
   "articles": "Articles",
   "back": "Back",
   "menu": "Menu",

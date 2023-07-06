@@ -1,22 +1,18 @@
-<script context="module">
-  import {waitLocale, _, locale} from 'svelte-i18n';
-  import '../utils/theme/index.css';
-
-  export async function load(args) {
-    waitLocale();
-    return args;
-  }
-</script>
-
 <script defer src="./fonts/js/all.min.js">
+  import '../utils/theme/index.css';
+  import {_, locale} from 'svelte-i18n';
+  import {getMaintenance} from '../utils/api/methods';
   import {getStores} from '$app/stores';
   import '../utils/locales/index';
   import Nav from '../components/navigation/Nav.svelte';
   import Footer from '../components/navigation/Footer.svelte';
   import {trackLocation} from '../utils/functions/locationTracker';
   import Loader from '../components/common/Loader.svelte';
-  import {onMount} from 'svelte';
+  import {onMount, beforeUpdate} from 'svelte';
   import {language} from '../utils/functions/stores';
+
+  export let data;
+  let maintenance = {maintenance: false, textMaintenance: ''};
 
   onMount(() => {
     if (!$language) {
@@ -24,6 +20,10 @@
     } else {
       locale.set($language);
     }
+  });
+
+  beforeUpdate(async () => {
+    maintenance = await getMaintenance(data.env.API_HOST);
   });
 
   trackLocation();
@@ -38,7 +38,14 @@
 {/if}
 
 <main class="container">
-  <slot />
+  {#if !!maintenance.maintenance}
+    <div class="maintenance">
+      <h1>{$_('maintenance')}</h1>
+      <p>{maintenance.textMaintenance}</p>
+    </div>
+  {:else}
+    <slot />
+  {/if}
 </main>
 
 <Footer />
@@ -52,7 +59,14 @@
     display: none;
   }
 
-  :global(h1, h2, h3, h4, h5, h6, .title) {
+  :global(.maintenance) {
+    text-align: center;
+    border: rgba(255, 0, 0, 0.7) solid 5px;
+    padding: 3vh;
+    border-radius: 15px;
+  }
+
+  :global(h1, h2, h3, h4, h5, h6, .title, .maintenance) {
     font-family: 'WorkSansBold' !important;
   }
 

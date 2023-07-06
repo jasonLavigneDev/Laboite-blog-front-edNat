@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.7.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.6.0...release/1.7.0) (2023-04-18)
+
+
+### Features
+
+* **favorite:** add count of favorite added ([e17b345](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/e17b345f3dcc3027fd43f17558e72b08e97af190))
+* **favorite:** change expend button style ([39f1b82](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/39f1b8216bad744a1c6c12e350c4496d84f41c41))
+* **favorite:** collapse fav group in favorite page ([b25ad46](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/b25ad46f402c036550516afe58884649d78a0d41))
+* **favorite:** factorise front html ([02371a9](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/02371a933d3cd7af9908f7d5ad87a13cfdf736ab))
+* **favorites:** add i18n and some style ([caadafe](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/caadafeab5b439020448a37504deedf2d7888cad))
+* **fevorites:** change divider position ([280a26f](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/280a26f3f294cd2bbe04d1db12916ad1c927fca6))
+
+
+### Bug Fixes
+
+* **articles:** sanitize article content before displaying ([e1664a9](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/e1664a903bfb4098e83f9079109316c11ce4792b))
+
 ## [1.6.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.5.0...release/1.6.0) (2023-02-24)
 
 
