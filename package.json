@@ -1,17 +1,17 @@
 {
   "name": "laboite-blog-front",
   "description": "laboite blog service frontend",
-  "version": "1.7.0",
+  "version": "1.8.0-testing.1",
   "license": "EUPL-1.2",
   "author": "EOLE/PCLL <team@eole.education> - DINUM",
   "type": "module",
   "scripts": {
     "start-dev": "npm-run-all --parallel server css-watch dev",
     "init-dev": "yarn && cd ../laboite-blog-api && yarn",
-    "dev": "dotenv_config_path=.env NODE_OPTIONS='-r dotenv/config' svelte-kit dev --port 4000",
-    "build": "yarn css-build && svelte-kit build",
+    "dev": "dotenv_config_path=.env NODE_OPTIONS='-r dotenv/config' vite --port 4000",
+    "build": "yarn css-build && vite build",
     "server": "cd ../laboite-blog-api && dotenv_config_path=.env NODE_OPTIONS='-r dotenv/config' yarn start",
-    "export": "svelte-kit build",
+    "export": "vite build",
     "start": "node build",
     "validate": "svelte-check",
     "css-build": "node-sass --omit-source-map-url src/utils/theme/index.scss src/utils/theme/index.css",
@@ -30,7 +30,8 @@
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.0",
     "sanitize-html": "^2.10.0",
-    "svelte-i18n": "^3.4.0"
+    "svelte-i18n": "^3.4.0",
+    "vite": "^4.3.9"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
@@ -52,5 +53,8 @@
     "svelte": "^3.48.0",
     "svelte-check": "^2.7.0",
     "svelte-preprocess": "^4.10.6"
+  },
+  "resolutions": {
+    "semver": "^7.5.2"
   }
 }

@@ -1,20 +1,20 @@
 <script>
   import {onMount} from 'svelte';
 
-  import {fetchData} from '../utils/api/methods';
+  import {fetchData} from '../../utils/api/methods';
 
   import {
     favoritesArticles,
     favoritesAuthors,
     favoritesGroups,
-  } from '../utils/functions/stores';
+  } from '../../utils/functions/stores';
   import {_} from 'svelte-i18n';
-  import {session} from '$app/stores';
-  import FavoritesArticles from '../components/favorites/FavoritesArticles.svelte';
-  import FavoritesAuthors from '../components/favorites/FavoritesAuthors.svelte';
-  import PageTransition from '../components/common/PageTransition.svelte';
-  import FavoritesResearch from '../components/favorites/FavoritesResearch.svelte';
-  import FavoritesGroups from '../components/favorites/FavoritesGroups.svelte';
+  import {page} from '$app/stores';
+  import FavoritesArticles from '../../components/favorites/FavoritesArticles.svelte';
+  import FavoritesAuthors from '../../components/favorites/FavoritesAuthors.svelte';
+  import PageTransition from '../../components/common/PageTransition.svelte';
+  import FavoritesResearch from '../../components/favorites/FavoritesResearch.svelte';
+  import FavoritesGroups from '../../components/favorites/FavoritesGroups.svelte';
 
   let articles = [];
   let authors = [];
@@ -22,7 +22,7 @@
 
   const getFavorites = async () => {
     const resultsAuthors = await fetchData({
-      host: $session.env.API_HOST,
+      host: $page.data.env.API_HOST,
       limit: 6,
       order: 'articlesCount DESC',
       fields: {},
@@ -31,7 +31,7 @@
       where: {articlesCount: {gt: 0}, _id: {inq: $favoritesAuthors}},
     });
     const resultsGroups = await fetchData({
-      host: $session.env.API_HOST,
+      host: $page.data.env.API_HOST,
       limit: 6,
       order: 'createdAt DESC',
       fields: {},
@@ -40,7 +40,7 @@
       where: {slug: {inq: $favoritesGroups}},
     });
     const resultsArticles = await fetchData({
-      host: $session.env.API_HOST,
+      host: $page.data.env.API_HOST,
       limit: 4,
       order: 'createdAt DESC',
       fields: {content: false},

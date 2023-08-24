@@ -1,6 +1,7 @@
 {
   "title": "Le Blog",
   "loading": "Chargement",
+  "maintenance": "L'application est en cours de maintenance",
   "articles": "Articles",
   "back": "Retour",
   "menu": "Menu",
@@ -43,7 +44,7 @@
       "subtitle": "Recherchez dans la liste des articles"
     },
     "article": {
-      "tags": "Tags",
+      "tags": "Mots clés",
       "read_times": "Nombre de lectures",
       "no_article_title": "Article non trouvé",
       "no_article_subtitle": "Aucun article n'a été trouvé sur cet URL"
@@ -94,7 +95,7 @@
       "link": "Lire l'article entier",
       "written_by": "Écrit par",
       "groups": "Groupes",
-      "tags": "Tags"
+      "tags": "Mots clés"
     },
     "SmallArticleBlock": {
       "link": "Lire",
@@ -129,9 +130,9 @@
       "subtitle": "Reformulez votre recherche"
     },
     "TagsFilters": {
-      "filter": "Filtrer la recherche par tag",
+      "filter": "Filtrer la recherche par mot clé",
       "reset": "Effacer",
-      "open": "Filtrer par tag",
+      "open": "Filtrer par mot clé",
       "close": "Fermer"
     },
     "SingleResearch": {

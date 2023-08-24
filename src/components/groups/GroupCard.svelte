@@ -5,7 +5,7 @@
   import Avatar from '../authors/Avatar.svelte';
   import BigLink from '../common/BigLink.svelte';
   import {onMount} from 'svelte';
-  import {session} from '$app/stores';
+  import {page} from '$app/stores';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   export let group;
   export let isFavorite;
@@ -14,7 +14,7 @@
 
   onMount(async () => {
     const results = await fetchData({
-      host: $session.env.API_HOST,
+      host: $page.data.env.API_HOST,
       order: 'createdAt DESC',
       fields: {content: false},
       count: true,

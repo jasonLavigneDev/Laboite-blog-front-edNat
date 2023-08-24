@@ -1,54 +1,37 @@
-<script context="module">
-  import fetcher from 'isomorphic-fetch';
-
-  export async function load({params = {}, session}) {
-    const responseArticle = await fetcher(
-      `${session.env.API_HOST}/articles/${params.slug}`,
-    );
-    const article = await responseArticle.json();
-
-    return {
-      props: {
-        session,
-        article,
-        author: article && article.user,
-      },
-    };
-  }
-</script>
-
 <script>
   import {_} from 'svelte-i18n';
   import {onMount} from 'svelte';
   import sanitizeHtml from 'sanitize-html';
-  import AuthorIdCard from '../../components/authors/AuthorIdCard.svelte';
-  import PageTransition from '../../components/common/PageTransition.svelte';
-  import BackButton from '../../components/navigation/BackButton.svelte';
-  import SingleTag from '../../components/common/SingleTag.svelte';
-  import FavoritesButton from '../../components/common/FavoritesButton.svelte';
-  import {articlesRead} from '../../utils/functions/stores';
-  import NoResults from '../../components/common/NoResults.svelte';
+  import AuthorIdCard from '../../../components/authors/AuthorIdCard.svelte';
+  import PageTransition from '../../../components/common/PageTransition.svelte';
+  import BackButton from '../../../components/navigation/BackButton.svelte';
+  import SingleTag from '../../../components/common/SingleTag.svelte';
+  import FavoritesButton from '../../../components/common/FavoritesButton.svelte';
+  import {articlesRead} from '../../../utils/functions/stores';
+  import NoResults from '../../../components/common/NoResults.svelte';
   let MarkdownViewer;
 
-  export let article;
-  export let session;
-  export let author;
+  export let data;
   $: fullScreen = false;
 
   onMount(async () => {
-    if (article.markdown) {
+    if (data.article.markdown) {
       const module = await import(
-        '../../components/articles/MarkdownViewer.svelte'
+        '../../../components/articles/MarkdownViewer.svelte'
       );
       MarkdownViewer = module.default;
     }
-    if (article && article._id && !$articlesRead.find(i => i === article._id)) {
-      await fetcher(`${session.env.API_HOST}/articles/${article._id}/read`, {
+    if (
+      data.article &&
+      data.article._id &&
+      !$articlesRead.find(i => i === data.article._id)
+    ) {
+      await fetcher(`${data.env.API_HOST}/articles/${data.article._id}/read`, {
         method: 'PATCH',
       });
       articlesRead.update(list => {
-        if (!list.find(i => i === article._id)) {
-          list.unshift(article._id);
+        if (!list.find(i => i === data.article._id)) {
+          list.unshift(data.article._id);
         }
         return list;
       });
@@ -64,12 +47,12 @@
   <title>
     {$_('title')}
     |
-    {article ? article.title : $_('pages.article.no_article_title')}
+    {data.article ? data.article.title : $_('pages.article.no_article_title')}
   </title>
 </svelte:head>
 
 <PageTransition>
-  {#if !article}
+  {#if !data.article}
     <NoResults
       title={$_('pages.article.no_article_title')}
       subtitle={$_('pages.article.no_article_subtitle')}
@@ -88,7 +71,7 @@
           >
             <span class="icon is-small"> <i class="fas fa-id-card" /> </span>
           </button>
-          <FavoritesButton type="article" itemId={article._id} />
+          <FavoritesButton type="article" itemId={data.article._id} />
         </div>
       </div>
     </div>
@@ -99,17 +82,17 @@
           : 'is-three-quarters-widescreen'}"
       >
         <section class="box-transparent">
-          <div class="title is-4">{article.title}</div>
+          <div class="title is-4">{data.article.title}</div>
 
           <div class="column is-full-desktop table-container is-full-tablet">
-            {#if article.markdown}
+            {#if data.article.markdown}
               <svelte:component
                 this={MarkdownViewer}
-                content={article.content}
+                content={data.article.content}
               />
             {:else}
               <div class="quill-editor">
-                {@html sanitizeHtml(article.content)}
+                {@html sanitizeHtml(data.article.content)}
               </div>
             {/if}
           </div>
@@ -120,18 +103,18 @@
           class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
         >
           <div class="box-transparent">
-            <AuthorIdCard {author} />
+            <AuthorIdCard author={data.author} />
             <div class="box">
               <div class="title is-5">{$_('license.license')}</div>
               <div>
-                {#if article.licence}
+                {#if data.article.licence}
                   <div class="columns is-centered has-text-centered">
-                    {$_(`license.${article.licence}`)}
+                    {$_(`license.${data.article.licence}`)}
                   </div>
                   <div class="columns is-centered mt-1">
                     <img
-                      src="/logoCC/{article.licence}.svg"
-                      alt="licence {article.licence}"
+                      src="/logoCC/{data.article.licence}.svg"
+                      alt="licence {data.article.licence}"
                     />
                   </div>
                 {:else}
@@ -144,11 +127,11 @@
                 {/if}
               </div>
             </div>
-            {#if article.tags && article.tags.length}
+            {#if data.article.tags && data.article.tags.length}
               <div class="box">
                 <div class="title is-5">{$_('pages.article.tags')}</div>
                 <div class="tags">
-                  {#each article.tags as tag}
+                  {#each data.article.tags as tag}
                     <SingleTag {tag} />
                   {/each}
                 </div>
@@ -158,7 +141,7 @@
               <div class="title is-5">
                 {$_('pages.article.read_times')}
                 :
-                {article.visits}
+                {data.article.visits}
               </div>
             </div>
           </div>
