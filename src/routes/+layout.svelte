@@ -1,6 +1,6 @@
 <script defer src="./fonts/js/all.min.js">
   import {_, locale} from 'svelte-i18n';
-  import Matomo, {matomo} from '@dexlib/svelte-matomo';
+  import MatomoTracker from '../components/matomo/MatomoTracker.svelte';
   import '../utils/theme/index.css';
   import {getMaintenance} from '../utils/api/methods';
   import {getStores} from '$app/stores';
@@ -32,8 +32,6 @@
   const {page, navigating} = getStores();
   $: if ($page) {
     updateMaintenance();
-    matomo.setCustomUrl($page.url.href);
-    matomo.trackPageView();
   }
 </script>
 
@@ -43,10 +41,9 @@
   <Loader message={$_('loading')} mainLoader={true} />
 {/if}
 {#if data.env.MATOMO_URL}
-  <Matomo
+  <MatomoTracker
     url={data.env.MATOMO_URL}
     siteId={Number(data.env.MATOMO_SITEID)}
-    debug={false}
   />
 {/if}
 
