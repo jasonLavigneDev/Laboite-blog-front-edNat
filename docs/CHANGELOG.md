@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.8.1](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.8.0...release/1.8.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* **articles:** adjust sanitizeHtml parameters for articles ([1e5f84f](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/1e5f84f4d7ddba37a891c2cee3c72bf2bb69d515))
+* **articles:** allow embedded videos in articles ([2de64d0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/2de64d0dcbaf2001fb0d0aff914c3628c86eb689))
+
 ## [1.8.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.7.0...release/1.8.0) (2023-08-24)
 
 
