@@ -8,6 +8,7 @@
   import SingleTag from '../../../components/common/SingleTag.svelte';
   import FavoritesButton from '../../../components/common/FavoritesButton.svelte';
   import {articlesRead} from '../../../utils/functions/stores';
+  import sanitizeParameters from '../../../utils/sanitize';
   import NoResults from '../../../components/common/NoResults.svelte';
   let MarkdownViewer;
 
@@ -92,7 +93,7 @@
               />
             {:else}
               <div class="quill-editor">
-                {@html sanitizeHtml(data.article.content)}
+                {@html sanitizeHtml(data.article.content, sanitizeParameters)}
               </div>
             {/if}
           </div>
