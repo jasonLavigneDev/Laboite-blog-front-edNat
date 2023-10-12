@@ -1,5 +1,6 @@
 <script>
   import {_} from 'svelte-i18n';
+  import fetcher from 'isomorphic-fetch';
   import {onMount} from 'svelte';
   import sanitizeHtml from 'sanitize-html';
   import AuthorIdCard from '../../../components/authors/AuthorIdCard.svelte';
