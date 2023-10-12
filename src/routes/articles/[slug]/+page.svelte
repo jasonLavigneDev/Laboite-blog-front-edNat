@@ -1,5 +1,6 @@
 <script>
   import {_} from 'svelte-i18n';
+  import fetcher from 'isomorphic-fetch';
   import {onMount} from 'svelte';
   import sanitizeHtml from 'sanitize-html';
   import AuthorIdCard from '../../../components/authors/AuthorIdCard.svelte';
@@ -8,6 +9,7 @@
   import SingleTag from '../../../components/common/SingleTag.svelte';
   import FavoritesButton from '../../../components/common/FavoritesButton.svelte';
   import {articlesRead} from '../../../utils/functions/stores';
+  import sanitizeParameters from '../../../utils/sanitize';
   import NoResults from '../../../components/common/NoResults.svelte';
   let MarkdownViewer;
 
@@ -92,7 +94,7 @@
               />
             {:else}
               <div class="quill-editor">
-                {@html sanitizeHtml(data.article.content)}
+                {@html sanitizeHtml(data.article.content, sanitizeParameters)}
               </div>
             {/if}
           </div>

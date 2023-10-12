@@ -1,5 +1,33 @@
 # Changelog
 
+### [1.8.1](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.8.0...release/1.8.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* **articles:** adjust sanitizeHtml parameters for articles ([1e5f84f](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/1e5f84f4d7ddba37a891c2cee3c72bf2bb69d515))
+* **articles:** allow embedded videos in articles ([2de64d0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/2de64d0dcbaf2001fb0d0aff914c3628c86eb689))
+
+## [1.8.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.7.0...release/1.8.0) (2023-08-24)
+
+
+### Features
+
+* **index:** add version number in tab name ([6e3b536](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/6e3b536cab219f25f93f9b1e9b29bdc92b1a477e))
+* **maintenance:** display maintenance message when needed ([8035596](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/803559641f9f53476ee552bcaeba8c5ff697fde9))
+* **refactor:** rewrite code for sveltekit 1.20 ([b39c565](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/b39c56540ca45c5ffb3cdc22ae0e0753074b4263))
+* **search:** search is now case insensitive ([4cafecc](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/4cafecc6331d642f86b0d5bb670ed4168a60ebe2))
+
+
+### Bug Fixes
+
+* **audit:** force resolution of semver library version ([1e589ca](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/1e589cac547d6b3261a4d56d4acbf46f9f2c458f))
+* **refactor:** fetch maintenance data ([b71031d](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/b71031d3418b1cdf0b4ce68b2fd364e72cea6702))
+* **refactor:** get version from package.json ([1ce78b1](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/1ce78b1ed20f91cf97d38788187166d5e8b6eb83))
+* **refactor:** update favorites page ([91aaf6f](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/91aaf6f0c6471c4fd976a42ed03226388db989bb))
+* **search:** manage c letter in case insensitive search ([3bf9431](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/3bf94312bf30ed41bb56ae979785180db8faf45a))
+* **translation:** replace tag by mot clé in french translation ([a7a6668](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/a7a66683aa45bc1cdef50742e9894b241ab91814))
+
 ## [1.7.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.6.0...release/1.7.0) (2023-04-18)
 
 
