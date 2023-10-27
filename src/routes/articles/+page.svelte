@@ -87,15 +87,13 @@
         {/if}
       </div>
       <div class="column is-full">
-        {#if !$navigating}
-          <TagsFilter
-            query={data.query}
-            path={data.path}
-            tagsList={data.tagsList}
-            on:addTag={addTag}
-            {queryTags}
-          />
-        {/if}
+        <TagsFilter
+          query={data.query}
+          path={data.path}
+          tagsList={data.tagsList}
+          on:addTag={addTag}
+          {queryTags}
+        />
       </div>
     </div>
 
