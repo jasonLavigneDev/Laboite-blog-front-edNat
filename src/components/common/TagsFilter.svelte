@@ -61,7 +61,7 @@
     >
     {#if $page.url.searchParams.get('tags')}
       {' - '}
-      <a rel="prefetch" href={resetUrl()}>
+      <a href={resetUrl()}>
         {$_('components.TagsFilters.reset')}
       </a>
     {/if}
