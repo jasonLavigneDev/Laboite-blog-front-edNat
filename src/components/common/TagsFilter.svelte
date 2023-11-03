@@ -16,9 +16,11 @@
   const dispatch = createEventDispatcher();
 
   function addTag(tag) {
-    dispatch('addTag', {
-      tag: tag,
-    });
+    if (!queryTags.includes(tag)) {
+      dispatch('addTag', {
+        tag: tag,
+      });
+    }
   }
 
   let opened = false;
