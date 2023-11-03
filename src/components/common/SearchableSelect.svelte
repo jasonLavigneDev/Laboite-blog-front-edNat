@@ -12,11 +12,18 @@
 
   const open = () => (opened = true);
   const close = () => (opened = false);
+  const handleKeydown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onChange(search)
+      search = ''
+    }
+  };
 </script>
 
 <div class="dropdown is-active" on:mouseleave={close} on:mouseenter={open}>
   <div class="dropdown-trigger">
-    <input bind:value={search} class="input" type="text" />
+    <input bind:value={search} class="input" type="text" on:keydown={handleKeydown}/>
   </div>
   {#if opened}
     <div class="dropdown-menu" role="menu" transition:slide>
@@ -27,6 +34,7 @@
               class="dropdown-item"
               on:click={() => {
                 onChange(item.value);
+                search = ''
               }}
             >
               {item.label}
