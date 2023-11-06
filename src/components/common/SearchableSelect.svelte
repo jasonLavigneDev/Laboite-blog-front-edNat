@@ -13,7 +13,7 @@
   const open = () => (opened = true);
   const close = () => (opened = false);
   const handleKeydown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && search !== '') {
       event.preventDefault();
       onChange(search)
       search = ''
