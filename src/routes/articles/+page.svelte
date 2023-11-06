@@ -25,15 +25,18 @@
   }
 
   function addTag(event) {
-    const tagsArray = [...queryTags];
-    tagsArray.push(event.detail.tag);
-    const tagsString = tagsArray.join(',');
-    const url = `${data.path}?${toQuery({
-      ...data.query,
-      page: 1,
-      tags: tagsString,
-    })}`;
-    goto(url);
+    const tagToAdd = event.detail.tag
+    if (!queryTags.includes(tagToAdd)){
+      const tagsArray = [...queryTags];
+      tagsArray.push(tagToAdd);
+      const tagsString = tagsArray.join(',');
+      const url = `${data.path}?${toQuery({
+        ...data.query,
+        page: 1,
+        tags: tagsString,
+      })}`;
+      goto(url);
+    }
   }
 
   $: tagSearch = tagSearch;
@@ -87,15 +90,13 @@
         {/if}
       </div>
       <div class="column is-full">
-        {#if !$navigating}
-          <TagsFilter
-            query={data.query}
-            path={data.path}
-            tagsList={data.tagsList}
-            on:addTag={addTag}
-            {queryTags}
-          />
-        {/if}
+        <TagsFilter
+          query={data.query}
+          path={data.path}
+          tagsList={data.tagsList}
+          on:addTag={addTag}
+          {queryTags}
+        />
       </div>
     </div>
 

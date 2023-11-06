@@ -3,3 +3,6 @@
 yarn-error.log
 .env
 .svelte-kit
+/src/node_modules
+/build
+__sapper__
