@@ -1,6 +1,7 @@
 <script defer src="./fonts/js/all.min.js">
-  import '../utils/theme/index.css';
   import {_, locale} from 'svelte-i18n';
+  import MatomoTracker from '../components/matomo/MatomoTracker.svelte';
+  import '../utils/theme/index.css';
   import {getMaintenance} from '../utils/api/methods';
   import {getStores} from '$app/stores';
   import '../utils/locales/index';
@@ -8,7 +9,7 @@
   import Footer from '../components/navigation/Footer.svelte';
   import {trackLocation} from '../utils/functions/locationTracker';
   import Loader from '../components/common/Loader.svelte';
-  import {onMount, beforeUpdate} from 'svelte';
+  import {onMount} from 'svelte';
   import {language} from '../utils/functions/stores';
 
   export let data;
@@ -22,19 +23,28 @@
     }
   });
 
-  beforeUpdate(async () => {
+  async function updateMaintenance() {
     maintenance = await getMaintenance(data.env.API_HOST);
-  });
+  }
 
   trackLocation();
 
-  const {navigating} = getStores();
+  const {page, navigating} = getStores();
+  $: if ($page) {
+    updateMaintenance();
+  }
 </script>
 
 <Nav />
 
 {#if !!$navigating}
   <Loader message={$_('loading')} mainLoader={true} />
+{/if}
+{#if data.env.MATOMO_URL}
+  <MatomoTracker
+    url={data.env.MATOMO_URL}
+    siteId={Number(data.env.MATOMO_SITEID)}
+  />
 {/if}
 
 <main class="container">
