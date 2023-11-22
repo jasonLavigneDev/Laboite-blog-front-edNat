@@ -9,12 +9,12 @@
 
   export let author;
 
-  let academy = {};
+  let structure = {};
   onMount(async () => {
-    const responseAcademy = await fetcher(
+    const responseStructure = await fetcher(
       `${$page.data.env.API_HOST}/structures/${author.structure}`,
     );
-    academy = await responseAcademy.json();
+    structure = await responseStructure.json();
   });
 </script>
 
@@ -25,7 +25,7 @@
     </figure>
     <div class="media-content">
       <div class="title is-4">{author.firstName} {author.lastName}</div>
-      <div>{academy.name}</div>
+      <div>{structure.name}</div>
       <div class="title is-6">
         {$_('components.SmallAuthorIdCard.articles')}:
         {author.articlesCount}

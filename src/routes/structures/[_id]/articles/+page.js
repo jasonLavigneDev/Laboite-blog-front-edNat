@@ -8,10 +8,10 @@ export async function load({params, url, parent}) {
   const tags = url.searchParams.get('tags') || '';
   const query = {page, search, tags};
   const {env} = await parent();
-  const responseAcademy = await fetcher(
+  const responseStructure = await fetcher(
     `${env.API_HOST}/structures/${params._id}`,
   );
-  const academy = await responseAcademy.json();
+  const structure = await responseStructure.json();
   const isResearchLink = !!tags || !!search;
   const request =
     !!tags || !!search
@@ -19,7 +19,7 @@ export async function load({params, url, parent}) {
           path,
           query: {search, tags},
           type: 'articles',
-          academy,
+          structure,
         }
       : null;
 
@@ -31,10 +31,10 @@ export async function load({params, url, parent}) {
   const where = tags
     ? {
         and: tags.split(',').map(t => ({tags: {inq: [t]}})),
-        structure: academy._id,
+        structure: structure._id,
         draft: {neq: true},
       }
-    : {structure: academy._id, draft: {neq: true}};
+    : {structure: structure._id, draft: {neq: true}};
   const include = [
     {
       relation: 'user',
@@ -61,7 +61,7 @@ export async function load({params, url, parent}) {
     page: Number(page),
     query,
     path,
-    academy,
+    structure,
     tagsList,
     isResearchLink,
     request,

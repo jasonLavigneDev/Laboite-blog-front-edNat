@@ -3,10 +3,10 @@ import {fetchData} from '../../../utils/api/methods';
 
 export async function load({params, parent}) {
   const {env} = await parent();
-  const responseAcademy = await fetcher(
+  const responseStructure = await fetcher(
     `${env.API_HOST}/structures/${params._id}`,
   );
-  const academy = await responseAcademy.json();
+  const structure = await responseStructure.json();
 
   const {items: authors, response} = await fetchData({
     host: env.API_HOST,
@@ -15,7 +15,7 @@ export async function load({params, parent}) {
     fields: {},
     count: false,
     apiurl: 'authors',
-    where: {articlesCount: {gt: 0}, structure: academy._id},
+    where: {articlesCount: {gt: 0}, structure: structure._id},
   });
   const {items: articles} = await fetchData({
     host: env.API_HOST,
@@ -24,7 +24,7 @@ export async function load({params, parent}) {
     fields: {content: false},
     count: false,
     apiurl: 'articles',
-    where: {structure: academy._id, draft: {neq: true}},
+    where: {structure: structure._id, draft: {neq: true}},
     include: [
       {
         relation: 'user',
@@ -43,7 +43,7 @@ export async function load({params, parent}) {
     status: response.status,
     authors,
     articles,
-    academy,
+    structure,
     params,
   };
 }

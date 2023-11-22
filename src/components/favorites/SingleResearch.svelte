@@ -9,21 +9,21 @@
 
   const requestObject = JSON.parse(research);
 
-  const {path, type, academy, query} = requestObject;
+  const {path, type, structure, query} = requestObject;
   const {search, tags} = query;
 
   const url = `${path}?${toQuery(query)}`;
 </script>
 
-<div class="column is-full ">
+<div class="column is-full">
   <div class="media box">
     <div class="media-content">
       <div class="title is-4">
         {$_('components.SingleResearch.type')}:
         {$_(`links.${type}`)}
       </div>
-      {#if academy}
-        <div class="subtitle is-5">{academy.name}</div>
+      {#if structure}
+        <div class="subtitle is-5">{structure.name}</div>
       {/if}
       {#if search}
         <div>{$_('components.SingleResearch.search')}: {search}</div>

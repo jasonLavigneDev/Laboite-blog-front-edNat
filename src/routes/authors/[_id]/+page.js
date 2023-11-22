@@ -32,10 +32,10 @@ export async function load({params, url, parent}) {
   });
   const responseAuthor = await fetcher(`${env.API_HOST}/authors/${params._id}`);
   const author = await responseAuthor.json();
-  const responseAcademy = await fetcher(
+  const responseStructure = await fetcher(
     `${env.API_HOST}/structures/${author.structure}`,
   );
-  const academy = await responseAcademy.json();
+  const structure = await responseStructure.json();
   const tagsList = await getTags(env.API_HOST);
   return {
     articles: items,
@@ -45,7 +45,7 @@ export async function load({params, url, parent}) {
     query,
     path,
     author,
-    academy,
+    structure,
     tagsList,
   };
 }
