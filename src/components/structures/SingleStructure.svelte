@@ -24,7 +24,7 @@
   });
 </script>
 
-<a rel="prefetch" href="/structures/{structure._id}">
+<a href="/structures/{structure._id}">
   <div class="card">
     <div class="card-content">
       <div class="media">

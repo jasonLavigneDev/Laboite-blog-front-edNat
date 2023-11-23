@@ -61,6 +61,7 @@
           class:is-active={$page.url.pathname === path}
           class="navbar-item"
           target="_blank"
+          rel="noreferrer noopener"
           href={path}
         >
           {$_(text)}
