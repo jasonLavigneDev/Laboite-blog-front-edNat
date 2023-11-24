@@ -1,11 +1,14 @@
+<script context="module">
+</script>
+
 <script>
   import {_} from 'svelte-i18n';
   import {getStores} from '$app/stores';
   import Divider from '../../../../components/common/Divider.svelte';
+  import SingleArticleBlock from '../../../../components/articles/SingleArticleBlock.svelte';
   import SearchField from '../../../../components/common/SearchField.svelte';
   import Pagination from '../../../../components/common/Pagination.svelte';
   import NoResults from '../../../../components/common/NoResults.svelte';
-  import AuthorIdCard from '../../../../components/authors/AuthorIdCard.svelte';
   import BackButton from '../../../../components/navigation/BackButton.svelte';
   import PageTransition from '../../../../components/common/PageTransition.svelte';
   import FavoritesButton from '../../../../components/common/FavoritesButton.svelte';
@@ -15,15 +18,15 @@
 </script>
 
 <svelte:head>
-  <title>{$_('title')} | {data.academy.name} | {$_('links.authors')}</title>
+  <title>{$_('title')} | {data.structure.name} | {$_('links.articles')}</title>
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/academies/{data.academy._id}" />
+  <BackButton previousLocation="/structures/{data.structure._id}" />
   <div class="container box-transparent">
-    <a href="/academies/{data.academy._id}" rel="prefetch"
+    <a href="/structures/{data.structure._id}" rel="prefetch"
       ><h1 class="title is-2">
-        {data.academy.name}
+        {data.structure.name}
       </h1></a
     >
   </div>
@@ -34,8 +37,8 @@
         class:is-full={!data.isResearchLink}
         class:is-half={data.isResearchLink}
       >
-        <h1 class="title">{$_('pages.authors.title')}: {data.total}</h1>
-        <h2 class="subtitle">{$_('pages.authors.subtitle')}</h2>
+        <h1 class="title">{$_('pages.articles.title')}: {data.total}</h1>
+        <h2 class="subtitle">{$_('pages.articles.subtitle')}</h2>
       </div>
       {#if data.isResearchLink}
         <div class="column is-half fav-button-wrap">
@@ -71,12 +74,10 @@
       </div>
     </div>
 
-    {#if data.authors.length}
+    {#if data.articles.length}
       <div class="columns is-multiline">
-        {#each data.authors as author}
-          <div class="column is-one-third is-half-tablet is-full-mobile">
-            <AuthorIdCard {author} />
-          </div>
+        {#each data.articles as article, index}
+          <SingleArticleBlock {article} />
         {/each}
       </div>
     {:else}

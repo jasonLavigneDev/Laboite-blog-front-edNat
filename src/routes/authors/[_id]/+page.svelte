@@ -46,7 +46,7 @@
               {data.author.firstName}
               {data.author.lastName}
             </h1>
-            <div class="subtitle">{data.academy.name || 'Autres'}</div>
+            <div class="subtitle">{data.structure.name || 'Autres'}</div>
           </div>
         </div>
       </article>

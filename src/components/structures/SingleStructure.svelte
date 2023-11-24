@@ -5,12 +5,12 @@
   import {_} from 'svelte-i18n';
   import {page} from '$app/stores';
 
-  export let academy = {};
+  export let structure = {};
   let total;
   let loading = true;
 
   onMount(async () => {
-    const where = {structure: academy._id};
+    const where = {structure: structure._id};
 
     const response = await fetcher(
       `${$page.data.env.API_HOST}/articles/count?where=${JSON.stringify(
@@ -24,17 +24,17 @@
   });
 </script>
 
-<a rel="prefetch" href="/academies/{academy._id}">
+<a rel="prefetch" href="/structures/{structure._id}">
   <div class="card">
     <div class="card-content">
       <div class="media">
         <div class="media-left">
-          <Avatar firstName={academy.name} avatar={academy.logo} />
+          <Avatar firstName={structure.name} avatar={structure.logo} />
         </div>
         <div class="media-content">
-          <p class="title is-5">{academy.name}</p>
+          <p class="title is-5">{structure.name}</p>
           <p class="subtitle is-6">
-            {$_('components.SingleAcademy.articles')}:
+            {$_('components.SingleStructure.articles')}:
             {loading ? $_('loading') : total}
           </p>
         </div>

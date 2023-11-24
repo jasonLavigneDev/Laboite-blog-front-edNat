@@ -7,15 +7,15 @@
   import Avatar from './Avatar.svelte';
   export let author;
 
-  let academy = {};
-  $: fetchAcademy(author);
+  let structure = {};
+  $: fetchStructure(author);
 
-  const fetchAcademy = async currentAuthor => {
+  const fetchStructure = async currentAuthor => {
     if (currentAuthor?.structure) {
-      const responseAcademy = await fetcher(
+      const responseStructure = await fetcher(
         `${$page.data.env.API_HOST}/structures/${currentAuthor.structure}`,
       );
-      academy = await responseAcademy.json();
+      structure = await responseStructure.json();
     }
   };
 </script>
@@ -34,7 +34,7 @@
           {author?.firstName || $_('components.AuthorIdCard.unknownFirstname')}
           {author?.lastName || $_('components.AuthorIdCard.unknownLastname')}
         </p>
-        <p class="subtitle is-6">{academy.name || ''}</p>
+        <p class="subtitle is-6">{structure.name || ''}</p>
       </div>
     </div>
   </div>

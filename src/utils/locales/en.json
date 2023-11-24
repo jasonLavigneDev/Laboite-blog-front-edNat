@@ -10,7 +10,7 @@
   "links": {
     "home": "Home",
     "articles": "Articles",
-    "academies": "Academies",
+    "structures": "Structures",
     "groups": "Groups",
     "authors": "Authors",
     "favorites": "Favorites",
@@ -34,10 +34,10 @@
       "last_subtitle": "These are the last articles published",
       "last_read_title": "Your readings",
       "last_read_subtitle": "Do you want to read them again ?",
-      "your_academy_title": "Your favortie academy",
-      "your_academy_subtitle": "Find articles and articles that concern you",
-      "last_academies_title": "Your academies",
-      "last_academies_subtitle": "Find here the academies you have consulted"
+      "your_structure_title": "Your favortie structure",
+      "your_structure_subtitle": "Find articles and articles that concern you",
+      "last_structures_title": "Your structures",
+      "last_structures_subtitle": "Find here the structures you have consulted"
     },
     "articles": {
       "title": "All articles",
@@ -57,12 +57,12 @@
       "title": "Groups list",
       "subtitle": "Research in the list of groups"
     },
-    "academies": {
-      "title": "French academies list",
-      "subtitle": "Visit your academy's page"
+    "structures": {
+      "title": "Structures list",
+      "subtitle": "Visit your structure's page"
     },
-    "academy": {
-      "authors_title": "The authors in this academy",
+    "structure": {
+      "authors_title": "The authors in this structure",
       "authors_subtitle": "Visit their page",
       "all_articles": "See all articles",
       "all_authors": "See all authors",
@@ -102,18 +102,18 @@
       "written_by": "Written by",
       "written_on": "on the"
     },
-    "SingleAcademy": {
+    "SingleStructure": {
       "articles": "Number of articles"
     },
     "AuthorIdCard": {
-      "academy": "Academy",
+      "structure": "Structure",
       "articles": "Number of articles",
       "all_articles": "See all articles",
       "unknownFirstname": "Unknown",
       "unknownLastname": "User"
     },
     "SmallAuthorIdCard": {
-      "academy": "Academy",
+      "structure": "Structure",
       "articles": "Number of articles",
       "all_articles": "See all articles"
     },

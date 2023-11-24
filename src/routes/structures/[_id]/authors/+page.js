@@ -7,16 +7,16 @@ export async function load({params, url, parent}) {
   const search = url.searchParams.get('search');
   const query = {page, search};
   const {env} = await parent();
-  const responseAcademy = await fetcher(
+  const responseStructure = await fetcher(
     `${env.API_HOST}/structures/${params._id}`,
   );
-  const academy = await responseAcademy.json();
+  const structure = await responseStructure.json();
   const isResearchLink = !!search;
   const request = !!search
     ? {
         path,
         query: {search},
-        academy,
+        structure,
         type: 'authors',
       }
     : null;
@@ -26,7 +26,7 @@ export async function load({params, url, parent}) {
   const searchFields = ['firstName', 'lastName', 'structure'];
   const order = 'articlesCount DESC';
   const apiurl = 'authors';
-  const where = {articlesCount: {gt: 0}, structure: academy._id};
+  const where = {articlesCount: {gt: 0}, structure: structure._id};
 
   const {items, total} = await fetchData({
     host: env.API_HOST,
@@ -46,7 +46,7 @@ export async function load({params, url, parent}) {
     page: Number(page),
     query,
     path,
-    academy,
+    structure,
     isResearchLink,
     request,
   };
