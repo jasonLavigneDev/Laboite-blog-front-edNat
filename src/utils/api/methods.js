@@ -1,5 +1,3 @@
-import fetcher from 'isomorphic-fetch';
-
 const accentInsensitive = searchString => {
   // inspired from https://stackoverflow.com/questions/227950/
   const accented = {
@@ -54,12 +52,12 @@ export async function fetchData({
   };
   const response = countOnly
     ? null
-    : await fetcher(`${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`);
+    : await fetch(`${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`);
   const items = countOnly ? null : await response.json();
   let total;
 
   if (count) {
-    const newTotal = await fetcher(
+    const newTotal = await fetch(
       `${host}/${apiurl}/count?where=${JSON.stringify(whereQuery)}`,
     );
     const result = await newTotal.json();
@@ -70,7 +68,7 @@ export async function fetchData({
 
 export async function getTags(host) {
   const queryFilters = {fields: {_id: false}};
-  const response = await fetcher(
+  const response = await fetch(
     `${host}/tags?filter=${JSON.stringify(queryFilters)}`,
   );
   const items = await response.json();
@@ -79,7 +77,7 @@ export async function getTags(host) {
 }
 
 export async function getMaintenance(host) {
-  const response = await fetcher(`${host}/appsettings`);
+  const response = await fetch(`${host}/appsettings`);
   if (response.ok) {
     const result = await response.json();
     return {

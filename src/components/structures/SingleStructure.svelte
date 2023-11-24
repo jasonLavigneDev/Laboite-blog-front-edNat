@@ -1,7 +1,6 @@
 <script>
   import Avatar from '../authors/Avatar.svelte';
   import {onMount} from 'svelte';
-  import fetcher from 'isomorphic-fetch';
   import {_} from 'svelte-i18n';
   import {page} from '$app/stores';
 
@@ -12,7 +11,7 @@
   onMount(async () => {
     const where = {structure: structure._id};
 
-    const response = await fetcher(
+    const response = await fetch(
       `${$page.data.env.API_HOST}/articles/count?where=${JSON.stringify(
         where,
       )}`,

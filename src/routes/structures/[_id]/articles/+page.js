@@ -1,4 +1,3 @@
-import fetcher from 'isomorphic-fetch';
 import {fetchData, getTags} from '../../../../utils/api/methods';
 
 export async function load({params, url, parent}) {
@@ -8,7 +7,7 @@ export async function load({params, url, parent}) {
   const tags = url.searchParams.get('tags') || '';
   const query = {page, search, tags};
   const {env} = await parent();
-  const responseStructure = await fetcher(
+  const responseStructure = await fetch(
     `${env.API_HOST}/structures/${params._id}`,
   );
   const structure = await responseStructure.json();

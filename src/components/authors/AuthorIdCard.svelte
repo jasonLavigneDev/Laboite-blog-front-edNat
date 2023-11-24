@@ -1,5 +1,4 @@
 <script>
-  import fetcher from 'isomorphic-fetch';
   import {page} from '$app/stores';
 
   import {_} from 'svelte-i18n';
@@ -12,7 +11,7 @@
 
   const fetchStructure = async currentAuthor => {
     if (currentAuthor?.structure) {
-      const responseStructure = await fetcher(
+      const responseStructure = await fetch(
         `${$page.data.env.API_HOST}/structures/${currentAuthor.structure}`,
       );
       structure = await responseStructure.json();

@@ -1,5 +1,4 @@
 import {fetchData, getTags} from '../../../utils/api/methods';
-import fetcher from 'isomorphic-fetch';
 
 export async function load({params, url, parent}) {
   const path = url.pathname;
@@ -8,7 +7,7 @@ export async function load({params, url, parent}) {
   const query = {page, search};
   const {env} = await parent();
 
-  const responseGroup = await fetcher(`${env.API_HOST}/groups/${params.slug}`);
+  const responseGroup = await fetch(`${env.API_HOST}/groups/${params.slug}`);
   const group = await responseGroup.json();
 
   const limit = 10;

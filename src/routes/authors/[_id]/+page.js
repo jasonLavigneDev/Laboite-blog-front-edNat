@@ -1,5 +1,4 @@
 import {fetchData, getTags} from '../../../utils/api/methods';
-import fetcher from 'isomorphic-fetch';
 
 export async function load({params, url, parent}) {
   const path = url.pathname;
@@ -30,9 +29,9 @@ export async function load({params, url, parent}) {
     where,
     skip: page === 1 ? 0 : (Number(page) - 1) * limit,
   });
-  const responseAuthor = await fetcher(`${env.API_HOST}/authors/${params._id}`);
+  const responseAuthor = await fetch(`${env.API_HOST}/authors/${params._id}`);
   const author = await responseAuthor.json();
-  const responseStructure = await fetcher(
+  const responseStructure = await fetch(
     `${env.API_HOST}/structures/${author.structure}`,
   );
   const structure = await responseStructure.json();
