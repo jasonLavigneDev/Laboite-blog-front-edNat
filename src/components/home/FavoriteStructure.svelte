@@ -1,6 +1,5 @@
 <script>
   import {onMount} from 'svelte';
-  import fetcher from 'isomorphic-fetch';
   import {_} from 'svelte-i18n';
   import {page} from '$app/stores';
 
@@ -10,7 +9,7 @@
 
   let structure = {};
   onMount(async () => {
-    const responseStructure = await fetcher(
+    const responseStructure = await fetch(
       `${$page.data.env.API_HOST}/structures/${$favoritesStructure}`,
     );
     structure = await responseStructure.json();
