@@ -35,6 +35,7 @@ export async function fetchData({
   count = true,
   countOnly = false,
   include,
+  fetcher = fetch,
 }) {
   const whereQuery = {...where};
   if (value) {
@@ -52,12 +53,12 @@ export async function fetchData({
   };
   const response = countOnly
     ? null
-    : await fetch(`${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`);
+    : await fetcher(`${host}/${apiurl}?filter=${JSON.stringify(queryFilters)}`);
   const items = countOnly ? null : await response.json();
   let total;
 
   if (count) {
-    const newTotal = await fetch(
+    const newTotal = await fetcher(
       `${host}/${apiurl}/count?where=${JSON.stringify(whereQuery)}`,
     );
     const result = await newTotal.json();
@@ -66,9 +67,9 @@ export async function fetchData({
   return {items, total, response};
 }
 
-export async function getTags(host) {
+export async function getTags(host, fetcher = fetch) {
   const queryFilters = {fields: {_id: false}};
-  const response = await fetch(
+  const response = await fetcher(
     `${host}/tags?filter=${JSON.stringify(queryFilters)}`,
   );
   const items = await response.json();
@@ -76,8 +77,8 @@ export async function getTags(host) {
   return tags;
 }
 
-export async function getMaintenance(host) {
-  const response = await fetch(`${host}/appsettings`);
+export async function getMaintenance(host, fetcher = fetch) {
+  const response = await fetcher(`${host}/appsettings`);
   if (response.ok) {
     const result = await response.json();
     return {

@@ -1,6 +1,6 @@
 import {fetchData} from '../../../../utils/api/methods';
 
-export async function load({params, url, parent}) {
+export async function load({params, url, parent, fetch}) {
   const path = url.pathname;
   const page = url.searchParams.get('page') || 1;
   const search = url.searchParams.get('search');
@@ -29,6 +29,7 @@ export async function load({params, url, parent}) {
 
   const {items, total} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit,
     order,
     fields,

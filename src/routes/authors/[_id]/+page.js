@@ -1,6 +1,6 @@
 import {fetchData, getTags} from '../../../utils/api/methods';
 
-export async function load({params, url, parent}) {
+export async function load({params, url, parent, fetch}) {
   const path = url.pathname;
   const {env} = await parent();
 
@@ -20,6 +20,7 @@ export async function load({params, url, parent}) {
 
   const {items, total} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit,
     order,
     fields,
@@ -35,7 +36,7 @@ export async function load({params, url, parent}) {
     `${env.API_HOST}/structures/${author.structure}`,
   );
   const structure = await responseStructure.json();
-  const tagsList = await getTags(env.API_HOST);
+  const tagsList = await getTags(env.API_HOST, fetch);
   return {
     articles: items,
     total,
