@@ -1,5 +1,3 @@
-import fetcher from 'isomorphic-fetch';
-
 const accentInsensitive = searchString => {
   // inspired from https://stackoverflow.com/questions/227950/
   const accented = {
@@ -37,6 +35,7 @@ export async function fetchData({
   count = true,
   countOnly = false,
   include,
+  fetcher = fetch,
 }) {
   const whereQuery = {...where};
   if (value) {
@@ -68,7 +67,7 @@ export async function fetchData({
   return {items, total, response};
 }
 
-export async function getTags(host) {
+export async function getTags(host, fetcher = fetch) {
   const queryFilters = {fields: {_id: false}};
   const response = await fetcher(
     `${host}/tags?filter=${JSON.stringify(queryFilters)}`,
@@ -78,7 +77,7 @@ export async function getTags(host) {
   return tags;
 }
 
-export async function getMaintenance(host) {
+export async function getMaintenance(host, fetcher = fetch) {
   const response = await fetcher(`${host}/appsettings`);
   if (response.ok) {
     const result = await response.json();

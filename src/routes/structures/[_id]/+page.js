@@ -1,15 +1,15 @@
-import fetcher from 'isomorphic-fetch';
 import {fetchData} from '../../../utils/api/methods';
 
-export async function load({params, parent}) {
+export async function load({params, parent, fetch}) {
   const {env} = await parent();
-  const responseStructure = await fetcher(
+  const responseStructure = await fetch(
     `${env.API_HOST}/structures/${params._id}`,
   );
   const structure = await responseStructure.json();
 
   const {items: authors, response} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit: 6,
     order: 'articlesCount DESC',
     fields: {},
@@ -19,6 +19,7 @@ export async function load({params, parent}) {
   });
   const {items: articles} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit: 4,
     order: 'createdAt DESC',
     fields: {content: false},

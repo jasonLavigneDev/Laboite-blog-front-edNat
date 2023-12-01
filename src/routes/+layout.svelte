@@ -1,4 +1,5 @@
 <script defer src="./fonts/js/all.min.js">
+  import {browser} from '$app/environment';
   import {_, locale} from 'svelte-i18n';
   import MatomoTracker from '../components/matomo/MatomoTracker.svelte';
   import '../utils/theme/index.css';
@@ -30,7 +31,7 @@
   trackLocation();
 
   const {page, navigating} = getStores();
-  $: if ($page) {
+  $: if ($page && browser) {
     updateMaintenance();
   }
 </script>

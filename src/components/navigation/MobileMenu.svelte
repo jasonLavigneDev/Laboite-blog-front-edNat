@@ -19,7 +19,6 @@
           {#each items as { path, text }}
             <li>
               <a
-                rel="prefetch"
                 class:is-active={pathname === path}
                 class="navbar-item"
                 on:click={toggle}

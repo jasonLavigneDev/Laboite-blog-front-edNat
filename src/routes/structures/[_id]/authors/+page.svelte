@@ -21,7 +21,7 @@
 <PageTransition>
   <BackButton previousLocation="/structures/{data.structure._id}" />
   <div class="container box-transparent">
-    <a href="/structures/{data.structure._id}" rel="prefetch"
+    <a href="/structures/{data.structure._id}"
       ><h1 class="title is-2">
         {data.structure.name}
       </h1></a
