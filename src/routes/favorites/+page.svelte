@@ -1,6 +1,6 @@
 <script>
   import {onMount} from 'svelte';
-
+  import {browser} from '$app/environment';
   import {fetchData} from '../../utils/api/methods';
 
   import {
@@ -65,9 +65,11 @@
     groups = resultsGroups.items;
   };
   onMount(getFavorites);
-  favoritesArticles.subscribe(getFavorites);
-  favoritesAuthors.subscribe(getFavorites);
-  favoritesGroups.subscribe(getFavorites);
+  $: if (browser) {
+    favoritesArticles.subscribe(getFavorites);
+    favoritesAuthors.subscribe(getFavorites);
+    favoritesGroups.subscribe(getFavorites);
+  }
 </script>
 
 <svelte:head>

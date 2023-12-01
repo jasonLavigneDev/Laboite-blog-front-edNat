@@ -1,14 +1,14 @@
 <script>
   import {page} from '$app/stores';
+  import {browser} from '$app/environment';
 
   import {_} from 'svelte-i18n';
   import BigLink from '../common/BigLink.svelte';
   import Avatar from './Avatar.svelte';
-  import {onMount} from 'svelte';
   export let author;
 
   let structure = {};
-  $: fetchStructure(author);
+  $: if (browser) fetchStructure(author);
   const fetchStructure = async currentAuthor => {
     if (currentAuthor?.structure) {
       const responseStructure = await fetch(
@@ -17,7 +17,6 @@
       structure = await responseStructure.json();
     }
   };
-  onMount(fetchStructure);
 </script>
 
 <div class="card">
