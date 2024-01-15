@@ -14,9 +14,9 @@
   };
 </script>
 
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-logo" href="/" rel="prefetch">
+    <a class="navbar-logo" href="/">
       <img src="/Leblog.png" alt="LaBoite - Blog" />
     </a>
 
@@ -37,7 +37,6 @@
     <div class="navbar-start">
       {#each items as { path, text }}
         <a
-          rel="prefetch"
           class:is-active={`/${$page.url.pathname.split('/')[1]}` === path}
           class="navbar-item"
           href={path}

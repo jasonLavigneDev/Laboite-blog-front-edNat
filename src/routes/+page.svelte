@@ -2,14 +2,14 @@
 <script>
   import {_} from 'svelte-i18n';
   import PageTransition from '../components/common/PageTransition.svelte';
-  import FavoriteAcademy from '../components/home/FavoriteAcademy.svelte';
+  import FavoriteStructure from '../components/home/FavoriteStructure.svelte';
 
   import LastPublished from '../components/home/LastPublished.svelte';
   import LastRead from '../components/home/LastRead.svelte';
-  import LastAcademies from '../components/home/LastAcademies.svelte';
+  import LastStructures from '../components/home/LastStructures.svelte';
   import {
-    favoritesAcademy,
-    lastAcademies,
+    favoritesStructure,
+    lastStructures,
     lastRead,
   } from '../utils/functions/stores';
   export let data;
@@ -20,14 +20,14 @@
 </svelte:head>
 
 <PageTransition>
-  {#if $favoritesAcademy}
-    <FavoriteAcademy />
+  {#if $favoritesStructure}
+    <FavoriteStructure />
   {/if}
   <LastPublished articles={data.articles} />
   {#if $lastRead.length}
     <LastRead />
   {/if}
-  {#if $lastAcademies.length}
-    <LastAcademies />
+  {#if $lastStructures.length}
+    <LastStructures />
   {/if}
 </PageTransition>

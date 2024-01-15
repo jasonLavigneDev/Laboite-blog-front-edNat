@@ -39,19 +39,14 @@
       />
     </p>
     <div class="control">
-      <a class="button is-primary" rel="prefetch" href={urlMaker(search)}>
+      <a class="button is-primary" href={urlMaker(search)}>
         <i class="fas fa-search" />
       </a>
     </div>
 
     {#if search}
       <div class="control">
-        <a
-          class="button is-secondary"
-          rel="prefetch"
-          on:click={resetSearch}
-          href={urlMaker()}
-        >
+        <a class="button is-secondary" on:click={resetSearch} href={urlMaker()}>
           <i class="fa fa-times" />
         </a>
       </div>

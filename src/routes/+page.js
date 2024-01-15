@@ -1,9 +1,10 @@
 import {fetchData} from '../utils/api/methods';
 
-export async function load({parent}) {
+export async function load({parent, fetch}) {
   const {env} = await parent();
   const {items: articles, response} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit: 4,
     order: 'createdAt DESC',
     fields: {content: false},

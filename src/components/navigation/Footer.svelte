@@ -2,7 +2,6 @@
   import {_} from 'svelte-i18n';
   import {onMount} from 'svelte';
   import {page} from '$app/stores';
-  import fetcher from 'isomorphic-fetch';
   import Loader from '../common/Loader.svelte';
 
   let settings = {
@@ -16,7 +15,7 @@
   let loading = true;
 
   onMount(async () => {
-    const appsettings = await fetcher(`${$page.data.env.API_HOST}/appsettings`);
+    const appsettings = await fetch(`${$page.data.env.API_HOST}/appsettings`);
     settings = await appsettings.json();
     loading = false;
   });
@@ -61,6 +60,7 @@
           class:is-active={$page.url.pathname === path}
           class="navbar-item"
           target="_blank"
+          rel="noreferrer noopener"
           href={path}
         >
           {$_(text)}

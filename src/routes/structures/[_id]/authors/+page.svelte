@@ -15,15 +15,15 @@
 </script>
 
 <svelte:head>
-  <title>{$_('title')} | {data.academy.name} | {$_('links.authors')}</title>
+  <title>{$_('title')} | {data.structure.name} | {$_('links.authors')}</title>
 </svelte:head>
 
 <PageTransition>
-  <BackButton previousLocation="/academies/{data.academy._id}" />
+  <BackButton previousLocation="/structures/{data.structure._id}" />
   <div class="container box-transparent">
-    <a href="/academies/{data.academy._id}" rel="prefetch"
+    <a href="/structures/{data.structure._id}"
       ><h1 class="title is-2">
-        {data.academy.name}
+        {data.structure.name}
       </h1></a
     >
   </div>

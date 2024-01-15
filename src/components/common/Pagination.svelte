@@ -22,7 +22,7 @@
   <nav class="pagination is-primary is-right" aria-label="pagination">
     <ul class="pagination-list">
       {#if page !== 1}
-        <a class="pagination-previous" rel="prefetch" href={urlMaker(page - 1)}
+        <a class="pagination-previous" href={urlMaker(page - 1)}
           >{$_('components.Pagination.previous')}</a
         >
       {/if}
@@ -30,7 +30,6 @@
         <li>
           <a
             class="pagination-link"
-            rel="prefetch"
             href={urlMaker(1)}
             class:is-current={1 === page}
             aria-label="Goto page 1">{1}</a
@@ -45,7 +44,6 @@
           <li>
             <a
               class="pagination-link"
-              rel="prefetch"
               href={urlMaker(i + 1)}
               class:is-current={i + 1 === page}
               aria-label="Goto page {i + 1}">{i + 1}</a
@@ -56,7 +54,6 @@
             <a
               class="pagination-link"
               class:is-current={i + 1 === page}
-              rel="prefetch"
               href={urlMaker(i + 1)}
               aria-label="Goto page {i + 1}">{i + 1}</a
             >
@@ -70,7 +67,6 @@
         <li>
           <a
             class="pagination-link"
-            rel="prefetch"
             href={urlMaker(array.length)}
             class:is-current={array.length === page}
             aria-label="Goto last page">{array.length}</a
@@ -78,7 +74,7 @@
         </li>
       {/if}
       {#if page !== array.length}
-        <a class="pagination-next" rel="prefetch" href={urlMaker(page + 1)}
+        <a class="pagination-next" href={urlMaker(page + 1)}
           >{$_('components.Pagination.next')}</a
         >
       {/if}

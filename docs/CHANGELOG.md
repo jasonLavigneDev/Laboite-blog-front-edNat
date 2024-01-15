@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.9.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.8.1...release/1.9.0) (2023-11-07)
+
+
+### Features
+
+* **matomo:** change matomo integration method ([2c4011d](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/2c4011d74776b7b4fd9c207a1eaf20719725f209))
+* **matomo:** integrate Matomo client ([934e631](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/934e631205cc65497865b04e687b47659962cf0e))
+
+
+### Bug Fixes
+
+* **articles:** fix tag search in articles tab ([89a2513](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/89a2513334261c1f301bf05106377ee729959d43))
+* **articles:** no empty tag filter ([4e975f3](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/4e975f33ffd0e43783b7c0fdc721d396bef57ede))
+* **articles:** prevent same tag to be add ([beb870b](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/beb870b8da885f78ade5e138c7eaa1f7e19cdb00))
+* **articles:** search by tag with enter key ([e0f0623](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/e0f0623b2c5d9097e84263c0b3a31a51696227ee))
+* **audit:** update critically vulnerable libraries ([509a620](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/509a6207f58dd5c147d69b6b4ea1a761e3bf129a))
+* **gitignore:** add new ignored folder ([c7fa86d](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/c7fa86dc0560276c92123a63f8b428f9c7c0319e))
+* **library:** upgrade svelte-i18n to non broken version ([be96034](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/be9603460c70de98666aadbb9a0c7c6770851001))
+* **tags:** fix active tags not updating when selecting a tag ([192ed9a](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/192ed9a8c90dfa6de06a71a10cf6ad687b8bf9b2))
+
 ### [1.8.1](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.8.0...release/1.8.1) (2023-10-02)
 
 

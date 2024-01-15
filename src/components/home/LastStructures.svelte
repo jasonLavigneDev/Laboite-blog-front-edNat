@@ -2,15 +2,15 @@
   import {onMount} from 'svelte';
   import {_} from 'svelte-i18n';
 
-  import {lastAcademies} from '../../utils/functions/stores';
-  import SingleAcademy from '../academies/SingleAcademy.svelte';
+  import {lastStructures} from '../../utils/functions/stores';
+  import SingleStructure from '../structures/SingleStructure.svelte';
   import Divider from '../common/Divider.svelte';
   import {fetchData} from '../../utils/api/methods';
   import {page} from '$app/stores';
 
-  let academies = [];
+  let structures = [];
   onMount(async () => {
-    const where = {_id: {inq: $lastAcademies}};
+    const where = {_id: {inq: $lastStructures}};
     const {items} = await fetchData({
       host: $page.data.env.API_HOST,
       limit: 4,
@@ -18,21 +18,21 @@
       apiurl: 'structures',
       where,
     });
-    academies = items;
+    structures = items;
   });
 </script>
 
 <section class="box-transparent">
   <div class="container">
-    <h1 class="title">{$_('pages.home.last_academies_title')}</h1>
-    <h2 class="subtitle">{$_('pages.home.last_academies_subtitle')}</h2>
+    <h1 class="title">{$_('pages.home.last_structures_title')}</h1>
+    <h2 class="subtitle">{$_('pages.home.last_structures_subtitle')}</h2>
   </div>
   <Divider />
 
   <div class="columns is-multiline">
-    {#each academies as academy}
+    {#each structures as structure}
       <div class="column is-full">
-        <SingleAcademy {academy} />
+        <SingleStructure {structure} />
       </div>
     {/each}
   </div>
