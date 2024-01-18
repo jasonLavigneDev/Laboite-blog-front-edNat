@@ -45,6 +45,10 @@
         ? settings.personalData.link
         : `${$page.data.env.LABOITE_HOST}/legal/personal-data`,
     },
+    {
+      text: $_('links.about'),
+      path: '/about',
+    },
   ];
 </script>
 
