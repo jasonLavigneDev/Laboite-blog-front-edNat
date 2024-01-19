@@ -119,17 +119,6 @@
       </a>
     </p>
     <p>
-      {$_('pages.AboutPage.bug')}{' '}
-      <a
-        title={$_('pages.AboutPage.here')}
-        target="_blank"
-        rel="noreferrer noopenner"
-        href="https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/-/issues/new"
-      >
-        {$_('pages.AboutPage.here')}.
-      </a>
-    </p>
-    <p>
       {$_('pages.AboutPage.contributing')}{' '}
       <a
         title={$_('pages.AboutPage.deposit')}
