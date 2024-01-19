@@ -47,7 +47,7 @@
     },
     {
       text: $_('links.about'),
-      path: '/about',
+      path: `${$page.data.env.LABOITE_HOST}/about`,
     },
   ];
 </script>

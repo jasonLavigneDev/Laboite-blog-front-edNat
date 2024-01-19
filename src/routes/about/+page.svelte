@@ -202,6 +202,10 @@
     border: none;
   }
 
+  .buttonInfos:focus {
+    color: #fff;
+  }
+
   @media screen and (max-width: 768px) {
     .containerPaper {
       padding: 6px 0px;
