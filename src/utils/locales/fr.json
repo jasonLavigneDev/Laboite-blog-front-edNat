@@ -122,8 +122,8 @@
       "placeholder": "Rechercher"
     },
     "Pagination": {
-      "next": "Suivante",
-      "previous": "Précédente"
+      "next": "Suivant",
+      "previous": "Précédent"
     },
     "NoResults": {
       "title": "Aucun résultats",
