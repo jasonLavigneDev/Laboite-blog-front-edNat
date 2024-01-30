@@ -1,7 +1,7 @@
 {
   "name": "laboite-blog-front",
   "description": "laboite blog service frontend",
-  "version": "1.10.0-testing.2",
+  "version": "1.10.0",
   "license": "EUPL-1.2",
   "author": "EOLE/PCLL <team@eole.education> - DINUM",
   "type": "module",

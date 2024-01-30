@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.10.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.9.0...release/1.10.0) (2024-01-30)
+
+
+### Features
+
+* **author:** add transition on author id card ([40d153a](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/40d153a20179a7cf0ea5fecf3b4e258b7e63a874))
+* **fetch:** remove isomorphic fetch and replace it by fetch native ([282c67d](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/282c67df67db73c70c900868c4831f8667bddfea))
+* **link:** delete rel prefetch in a markup ([15e3659](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/15e3659ff1e0b437865b5fca4710fc77b9d3c66f))
+* **project:** replace academy by structure in all project ([e358672](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/e35867210ba1ffdc8d8f6c1cc27d44856653f95c))
+
+
+### Bug Fixes
+
+* **audit:** update vulnerable libraries ([a4899a2](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/a4899a2fb7cbd17808efaee06b603772120c692f))
+* **fetch:** add onMount on missing fetch ([23613b8](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/23613b883316b15c5e2d39813186a9eb0f21d40d))
+* **fetch:** don't call fetch outside of onMount/load on server side ([fed4fdb](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/fed4fdb05d89efe5d3094bd5b6b5ac88ee7d28d7))
+* **fetch:** use fetch provided by load function when available ([a06f606](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/a06f60601f63ae6fcb8b67c122681855889fa0d9))
+* **structure:** fix problems dues to rebase from dev ([138d477](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/138d477d7b4946f9ba7ec6f3a2410afca5387fd5))
+* **structures:** redirect /academies to /structures ([fa1ac04](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/fa1ac04fe86ae9f918facc796c61cbd85e0a79bc))
+* **translation:** fix some translation ([a504ebb](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/commit/a504ebb8dd253f9aa46cdeb3ad77d5bf7651170f))
+
 ## [1.9.0](https://gitlab.mim-libre.fr/alphabet/laboite-blog-front/compare/release/1.8.1...release/1.9.0) (2023-11-07)
 
 
