@@ -1,7 +1,6 @@
 <script>
   import {_} from 'svelte-i18n';
   import {onMount} from 'svelte';
-  import fetcher from 'isomorphic-fetch';
   import BigLink from '../common/BigLink.svelte';
   import FavoritesButton from '../common/FavoritesButton.svelte';
   import Avatar from './Avatar.svelte';
@@ -9,12 +8,12 @@
 
   export let author;
 
-  let academy = {};
+  let structure = {};
   onMount(async () => {
-    const responseAcademy = await fetcher(
+    const responseStructure = await fetch(
       `${$page.data.env.API_HOST}/structures/${author.structure}`,
     );
-    academy = await responseAcademy.json();
+    structure = await responseStructure.json();
   });
 </script>
 
@@ -25,7 +24,7 @@
     </figure>
     <div class="media-content">
       <div class="title is-4">{author.firstName} {author.lastName}</div>
-      <div>{academy.name}</div>
+      <div>{structure.name}</div>
       <div class="title is-6">
         {$_('components.SmallAuthorIdCard.articles')}:
         {author.articlesCount}

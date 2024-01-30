@@ -8,8 +8,8 @@ export const items = [
     path: '/articles',
   },
   {
-    text: 'links.academies',
-    path: '/academies',
+    text: 'links.structure',
+    path: '/structures',
   },
   {
     text: 'links.authors',

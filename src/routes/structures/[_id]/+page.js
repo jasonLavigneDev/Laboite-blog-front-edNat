@@ -1,30 +1,31 @@
-import fetcher from 'isomorphic-fetch';
 import {fetchData} from '../../../utils/api/methods';
 
-export async function load({params, parent}) {
+export async function load({params, parent, fetch}) {
   const {env} = await parent();
-  const responseAcademy = await fetcher(
+  const responseStructure = await fetch(
     `${env.API_HOST}/structures/${params._id}`,
   );
-  const academy = await responseAcademy.json();
+  const structure = await responseStructure.json();
 
   const {items: authors, response} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit: 6,
     order: 'articlesCount DESC',
     fields: {},
     count: false,
     apiurl: 'authors',
-    where: {articlesCount: {gt: 0}, structure: academy._id},
+    where: {articlesCount: {gt: 0}, structure: structure._id},
   });
   const {items: articles} = await fetchData({
     host: env.API_HOST,
+    fetcher: fetch,
     limit: 4,
     order: 'createdAt DESC',
     fields: {content: false},
     count: false,
     apiurl: 'articles',
-    where: {structure: academy._id, draft: {neq: true}},
+    where: {structure: structure._id, draft: {neq: true}},
     include: [
       {
         relation: 'user',
@@ -43,7 +44,7 @@ export async function load({params, parent}) {
     status: response.status,
     authors,
     articles,
-    academy,
+    structure,
     params,
   };
 }

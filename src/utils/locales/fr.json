@@ -10,7 +10,7 @@
   "links": {
     "home": "Accueil",
     "articles": "Articles",
-    "academies": "Académies",
+    "structure": "Structures",
     "groups": "Groupes",
     "authors": "Auteurs",
     "favorites": "Favoris",
@@ -34,10 +34,10 @@
       "last_subtitle": "Voici les derniers articles publiés",
       "last_read_title": "Vos lectures",
       "last_read_subtitle": "Voulez-vous les relire ?",
-      "your_academy_title": "Votre académie favorite",
-      "your_academy_subtitle": "Retrouver les articles et les auteurs qui vous concernent",
-      "last_academies_title": "Vos académies",
-      "last_academies_subtitle": "Retrouver les académies que vous avez consulté"
+      "your_structure_title": "Votre structure favorite",
+      "your_structure_subtitle": "Retrouver les articles et les auteurs qui vous concernent",
+      "last_structures_title": "Vos académies",
+      "last_structures_subtitle": "Retrouver les académies que vous avez consulté"
     },
     "articles": {
       "title": "Les articles",
@@ -57,12 +57,12 @@
       "title": "La liste des groupes",
       "subtitle": "Recherchez dans la liste des groupes"
     },
-    "academies": {
-      "title": "La liste des académies françaises",
-      "subtitle": "Visitez la page de votre académie"
+    "structures": {
+      "title": "La liste des structures",
+      "subtitle": "Visitez la page de votre structure"
     },
-    "academy": {
-      "authors_title": "Les auteurs de l'académie",
+    "structure": {
+      "authors_title": "Les auteurs de la structure",
       "authors_subtitle": "Visitez leur page",
       "all_articles": "Voir tous les articles",
       "all_authors": "Voir tous les auteurs",
@@ -102,18 +102,18 @@
       "written_by": "Écrit par",
       "written_on": "le"
     },
-    "SingleAcademy": {
+    "SingleStructure": {
       "articles": "Nombre d'articles"
     },
     "AuthorIdCard": {
-      "academy": "Académie",
+      "structure": "Structure",
       "articles": "Nombre d'articles",
       "all_articles": "Voir tous les articles",
       "unknownFirstname": "Utilisateur",
       "unknownLastname": "Inconnu"
     },
     "SmallAuthorIdCard": {
-      "academy": "Académie",
+      "structure": "Structure",
       "articles": "Nombre d'articles",
       "all_articles": "Voir tous les articles"
     },
@@ -122,8 +122,8 @@
       "placeholder": "Rechercher"
     },
     "Pagination": {
-      "next": "Suivante",
-      "previous": "Précédente"
+      "next": "Suivant",
+      "previous": "Précédent"
     },
     "NoResults": {
       "title": "Aucun résultats",

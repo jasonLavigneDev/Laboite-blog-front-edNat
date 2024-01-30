@@ -1,8 +1,8 @@
 <script>
-  import {favoritesAcademy} from '../../utils/functions/stores';
+  import {favoritesStructure} from '../../utils/functions/stores';
 
   const types = {
-    academy: favoritesAcademy,
+    structure: favoritesStructure,
   };
 
   export let type;

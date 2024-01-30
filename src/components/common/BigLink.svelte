@@ -2,7 +2,7 @@
   export let link, text;
 </script>
 
-<a class="button is-primary" rel="prefetch" href={link}> {text}</a>
+<a class="button is-primary" href={link}> {text}</a>
 
 <style>
   a {

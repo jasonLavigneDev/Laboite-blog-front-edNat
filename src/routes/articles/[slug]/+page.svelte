@@ -1,7 +1,7 @@
 <script>
   import {_} from 'svelte-i18n';
-  import fetcher from 'isomorphic-fetch';
   import {onMount} from 'svelte';
+  import {fade} from 'svelte/transition';
   import sanitizeHtml from 'sanitize-html';
   import AuthorIdCard from '../../../components/authors/AuthorIdCard.svelte';
   import PageTransition from '../../../components/common/PageTransition.svelte';
@@ -28,7 +28,7 @@
       data.article._id &&
       !$articlesRead.find(i => i === data.article._id)
     ) {
-      await fetcher(`${data.env.API_HOST}/articles/${data.article._id}/read`, {
+      await fetch(`${data.env.API_HOST}/articles/${data.article._id}/read`, {
         method: 'PATCH',
       });
       articlesRead.update(list => {
@@ -102,6 +102,7 @@
       </div>
       {#if !fullScreen}
         <div
+          in:fade={{duration: 300}}
           class="column is-one-quarter-widescreen is-full-desktop is-full-tablet"
         >
           <div class="box-transparent">
