@@ -71,23 +71,23 @@
     },
     "favorites": {
       "title": "Vos articles et auteurs favoris",
-      "subtitle": "blablabla",
+      "subtitle": "blablabla", // FIXME
       "articles_title": "Liste de vos articles",
       "articles_subtitle": "Retrouvez vos articles favoris",
       "authors_title": "Liste de vos auteurs",
       "authors_subtitle": "Visitez leur page",
       "noauthors_title": "Vous n'avez aucun auteur dans vos favoris",
-      "noauthors_subtitle": "noauthors_subtitle",
+      "noauthors_subtitle": "noauthors_subtitle", // FIXME
       "groups_title": "Liste de vos groupes",
       "groups_subtitle": "Visitez leur page",
       "nogroups_title": "Vous n'avez aucun groupe dans vos favoris",
-      "noagroups_subtitle": "nogroups_subtitle",
+      "noagroups_subtitle": "nogroups_subtitle", // FIXME
       "noarticles_title": "Vous n'avez aucun article dans vos favoris",
-      "noarticles_subtitle": "noarticles_subtitle",
+      "noarticles_subtitle": "noarticles_subtitle", // FIXME
       "research_title": "Vos recherches",
       "research_subtitle": "Retrouvez vos résultats en un clin d'oeil",
       "noresearch_title": "Aucune recherche enregistrée",
-      "noresearch_subtitle": "noresearch_subtitle"
+      "noresearch_subtitle": "noresearch_subtitle" // FIXME
     }
   },
   "components": {
@@ -119,7 +119,7 @@
     },
     "SearchField": {
       "search": "Rechercher",
-      "placeholder": "Rechercher"
+      "placeholder": "Rechercher" // FIXME
     },
     "Pagination": {
       "next": "Suivant",
