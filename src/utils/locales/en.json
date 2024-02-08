@@ -71,23 +71,18 @@
     },
     "favorites": {
       "title": "Your favorites authors and articles",
-      "subtitle": "subtitle",
       "articles_title": "List of your articles",
       "articles_subtitle": "Your favorites articles",
       "authors_title": "List of your authors",
       "authors_subtitle": "Visit their page",
       "noauthors_title": "You have no authors in your favorites",
-      "noauthors_subtitle": "noauthors_subtitle",
       "groups_title": "List of your groups",
       "groups_subtitle": "Visit their page",
       "nogroups_title": "You have no groups in your favorites",
-      "nogroups_subtitle": "nogroups_subtitle",
       "noarticles_title": "You have no articles in your favorites",
-      "noarticles_subtitle": "noarticles_subtitle",
       "research_title": "Your researches",
       "research_subtitle": "Find you favorties research in a blink",
-      "noresearch_title": "No researches saved",
-      "noresearch_subtitle": "noresearch_subtitle"
+      "noresearch_title": "No researches saved"
     }
   },
   "components": {
@@ -113,13 +108,11 @@
       "unknownLastname": "User"
     },
     "SmallAuthorIdCard": {
-      "structure": "Structure",
       "articles": "Number of articles",
       "all_articles": "See all articles"
     },
     "SearchField": {
-      "search": "Search",
-      "placeholder": "Search"
+      "search": "Search"
     },
     "Pagination": {
       "next": "Next",
@@ -137,7 +130,6 @@
     },
     "SingleResearch": {
       "type": "Type",
-      "search": "Search",
       "go": "See the results"
     }
   }
