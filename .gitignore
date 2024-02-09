@@ -6,3 +6,4 @@ yarn-error.log
 /src/node_modules
 /build
 __sapper__
+vite.config.js.timestamp-*
