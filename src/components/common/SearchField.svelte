@@ -35,7 +35,7 @@
         class="input is-rounded"
         type="text"
         disabled={loading}
-        placeholder={$_('components.SearchField.placeholder')}
+        placeholder={$_('components.SearchField.search')}
       />
     </p>
     <div class="control">

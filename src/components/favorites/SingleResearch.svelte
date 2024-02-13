@@ -26,7 +26,7 @@
         <div class="subtitle is-5">{structure.name}</div>
       {/if}
       {#if search}
-        <div>{$_('components.SingleResearch.search')}: {search}</div>
+        <div>{$_('components.SearchField.search')}: {search}</div>
       {/if}
 
       {#if tags}
