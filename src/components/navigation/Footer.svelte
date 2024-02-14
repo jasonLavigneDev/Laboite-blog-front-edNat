@@ -12,12 +12,14 @@
     gcu: {external: false, link: '', content: ''},
     personalData: {external: false, link: '', content: ''},
   };
-  let loading = true;
+  let loading = false;
+  let currentLocation = '';
 
   onMount(async () => {
     const appsettings = await fetch(`${$page.data.env.API_HOST}/appsettings`);
     settings = await appsettings.json();
     loading = false;
+    currentLocation = window.location;
   });
 
   $: footer = [
@@ -47,7 +49,7 @@
     },
     {
       text: $_('links.about'),
-      path: `${$page.data.env.LABOITE_HOST}/about`,
+      path: `${currentLocation}about`,
     },
   ];
 </script>
