@@ -91,7 +91,7 @@
         title="wiki eole"
         target="_blank"
         rel="noreferrer noopener"
-        href="https://wiki.eole.education/"
+        href="https://eole.education/"
       >
         documentation de l'application.
       </a>
