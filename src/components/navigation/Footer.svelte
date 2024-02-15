@@ -13,13 +13,13 @@
     personalData: {external: false, link: '', content: ''},
   };
   let loading = false;
-  let currentLocation = '';
+  let targetLocation = '';
 
   onMount(async () => {
     const appsettings = await fetch(`${$page.data.env.API_HOST}/appsettings`);
     settings = await appsettings.json();
     loading = false;
-    currentLocation = window.location;
+    targetLocation = new URL('/about', window.location);
   });
 
   $: footer = [
@@ -49,7 +49,7 @@
     },
     {
       text: $_('links.about'),
-      path: `${currentLocation}about`,
+      path: targetLocation,
     },
   ];
 </script>
