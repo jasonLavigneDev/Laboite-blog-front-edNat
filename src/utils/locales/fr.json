@@ -17,7 +17,8 @@
     "legal": "Mentions légales",
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
-    "personalData": "Données personnelles"
+    "personalData": "Données personnelles",
+    "about": "À propos"
   },
   "license": {
     "license": "Licence",
@@ -29,6 +30,31 @@
     "CC BY-NC-ND": "Attribution Pas d'utilisation commerciale Pas de modification"
   },
   "pages": {
+    "AboutPage": {
+      "developped": "Le Blog est un service du portail LaBoite sous licence",
+      "socle": "faisant partie du socle",
+      "by": "Réalisation du",
+      "and": "du",
+      "contributions": "en partenariat avec la",
+      "external": "et des contributeurs externes.",
+      "links": "Vous pouvez consulter la",
+      "exchange": "Vous pouvez échanger avec nous sur le",
+      "chat": "chat Mim-libre",
+      "news": "Retrouvez les dernières informations du pôle sur ",
+      "contributing": "Envie de participer à l'amélioration du portail ? Retouvez le projet sur ",
+      "deposit": "forge Mim-libre",
+      "information": "Informations de dépannage",
+      "Modal": {
+        "information": "Vos informations",
+        "navigator": "Navigateur :",
+        "version": "Version :",
+        "os": "Os :",
+        "device": "Appareil :",
+        "close": "Fermer",
+        "copy": "Copier les informations",
+        "success": "Informations copié avec succès"
+      }
+    },
     "home": {
       "last_title": "Derniers articles",
       "last_subtitle": "Voici les derniers articles publiés",

@@ -12,12 +12,14 @@
     gcu: {external: false, link: '', content: ''},
     personalData: {external: false, link: '', content: ''},
   };
-  let loading = true;
+  let loading = false;
+  let targetLocation = '';
 
   onMount(async () => {
     const appsettings = await fetch(`${$page.data.env.API_HOST}/appsettings`);
     settings = await appsettings.json();
     loading = false;
+    targetLocation = new URL('/about', window.location);
   });
 
   $: footer = [
@@ -44,6 +46,10 @@
       path: settings.personalData.external
         ? settings.personalData.link
         : `${$page.data.env.LABOITE_HOST}/legal/personal-data`,
+    },
+    {
+      text: $_('links.about'),
+      path: targetLocation,
     },
   ];
 </script>

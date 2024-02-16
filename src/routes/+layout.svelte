@@ -1,4 +1,5 @@
 <script defer src="./fonts/js/all.min.js">
+  import {SvelteToast} from '@zerodevx/svelte-toast';
   import {browser} from '$app/environment';
   import {_, locale} from 'svelte-i18n';
   import MatomoTracker from '../components/matomo/MatomoTracker.svelte';
@@ -49,6 +50,7 @@
 {/if}
 
 <main class="container">
+  <SvelteToast />
   {#if !!maintenance.maintenance}
     <div class="maintenance">
       <h1>{$_('maintenance')}</h1>
